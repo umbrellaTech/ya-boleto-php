@@ -10,7 +10,7 @@ Se você já conhece o **Composer** (o que é extremamente recomendado), simples
 Sim, só isso! Lembre-se de que cada banco possui alguma particularidade, mas em geral são estes parâmetros os obrigatórios. Na pasta **samples** possui um exemplo funcional de cada banco, você pode verificar lá quais são os parâmetros necessários para cada banco.
 
 ## Bancos suportados
-Atualmente o OpenBoleto funciona com os bancos abaixo:
+Atualmente o YABoleto funciona com os bancos abaixo:
 
 * Banco do Brasil
 * Itaú
