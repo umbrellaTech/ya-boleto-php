@@ -1,0 +1,13 @@
+{
+    "require": {
+        "twig/twig": "~1.10"
+    },
+    "require-dev": {
+      "symfony/debug": "2.3.*"  
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
