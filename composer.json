@@ -3,11 +3,12 @@
         "twig/twig": "~1.10"
     },
     "require-dev": {
-      "symfony/debug": "2.3.*"  
+      "symfony/debug": "2.3.*",
+      "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "psr-0": {
-            "": "src/"
+            "Umbrella\\YA\\Boleto": ""
         }
     }
 }
