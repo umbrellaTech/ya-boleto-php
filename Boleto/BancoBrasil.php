@@ -24,7 +24,10 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\YA\Boleto\Boleto;
+
+use Umbrella\YA\Boleto\Banco;
+use Umbrella\YA\Boleto\Boleto;
 
 /**
  * Clase abstrata que representa o Boleto do Banco do Brasil
@@ -33,6 +36,7 @@ namespace Umbrella\YA\Boleto;
  */
 class BancoBrasil extends Boleto
 {
+
     public function __construct(Banco $banco)
     {
         parent::__construct($banco);

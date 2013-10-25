@@ -10,5 +10,6 @@
         "psr-0": {
             "Umbrella\\YA\\Boleto": ""
         }
-    }
+    },
+    "target-dir": "Umbrella/YA/Boleto"
 }
