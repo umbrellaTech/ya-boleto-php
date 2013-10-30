@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2013 UmbrellaTech.
+ * Copyright 2013 Umbrella Tech.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,7 @@ class BancoBrasil extends Banco
 
     public function __construct($agencia, $conta)
     {
-        $numero = \Umbrella\YA\Boleto\Bancos::BANCO_BRASIL;
+        $numero = 001;
         parent::__construct($numero, $agencia, $conta);
     }
 

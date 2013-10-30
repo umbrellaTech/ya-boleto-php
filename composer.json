@@ -1,15 +1,36 @@
 {
-    "require": {
-        "twig/twig": "~1.10"
-    },
+    "name": "umbrella/boleto",
+    "type": "library",
+    "description": "Yet another Boleto e uma biblioteca para geração de boletos bancários em PHP ",
+    "keywords": [],
+    "homepage": "http://umbrellatech.com/boleto",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Italo Lelis de Vietro",
+            "email": "italolelis@lellysinforamtica.com"
+        },
+        {
+            "name": "Mikhail Leite Cavalcanti",
+            "homepage": "mikhailcavalcanti@gmail.com"
+        },
+        {
+            "name": "Genison Ribeiro de Paiva Junior",
+            "homepage": "genison@gmail.com"
+        },
+        {
+            "name": "Ayrton Ricardo da Silva",
+            "homepage": "ayrton_jampa@hotmail.com"
+        }
+    ],
     "require-dev": {
-      "symfony/debug": "2.3.*",
-      "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "psr-0": {
             "Umbrella\\YA\\Boleto": ""
-        }
+        },
+        "classmap": ["../ya-boleto-api"]
     },
     "target-dir": "Umbrella/YA/Boleto"
 }

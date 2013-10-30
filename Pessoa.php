@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2013 UmbrellaTech.
+ * Copyright 2013 Umbrella Tech.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,15 +23,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace Umbrella\YA\Boleto;
 
 /**
- * Enum dos numeros dos bancos suportados
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of Pessoa
+ *
+ * @author italo
  */
-class Bancos
+abstract class Pessoa
 {
-    const BANCO_BRASIL = 001;
-    const ITAU = 341;
+
+    protected $nome;
+    protected $cnpj;
+
+    public function __construct($nome, $cnpj)
+    {
+        $this->nome = $nome;
+        $this->cnpj = $cnpj;
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function getCnpj()
+    {
+        return $this->cnpj;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
+    }
+
+    public function setCnpj($cnpj)
+    {
+        $this->cnpj = $cnpj;
+        return $this;
+    }
+
 }

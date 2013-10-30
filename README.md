@@ -4,7 +4,7 @@
 ### Composer
 Se você já conhece o **Composer** (o que é extremamente recomendado), simplesmente adicione a dependência abaixo à diretiva *"require"* no seu **composer.json**:
 ```
-"umbrellaTech/ya-boleto-php": "dev-master"
+"umbrella/boleto": "dev-master"
 ```
 
 Sim, só isso! Lembre-se de que cada banco possui alguma particularidade, mas em geral são estes parâmetros os obrigatórios. A pasta **samples** possui um exemplo funcional de cada banco, você pode verificar lá quais são os parâmetros necessários para cada banco.

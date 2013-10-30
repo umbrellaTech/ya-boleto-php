@@ -37,7 +37,9 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
     public function testCriacaoBoletoComBanco()
     {
         $banco = new \Umbrella\YA\Boleto\Banco\BancoBrasil("5579-0", "00000-0");
-        $boleto = new \Umbrella\YA\Boleto\Boleto\BancoBrasil($banco);
+        $convenio = new \Umbrella\YA\Boleto\Convenio($banco, 18, "000000000", "2569589685");
+
+        $boleto = new \Umbrella\YA\Boleto\Boleto\BancoBrasil($convenio);
 
         $this->assertNotEmpty($boleto);
     }

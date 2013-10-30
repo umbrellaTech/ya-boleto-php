@@ -24,26 +24,14 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Boleto;
-
-use Umbrella\YA\Boleto\Boleto;
+namespace Umbrella\YA\Boleto;
 
 /**
- * Clase abstrata que representa o Boleto do Banco do Brasil
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of Cedente
+ *
+ * @author italo
  */
-class BancoBrasil extends Boleto
+class Cedente extends Pessoa
 {
-
-    protected function gerarCodigoBarras()
-    {
-        return 0;
-    }
-
-    public function gerarLinhaDigitavel($codigoBarras)
-    {
-        return 0;
-    }
-
+    
 }

@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2013 UmbrellaTech.
+ * Copyright 2013 Umbrella Tech.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,23 +26,30 @@
 
 namespace Umbrella\YA\Boleto;
 
+use DateTime;
+use Umbrella\Api\Boleto\BoletoInterface;
+
 /**
  * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-abstract class Boleto
+abstract class Boleto implements BoletoInterface
 {
 
     /**
-     *
-     * @var Banco
+     * @var Convenio
      */
-    protected $banco;
-    protected $carteira;
-    protected $nossoNumero;
     protected $convenio;
+
+    /**
+     * @var Cedente 
+     */
     protected $cendente;
+
+    /**
+     * @var Sacado
+     */
     protected $sacado;
     protected $valorDocumento;
     protected $dataVencimento;
@@ -53,13 +60,15 @@ abstract class Boleto
 
     /**
      * Cria uma nova instancia do Boleto
-     * @param \Umbrella\YA\Boleto\Banco $banco Instancia do Banco para o boleto
+     * @param Banco $banco Instancia do Banco para o boleto
      */
-    public function __construct(Banco $banco)
+    public function __construct(Sacado $sacado, Cedente $cedente, Convenio $convenio)
     {
-        $this->banco = $banco;
+        $this->convenio = $convenio;
+        $this->sacado = $sacado;
+        $this->cendente = $cedente;
         $this->codigoBarras = $this->getCodigoBarras();
-        $this->linhaDigitavel = $this->gerarLinhaDigitavel();
+        $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
     }
 
     /**
@@ -68,35 +77,23 @@ abstract class Boleto
     protected abstract function gerarCodigoBarras();
 
     /**
-     * Gera a linha digitavel do boleto
-     */
-    protected abstract function gerarLinhaDigitavel();
-
-    /**
-     * Retorna o numero da carteira
-     * @return int
-     */
-    public function getCarteira()
-    {
-        return $this->carteira;
-    }
-
-    /**
-     * Retorna o nosso numero
-     * @return int
-     */
-    public function getNossoNumero()
-    {
-        return $this->nossoNumero;
-    }
-
-    /**
-     * Retorna o convenio
-     * @return int
+     * Retorna o convenio do boleto
+     * @return Convenio
      */
     public function getConvenio()
     {
         return $this->convenio;
+    }
+
+    /**
+     * Define o convenio do boleto
+     * @param Convenio $convenio
+     * @return Boleto
+     */
+    public function setConvenio(Convenio $convenio)
+    {
+        $this->convenio = $convenio;
+        return $this;
     }
 
     /**
@@ -118,42 +115,9 @@ abstract class Boleto
     }
 
     /**
-     * Define o numero da carteira
-     * @param int $carteira
-     * @return \Umbrella\YA\Boleto\Boleto
-     */
-    public function setCarteira($carteira)
-    {
-        $this->carteira = $carteira;
-        return $this;
-    }
-
-    /**
-     * Define o nosso numero
-     * @param int $nossoNumero
-     * @return \Umbrella\YA\Boleto\Boleto
-     */
-    public function setNossoNumero($nossoNumero)
-    {
-        $this->nossoNumero = $nossoNumero;
-        return $this;
-    }
-
-    /**
-     * Define o convenio
-     * @param int $convenio
-     * @return \Umbrella\YA\Boleto\Boleto
-     */
-    public function setConvenio($convenio)
-    {
-        $this->convenio = $convenio;
-        return $this;
-    }
-
-    /**
      * Define a taxa do boleto
      * @param float $taxa
-     * @return \Umbrella\YA\Boleto\Boleto
+     * @return Boleto
      */
     public function setTaxa($taxa)
     {
@@ -164,7 +128,7 @@ abstract class Boleto
     /**
      * Define o numero do documento
      * @param int $numeroDocumento
-     * @return \Umbrella\YA\Boleto\Boleto
+     * @return Boleto
      */
     public function setNumeroDocumento($numeroDocumento)
     {
@@ -174,7 +138,7 @@ abstract class Boleto
 
     /**
      * Retorna o cedente
-     * @return string
+     * @return Pessoa
      */
     public function getCendente()
     {
@@ -183,7 +147,7 @@ abstract class Boleto
 
     /**
      * Retorna o sacado
-     * @return string
+     * @return Pessoa
      */
     public function getSacado()
     {
@@ -192,10 +156,10 @@ abstract class Boleto
 
     /**
      * Define o cedente
-     * @param string $cendente
-     * @return \Umbrella\YA\Boleto\Boleto
+     * @param Pessoa $cendente
+     * @return Boleto
      */
-    public function setCendente($cendente)
+    public function setCendente(Pessoa $cendente)
     {
         $this->cendente = $cendente;
         return $this;
@@ -203,22 +167,13 @@ abstract class Boleto
 
     /**
      * Define o sacado
-     * @param string $sacado
-     * @return \Umbrella\YA\Boleto\Boleto
+     * @param Pessoa $sacado
+     * @return Boleto
      */
-    public function setSacado($sacado)
+    public function setSacado(Pessoa $sacado)
     {
         $this->sacado = $sacado;
         return $this;
-    }
-
-    /**
-     * Retorna a instancia do banco
-     * @return Banco
-     */
-    public function getBanco()
-    {
-        return $this->banco;
     }
 
     /**
@@ -232,7 +187,7 @@ abstract class Boleto
 
     /**
      * Retorna a data de vencimento
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDataVencimento()
     {
@@ -258,20 +213,9 @@ abstract class Boleto
     }
 
     /**
-     * Define o numero do banco
-     * @param int $banco
-     * @return \Umbrella\YA\Boleto\Boleto
-     */
-    public function setBanco($banco)
-    {
-        $this->banco = $banco;
-        return $this;
-    }
-
-    /**
      * Define o valor do documento
      * @param float $valorDocumento
-     * @return \Umbrella\YA\Boleto\Boleto
+     * @return Boleto
      */
     public function setValorDocumento($valorDocumento)
     {
@@ -281,10 +225,10 @@ abstract class Boleto
 
     /**
      * Define a data de venciemnto
-     * @param \DateTime $dataVencimento
-     * @return \Umbrella\YA\Boleto\Boleto
+     * @param DateTime $dataVencimento
+     * @return Boleto
      */
-    public function setDataVencimento(\DateTime $dataVencimento)
+    public function setDataVencimento(DateTime $dataVencimento)
     {
         $this->dataVencimento = $dataVencimento;
         return $this;
