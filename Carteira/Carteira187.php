@@ -24,44 +24,52 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\YA\Boleto\Carteira;
 
 /**
- * Clase que representa um Sacado
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of Carteira18
+ *
+ * @author italo
  */
-class Sacado
+class Carteira187 implements CarteiraInterface
 {
 
-    /**
-     * @var Pessoa 
-     */
-    protected $tipo;
+    protected $layout = ':Banco:Moeda:FatorVencimento:Valor000000:CodigoCedente:NossoNumero:Carteira';
+    protected $nossoNumero;
 
-    public function __construct(Pessoa $tipo)
+    public function __construct($nossoNumero)
     {
-        $this->tipo = $tipo;
+        $this->nossoNumero = $nossoNumero;
     }
 
     /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
+     * Retorna o nosso numero
+     * @return string
      */
-    public function getTipo()
+    public function getNossoNumero()
     {
-        return $this->tipo;
+        return $this->nossoNumero;
     }
 
     /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
+     * Define o nosso numero
+     * @param string $nossoNumero
+     * @return \Umbrella\YA\Boleto\Carteira\CarteiraInterface
      */
-    public function setTipo(Pessoa $tipo)
+    public function setNossoNumero($nossoNumero)
     {
-        $this->tipo = $tipo;
+        $this->nossoNumero = $nossoNumero;
         return $this;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
+    public function getNumero()
+    {
+        return "18-7";
     }
 
 }

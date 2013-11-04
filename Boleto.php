@@ -67,7 +67,11 @@ abstract class Boleto implements BoletoInterface
         $this->convenio = $convenio;
         $this->sacado = $sacado;
         $this->cendente = $cedente;
-        $this->codigoBarras = $this->getCodigoBarras();
+    }
+
+    public function build()
+    {
+        $this->codigoBarras = $this->gerarCodigoBarras();
         $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
     }
 
@@ -178,11 +182,11 @@ abstract class Boleto implements BoletoInterface
 
     /**
      * Retorna o valor do documento
-     * @return float
+     * @return string
      */
     public function getValorDocumento()
     {
-        return $this->valorDocumento + $this->taxa;
+        return $this->valorDocumento;
     }
 
     /**
@@ -214,7 +218,7 @@ abstract class Boleto implements BoletoInterface
 
     /**
      * Define o valor do documento
-     * @param float $valorDocumento
+     * @param string $valorDocumento
      * @return Boleto
      */
     public function setValorDocumento($valorDocumento)

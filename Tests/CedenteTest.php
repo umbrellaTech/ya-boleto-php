@@ -24,44 +24,22 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\YA\Boleto\Tests;
 
 /**
- * Clase que representa um Sacado
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of CedenteTest
+ *
+ * @author italo
  */
-class Sacado
+class CedenteTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var Pessoa 
+     * @expectedException \InvalidArgumentException
      */
-    protected $tipo;
-
-    public function __construct(Pessoa $tipo)
+    public function testValidarCpf()
     {
-        $this->tipo = $tipo;
-    }
-
-    /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
-     */
-    public function setTipo(Pessoa $tipo)
-    {
-        $this->tipo = $tipo;
-        return $this;
+        $cedente = new \Umbrella\YA\Boleto\Cedente("Cendente 01", "2342342343");
     }
 
 }

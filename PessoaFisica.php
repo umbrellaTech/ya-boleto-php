@@ -27,40 +27,46 @@
 namespace Umbrella\YA\Boleto;
 
 /**
- * Clase que representa um Sacado
+ * Clase que representa uma pessoa juridica
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Sacado
+class PessoaFisica extends Pessoa
 {
 
-    /**
-     * @var Pessoa 
-     */
-    protected $tipo;
+    protected $cpf;
 
-    public function __construct(Pessoa $tipo)
+    /**
+     * Inicializa uma nova instancia da classe PessoaFisica.
+     * @param string $nome
+     * @param string $cpf
+     */
+    public function __construct($nome, $cpf)
     {
-        $this->tipo = $tipo;
+        parent::__construct($nome);
+        $this->setCpf($cpf);
     }
 
     /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
+     * Retorna o cpf da pessoa fisica
+     * @return string
      */
-    public function getTipo()
+    public function getCpf()
     {
-        return $this->tipo;
+        return $this->cpf;
     }
 
     /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
+     * Define o cpf da pessoa fisica
+     * @param string $cpf
+     * @return \Umbrella\YA\Boleto\PessoaFisica
      */
-    public function setTipo(Pessoa $tipo)
+    public function setCpf($cpf)
     {
-        $this->tipo = $tipo;
+        if (!Validator::cpf($cpf)) {
+            throw new \InvalidArgumentException("O CPF informado e invalido");
+        }
+        $this->cpf = $cpf;
         return $this;
     }
 

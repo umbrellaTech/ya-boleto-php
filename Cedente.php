@@ -27,11 +27,11 @@
 namespace Umbrella\YA\Boleto;
 
 /**
- * Description of Cedente
- *
- * @author italo
+ * Clase que representa um Cedente
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
-class Cedente extends Pessoa
+class Cedente extends PessoaJuridica
 {
     
 }

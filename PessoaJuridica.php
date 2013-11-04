@@ -27,40 +27,46 @@
 namespace Umbrella\YA\Boleto;
 
 /**
- * Clase que representa um Sacado
+ * Clase que representa uma pessoa juridica
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Sacado
+class PessoaJuridica extends Pessoa
 {
 
-    /**
-     * @var Pessoa 
-     */
-    protected $tipo;
+    protected $cnpj;
 
-    public function __construct(Pessoa $tipo)
+    /**
+     * Inicializa uma nova instancia da classe PessoaJuridica.
+     * @param string $nome
+     * @param string $cnpj
+     */
+    public function __construct($nome, $cnpj)
     {
-        $this->tipo = $tipo;
+        parent::__construct($nome);
+        $this->setCnpj($cnpj);
     }
 
     /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
+     * Retorna o cnpj da pessoa juridica
+     * @return string
      */
-    public function getTipo()
+    public function getCnpj()
     {
-        return $this->tipo;
+        return $this->cnpj;
     }
 
     /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
+     * Define o cnpj da pessoa juridica
+     * @param string $cnpj
+     * @return \Umbrella\YA\Boleto\PessoaJuridica
      */
-    public function setTipo(Pessoa $tipo)
+    public function setCnpj($cnpj)
     {
-        $this->tipo = $tipo;
+        if (!Validator::cnpj($cnpj)) {
+            throw new \InvalidArgumentException("O CNPJ informado e invalido");
+        }
+        $this->cnpj = $cnpj;
         return $this;
     }
 

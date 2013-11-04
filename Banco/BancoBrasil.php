@@ -38,7 +38,7 @@ class BancoBrasil extends Banco
 
     public function __construct($agencia, $conta)
     {
-        $numero = 001;
+        $numero = "001";
         parent::__construct($numero, $agencia, $conta);
     }
 

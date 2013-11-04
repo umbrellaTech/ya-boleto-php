@@ -27,41 +27,13 @@
 namespace Umbrella\YA\Boleto;
 
 /**
- * Clase que representa um Sacado
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of Moedas
+ *
+ * @author italo
  */
-class Sacado
+class Moedas
 {
 
-    /**
-     * @var Pessoa 
-     */
-    protected $tipo;
-
-    public function __construct(Pessoa $tipo)
-    {
-        $this->tipo = $tipo;
-    }
-
-    /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
-     */
-    public function setTipo(Pessoa $tipo)
-    {
-        $this->tipo = $tipo;
-        return $this;
-    }
+    const REAL = 9;
 
 }

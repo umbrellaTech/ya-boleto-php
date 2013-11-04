@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2013 UmbrellaTech.
+ * Copyright 2013 Umbrella Tech.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,16 +38,23 @@ class Convenio
      * @var Banco 
      */
     protected $banco;
+
+    /**
+     * @var Carteira\CarteiraInterface 
+     */
     protected $carteira;
-    protected $nossoNumero;
     protected $convenio;
 
-    public function __construct(Banco $banco, $carteira, $nossoNumero, $convenio)
+    public function __construct(Banco $banco, Carteira\CarteiraInterface $carteira, $convenio)
     {
         $this->banco = $banco;
         $this->carteira = $carteira;
-        $this->nossoNumero = $nossoNumero;
         $this->convenio = $convenio;
+    }
+
+    public function getNossoNumero()
+    {
+        return $this->convenio . $this->carteira->getNossoNumero();
     }
 
     /**
@@ -72,20 +79,11 @@ class Convenio
 
     /**
      * Retorna a carteira do convenio
-     * @return string
+     * @return Carteira\CarteiraInterface
      */
     public function getCarteira()
     {
         return $this->carteira;
-    }
-
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero()
-    {
-        return $this->nossoNumero;
     }
 
     /**
@@ -99,23 +97,12 @@ class Convenio
 
     /**
      * Define a carteira do convenio
-     * @param string $carteira
+     * @param Carteira\CarteiraInterface $carteira
      * @return \Umbrella\YA\Boleto\Convenio
      */
     public function setCarteira($carteira)
     {
         $this->carteira = $carteira;
-        return $this;
-    }
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\YA\Boleto\Convenio
-     */
-    public function setNossoNumero($nossoNumero)
-    {
-        $this->nossoNumero = $nossoNumero;
         return $this;
     }
 

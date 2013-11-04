@@ -24,44 +24,23 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\YA\Boleto\Tests;
 
 /**
- * Clase que representa um Sacado
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of SacadoTest
+ *
+ * @author italo
  */
-class Sacado
+class SacadoTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var Pessoa 
+     * @expectedException \InvalidArgumentException
      */
-    protected $tipo;
-
-    public function __construct(Pessoa $tipo)
+    public function testValidarCnpj()
     {
-        $this->tipo = $tipo;
-    }
-
-    /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
-     */
-    public function setTipo(Pessoa $tipo)
-    {
-        $this->tipo = $tipo;
-        return $this;
+        $pf = new \Umbrella\YA\Boleto\PessoaFisica("Sacado 01", "12312312312");
+        $sacado = new \Umbrella\YA\Boleto\Sacado($pf);
     }
 
 }

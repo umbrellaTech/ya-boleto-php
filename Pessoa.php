@@ -27,41 +27,37 @@
 namespace Umbrella\YA\Boleto;
 
 /**
- * Description of Pessoa
- *
- * @author italo
+ * Clase abstrata que representa uma Pessoa
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 abstract class Pessoa
 {
 
     protected $nome;
-    protected $cnpj;
 
-    public function __construct($nome, $cnpj)
+    public function __construct($nome)
     {
         $this->nome = $nome;
-        $this->cnpj = $cnpj;
     }
 
+    /**
+     * Retorna o nome da pessoa
+     * @return string
+     */
     public function getNome()
     {
         return $this->nome;
     }
 
-    public function getCnpj()
-    {
-        return $this->cnpj;
-    }
-
+    /**
+     * Define o nome da pessoa
+     * @param string $nome
+     * @return \Umbrella\YA\Boleto\Pessoa
+     */
     public function setNome($nome)
     {
         $this->nome = $nome;
-        return $this;
-    }
-
-    public function setCnpj($cnpj)
-    {
-        $this->cnpj = $cnpj;
         return $this;
     }
 

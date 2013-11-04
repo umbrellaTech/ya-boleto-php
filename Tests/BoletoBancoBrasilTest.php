@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2013 UmbrellaTech.
+ * Copyright 2013 Umbrella Tech.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,12 +36,42 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
 
     public function testCriacaoBoletoComBanco()
     {
+        date_default_timezone_set("America/Recife");
         $banco = new \Umbrella\YA\Boleto\Banco\BancoBrasil("5579-0", "00000-0");
-        $convenio = new \Umbrella\YA\Boleto\Convenio($banco, 18, "000000000", "2569589685");
+        $carteira = new \Umbrella\YA\Boleto\Carteira\Carteira187("2");
+        $convenio = new \Umbrella\YA\Boleto\Convenio($banco, $carteira, "2569589685");
 
-        $boleto = new \Umbrella\YA\Boleto\Boleto\BancoBrasil($convenio);
+        $pf = new \Umbrella\YA\Boleto\PessoaFisica("Sacado 01", "09007668404");
+        $sacado = new \Umbrella\YA\Boleto\Sacado($pf);
+        $cedente = new \Umbrella\YA\Boleto\Cedente("Cendente 01", "92.559.708/0001-03");
+
+        $boleto = new \Umbrella\YA\Boleto\Boleto\BancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento("1,00")
+                ->setNumeroDocumento("024588722")
+                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->build();
 
         $this->assertNotEmpty($boleto);
+    }
+
+    public function testBoletoComValorAlto()
+    {
+        date_default_timezone_set("America/Recife");
+        $banco = new \Umbrella\YA\Boleto\Banco\BancoBrasil("1234-5", "1234567-8");
+        $carteira = new \Umbrella\YA\Boleto\Carteira\Carteira187("12345678");
+        $convenio = new \Umbrella\YA\Boleto\Convenio($banco, $carteira, "123456");
+
+        $pf = new \Umbrella\YA\Boleto\PessoaFisica("Sacado 01", "09007668404");
+        $sacado = new \Umbrella\YA\Boleto\Sacado($pf);
+        $cedente = new \Umbrella\YA\Boleto\Cedente("Cendente 01", "92.559.708/0001-03");
+
+        $boleto = new \Umbrella\YA\Boleto\Boleto\BancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento("1.500,00")
+                ->setNumeroDocumento("23456")
+                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->build();
+
+        $this->assertEquals($boleto->getLinhaDigitavel(), "00190.00009 00123.456121 34561.234187 1 58700000150000");
     }
 
 }
