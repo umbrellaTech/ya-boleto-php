@@ -29,17 +29,17 @@ namespace Umbrella\YA\Boleto\Banco;
 use Umbrella\YA\Boleto\Banco;
 
 /**
- * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
+ * Clase que representa o Banco Caixa. Os dados da classe foram retirados da FEBRABAN
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class BancoBrasil extends Banco
+class Caixa extends Banco
 {
 
     public function __construct($agencia, $conta)
     {
-        $numero = "001";
-        $nome = "Banco do Brasil";
+        $numero = "104";
+        $nome = "Caixa";
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 

@@ -34,15 +34,41 @@ namespace Umbrella\YA\Boleto;
 abstract class Banco
 {
 
+    protected $codigo;
     protected $numero;
     protected $agencia;
     protected $conta;
+    protected $nome;
 
-    public function __construct($numero, $agencia, $conta)
+    public function __construct($numero, $nome, $agencia, $conta)
     {
         $this->numero = $numero;
+        $this->nome = $nome;
         $this->agencia = $agencia;
         $this->conta = $conta;
+        $this->codigo = Type\Number::modulo11($this->numero);
+    }
+
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
+        return $this;
+    }
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return $this;
     }
 
     /**
@@ -103,6 +129,11 @@ abstract class Banco
     {
         $this->conta = $conta;
         return $this;
+    }
+
+    public function getAgenciaConta()
+    {
+        return $this->getAgencia() . '/' . $this->getConta();
     }
 
 }

@@ -52,11 +52,6 @@ class Convenio
         $this->convenio = $convenio;
     }
 
-    public function getNossoNumero()
-    {
-        return $this->convenio . $this->carteira->getNossoNumero();
-    }
-
     /**
      * Retorna o banco para o convenio
      * @return Banco

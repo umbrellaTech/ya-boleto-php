@@ -28,6 +28,8 @@ namespace Umbrella\YA\Boleto;
 
 use DateTime;
 use Umbrella\Api\Boleto\BoletoInterface;
+use Umbrella\YA\Boleto\Type\Number;
+use Umbrella\YA\Boleto\Type\String;
 
 /**
  * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
@@ -45,7 +47,7 @@ abstract class Boleto implements BoletoInterface
     /**
      * @var Cedente 
      */
-    protected $cendente;
+    protected $cedente;
 
     /**
      * @var Sacado
@@ -53,10 +55,17 @@ abstract class Boleto implements BoletoInterface
     protected $sacado;
     protected $valorDocumento;
     protected $dataVencimento;
+    protected $dataDocumento;
     protected $taxa;
+    protected $desconto;
+    protected $outrasDeducoes;
+    protected $multa;
+    protected $outrosAcrescimos;
     protected $numeroDocumento;
+    protected $instrucoes;
     protected $codigoBarras;
     protected $linhaDigitavel;
+    protected $mascara = "00000.00000 00000.000000 00000.000000 0 00000000000000";
 
     /**
      * Cria uma nova instancia do Boleto
@@ -66,19 +75,147 @@ abstract class Boleto implements BoletoInterface
     {
         $this->convenio = $convenio;
         $this->sacado = $sacado;
-        $this->cendente = $cedente;
+        $this->cedente = $cedente;
+        $this->dataDocumento = new DateTime();
     }
 
-    public function build()
-    {
-        $this->codigoBarras = $this->gerarCodigoBarras();
-        $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
-    }
+    protected abstract function handleData(array $data);
 
     /**
      * Gera o codigo de barras, baseado nas informaoes do banco
      */
-    protected abstract function gerarCodigoBarras();
+    protected function gerarCodigoBarras()
+    {
+        //Teste do ooboleto
+        $banco = $this->convenio->getBanco();
+        $convenio = $this->convenio;
+
+        $data = array(
+            'Banco' => $banco->getNumero(),
+            'Moeda' => Moedas::REAL,
+            'Valor' => Number::format($this->getValorDocumento()),
+            'Agencia' => $banco->getAgencia(),
+            'Carteira' => $convenio->getCarteira()->getNumero(),
+            'Conta' => $banco->getAgencia(),
+            'NossoNumero' => $convenio->getCarteira()->getNossoNumero(),
+            'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()->format("d/m/Y")),
+            'CodigoCedente' => $convenio->getConvenio()
+        );
+
+        $tamanhos = $convenio->getCarteira()->getTamanhos();
+
+        foreach ($data as $var => $value) {
+            if (array_key_exists($var, $tamanhos)) {
+                $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
+            }
+        }
+
+        $data['Vencimento'] = $this->dataVencimento->format("d/m/Y");
+        $data['DigitoAgencia'] = Number::modulo11($data['Agencia']);
+        $data['DigitoConta'] = Number::modulo11($data['Conta']);
+        $data['DigitoNossoNumero'] = Number::modulo11($data['NossoNumero']);
+
+        $this->handleData($data);
+
+        $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
+
+        //Cálculo do dígito verificador geral do código de barras
+        $dv = Number::modulo11($cod, 1, 1);
+        //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
+        $codigoBarras = String::putAt($cod, $dv, 4);
+
+        return $codigoBarras;
+    }
+
+    public function gerarLinhaDigitavel($codigoBarras)
+    {
+        //Campo1 - Posições de 1-4 e 20-24
+        $linhaDigitavel = substr($codigoBarras, 0, 4) . substr($codigoBarras, 19, 5)
+                //Campo2 - Posições 25-34
+                . substr($codigoBarras, 24, 10)
+                //Campo3 - Posições 35-44
+                . substr($codigoBarras, 34, 10)
+                //Campo4 - Posição 5
+                . substr($codigoBarras, 4, 1)
+                //Campo5 - Posições 6-19
+                . substr($codigoBarras, 5, 14);
+
+        $dv1 = Number::modulo10(substr($linhaDigitavel, 0, 9));
+        $dv2 = Number::modulo10(substr($linhaDigitavel, 9, 10));
+        $dv3 = Number::modulo10(substr($linhaDigitavel, 19, 10));
+
+        $linhaDigitavel = String::putAt($linhaDigitavel, $dv3, 29);
+        $linhaDigitavel = String::putAt($linhaDigitavel, $dv2, 19);
+        $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
+
+        return String::applyMask($linhaDigitavel, $this->mascara);
+    }
+
+    public function getInstrucoes()
+    {
+        return $this->instrucoes;
+    }
+
+    public function setInstrucoes($instrucoes)
+    {
+        $this->instrucoes = $instrucoes;
+        return $this;
+    }
+
+    public function getDesconto()
+    {
+        return $this->desconto;
+    }
+
+    public function getOutrasDeducoes()
+    {
+        return $this->outrasDeducoes;
+    }
+
+    public function getMulta()
+    {
+        return $this->multa;
+    }
+
+    public function getOutrosAcrescimos()
+    {
+        return $this->outrosAcrescimos;
+    }
+
+    public function setDesconto($desconto)
+    {
+        $this->desconto = $desconto;
+        return $this;
+    }
+
+    public function setOutrasDeducoes($outrasDeducoes)
+    {
+        $this->outrasDeducoes = $outrasDeducoes;
+        return $this;
+    }
+
+    public function setMulta($multa)
+    {
+        $this->multa = $multa;
+        return $this;
+    }
+
+    public function setOutrosAcrescimos($outrosAcrescimos)
+    {
+        $this->outrosAcrescimos = $outrosAcrescimos;
+        return $this;
+    }
+
+    public function getDataDocumento()
+    {
+        return $this->dataDocumento;
+    }
+
+    public function setDataDocumento($dataDocumento)
+    {
+        $this->dataDocumento = $dataDocumento;
+        return $this;
+    }
 
     /**
      * Retorna o convenio do boleto
@@ -144,9 +281,9 @@ abstract class Boleto implements BoletoInterface
      * Retorna o cedente
      * @return Pessoa
      */
-    public function getCendente()
+    public function getCedente()
     {
-        return $this->cendente;
+        return $this->cedente;
     }
 
     /**
@@ -163,9 +300,9 @@ abstract class Boleto implements BoletoInterface
      * @param Pessoa $cendente
      * @return Boleto
      */
-    public function setCendente(Pessoa $cendente)
+    public function setCedente(Pessoa $cendente)
     {
-        $this->cendente = $cendente;
+        $this->cedente = $cendente;
         return $this;
     }
 
@@ -213,6 +350,9 @@ abstract class Boleto implements BoletoInterface
      */
     public function getLinhaDigitavel()
     {
+        $this->codigoBarras = $this->gerarCodigoBarras();
+        $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
+
         return $this->linhaDigitavel;
     }
 

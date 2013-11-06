@@ -37,5 +37,23 @@ interface CarteiraInterface
 
     public function getLayout();
 
+    /**
+     * Retorna o nosso numero
+     * @return string
+     */
     public function getNossoNumero();
+
+    /**
+     * Define o nosso numero
+     * @param string $nossoNumero
+     * @return \Umbrella\YA\Boleto\Carteira\CarteiraInterface
+     */
+    public function setNossoNumero($nossoNumero);
+
+    /**
+     * Retorna os padroes de tamanhos para calculo do codigo de barras
+     * @return string
+     */
+    public function getTamanhos();
+
 }

@@ -24,23 +24,23 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Banco;
+namespace Umbrella\YA\Boleto\Boleto;
 
-use Umbrella\YA\Boleto\Banco;
+use Umbrella\YA\Boleto\Boleto;
+use Umbrella\YA\Boleto\Type\Number;
 
 /**
- * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
+ * Clase que representa o Boleto do Caixa
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class BancoBrasil extends Banco
+class Caixa extends Boleto
 {
 
-    public function __construct($agencia, $conta)
+    protected function handleData(array $data)
     {
-        $numero = "001";
-        $nome = "Banco do Brasil";
-        parent::__construct($numero, $nome, $agencia, $conta);
+        $carteira = $this->convenio->getCarteira();
+        $carteira->setNossoNumero(Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
     }
 
 }
