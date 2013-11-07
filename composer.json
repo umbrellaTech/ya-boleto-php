@@ -23,13 +23,15 @@
             "email": "ayrton_jampa@hotmail.com"
         }
     ],
+    "require": {
+        "umbrella/boleto-api": "dev-master"
+    },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "psr-0": {
-            "Umbrella\\Ya\\Boleto": "",
-            "Umbrella\\Ya\\Api\\Boleto\\": "../ya-boleto-api"
+            "Umbrella\\Ya\\Boleto": ""
         }
     },
     "target-dir": "Umbrella/YA/Boleto"
