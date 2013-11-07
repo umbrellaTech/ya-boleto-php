@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Clase que representa um Sacado
@@ -55,8 +55,8 @@ class Sacado
 
     /**
      * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\YA\Boleto\Pessoa $tipo
-     * @return \Umbrella\YA\Boleto\Sacado
+     * @param \Umbrella\Ya\Boleto\Pessoa $tipo
+     * @return \Umbrella\Ya\Boleto\Sacado
      */
     public function setTipo(Pessoa $tipo)
     {

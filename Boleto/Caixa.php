@@ -24,10 +24,10 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Boleto;
+namespace Umbrella\Ya\Boleto\Boleto;
 
-use Umbrella\YA\Boleto\Boleto;
-use Umbrella\YA\Boleto\Type\Number;
+use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
  * Clase que representa o Boleto do Caixa

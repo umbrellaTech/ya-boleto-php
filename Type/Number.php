@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Type;
+namespace Umbrella\Ya\Boleto\Type;
 
 /**
  * Description of Number

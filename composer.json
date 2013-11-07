@@ -12,15 +12,15 @@
         },
         {
             "name": "Mikhail Leite Cavalcanti",
-            "homepage": "mikhailcavalcanti@gmail.com"
+            "email": "mikhailcavalcanti@gmail.com"
         },
         {
             "name": "Genison Ribeiro de Paiva Junior",
-            "homepage": "genison@gmail.com"
+            "email": "genison@gmail.com"
         },
         {
             "name": "Ayrton Ricardo da Silva",
-            "homepage": "ayrton_jampa@hotmail.com"
+            "email": "ayrton_jampa@hotmail.com"
         }
     ],
     "require-dev": {
@@ -28,9 +28,9 @@
     },
     "autoload": {
         "psr-0": {
-            "Umbrella\\YA\\Boleto": ""
-        },
-        "classmap": ["../ya-boleto-api"]
+            "Umbrella\\Ya\\Boleto": "",
+            "Umbrella\\Ya\\Api\\Boleto\\": "../ya-boleto-api"
+        }
     },
     "target-dir": "Umbrella/YA/Boleto"
 }

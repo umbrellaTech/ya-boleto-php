@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Carteira;
+namespace Umbrella\Ya\Boleto\Carteira;
 
 /**
  *
@@ -46,7 +46,7 @@ interface CarteiraInterface
     /**
      * Define o nosso numero
      * @param string $nossoNumero
-     * @return \Umbrella\YA\Boleto\Carteira\CarteiraInterface
+     * @return \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
      */
     public function setNossoNumero($nossoNumero);
 

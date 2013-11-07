@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Clase que representa uma pessoa juridica
@@ -59,7 +59,7 @@ class PessoaFisica extends Pessoa
     /**
      * Define o cpf da pessoa fisica
      * @param string $cpf
-     * @return \Umbrella\YA\Boleto\PessoaFisica
+     * @return \Umbrella\Ya\Boleto\PessoaFisica
      */
     public function setCpf($cpf)
     {

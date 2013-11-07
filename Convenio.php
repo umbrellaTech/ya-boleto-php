@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Clase abstrata que representa o Convenio
@@ -63,8 +63,8 @@ class Convenio
 
     /**
      * Define o banco para o convenio
-     * @param \Umbrella\YA\Boleto\Banco $banco
-     * @return \Umbrella\YA\Boleto\Convenio
+     * @param \Umbrella\Ya\Boleto\Banco $banco
+     * @return \Umbrella\Ya\Boleto\Convenio
      */
     public function setBanco(Banco $banco)
     {
@@ -93,7 +93,7 @@ class Convenio
     /**
      * Define a carteira do convenio
      * @param Carteira\CarteiraInterface $carteira
-     * @return \Umbrella\YA\Boleto\Convenio
+     * @return \Umbrella\Ya\Boleto\Convenio
      */
     public function setCarteira($carteira)
     {
@@ -104,7 +104,7 @@ class Convenio
     /**
      * Define o numero do convenio
      * @param string $convenio
-     * @return \Umbrella\YA\Boleto\Convenio
+     * @return \Umbrella\Ya\Boleto\Convenio
      */
     public function setConvenio($convenio)
     {

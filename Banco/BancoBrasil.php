@@ -24,9 +24,9 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Banco;
+namespace Umbrella\Ya\Boleto\Banco;
 
-use Umbrella\YA\Boleto\Banco;
+use Umbrella\Ya\Boleto\Banco;
 
 /**
  * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN

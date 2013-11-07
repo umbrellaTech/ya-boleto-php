@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Description of Validator

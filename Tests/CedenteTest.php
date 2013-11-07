@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Tests;
+namespace Umbrella\Ya\Boleto\Tests;
 
 /**
  * Description of CedenteTest
@@ -39,7 +39,7 @@ class CedenteTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidarCpf()
     {
-        $cedente = new \Umbrella\YA\Boleto\Cedente("Cendente 01", "2342342343");
+        $cedente = new \Umbrella\Ya\Boleto\Cedente("Cendente 01", "2342342343");
     }
 
 }

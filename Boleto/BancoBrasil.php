@@ -24,11 +24,11 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Boleto;
+namespace Umbrella\Ya\Boleto\Boleto;
 
-use Umbrella\YA\Boleto\Boleto;
-use Umbrella\YA\Boleto\Carteira\Carteira187;
-use Umbrella\YA\Boleto\Type\Number;
+use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Carteira\Carteira187;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
  * Clase abstrata que representa o Boleto do Banco do Brasil
@@ -42,7 +42,7 @@ class BancoBrasil extends Boleto
     {
         $carteira = $this->convenio->getCarteira();
 
-        if ($carteira instanceof \Umbrella\YA\Boleto\Carteira\Carteira186 || $carteira instanceof \Umbrella\YA\Boleto\Carteira\Carteira188) {
+        if ($carteira instanceof \Umbrella\Ya\Boleto\Carteira\Carteira186 || $carteira instanceof \Umbrella\Ya\Boleto\Carteira\Carteira188) {
             $carteira->setNossoNumero(Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
         } elseif ($carteira instanceof Carteira187) {
             $carteira->setNossoNumero($this->convenio->getConvenio() . $carteira->getNossoNumero());

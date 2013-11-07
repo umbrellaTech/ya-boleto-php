@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Clase abstrata que representa uma Pessoa
@@ -53,7 +53,7 @@ abstract class Pessoa
     /**
      * Define o nome da pessoa
      * @param string $nome
-     * @return \Umbrella\YA\Boleto\Pessoa
+     * @return \Umbrella\Ya\Boleto\Pessoa
      */
     public function setNome($nome)
     {

@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Clase abstrata que representa o Banco. Os dados da classe foram retirados da FEBRABAN
@@ -101,7 +101,7 @@ abstract class Banco
     /**
      * Define o numero do banco
      * @param int $numero
-     * @return \Umbrella\YA\Boleto\Banco
+     * @return \Umbrella\Ya\Boleto\Banco
      */
     public function setNumero($numero)
     {
@@ -112,7 +112,7 @@ abstract class Banco
     /**
      * Define o numero da agencia
      * @param string $agencia
-     * @return \Umbrella\YA\Boleto\Banco
+     * @return \Umbrella\Ya\Boleto\Banco
      */
     public function setAgencia($agencia)
     {
@@ -123,7 +123,7 @@ abstract class Banco
     /**
      * Define o numero da conta
      * @param setring $conta
-     * @return \Umbrella\YA\Boleto\Banco
+     * @return \Umbrella\Ya\Boleto\Banco
      */
     public function setConta($conta)
     {

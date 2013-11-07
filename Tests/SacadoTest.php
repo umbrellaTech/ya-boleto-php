@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto\Tests;
+namespace Umbrella\Ya\Boleto\Tests;
 
 /**
  * Description of SacadoTest
@@ -39,8 +39,8 @@ class SacadoTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidarCnpj()
     {
-        $pf = new \Umbrella\YA\Boleto\PessoaFisica("Sacado 01", "12312312312");
-        $sacado = new \Umbrella\YA\Boleto\Sacado($pf);
+        $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "12312312312");
+        $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
     }
 
 }

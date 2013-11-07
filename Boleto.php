@@ -24,12 +24,12 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 use DateTime;
-use Umbrella\Api\Boleto\BoletoInterface;
-use Umbrella\YA\Boleto\Type\Number;
-use Umbrella\YA\Boleto\Type\String;
+use Umbrella\Ya\Api\Boleto\BoletoInterface;
+use Umbrella\Ya\Boleto\Type\Number;
+use Umbrella\Ya\Boleto\Type\String;
 
 /**
  * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN

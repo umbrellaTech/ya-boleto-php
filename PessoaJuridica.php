@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YA\Boleto;
+namespace Umbrella\Ya\Boleto;
 
 /**
  * Clase que representa uma pessoa juridica
@@ -59,7 +59,7 @@ class PessoaJuridica extends Pessoa
     /**
      * Define o cnpj da pessoa juridica
      * @param string $cnpj
-     * @return \Umbrella\YA\Boleto\PessoaJuridica
+     * @return \Umbrella\Ya\Boleto\PessoaJuridica
      */
     public function setCnpj($cnpj)
     {
