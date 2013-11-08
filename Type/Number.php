@@ -120,7 +120,7 @@ class Number
 
     public static function fatorVencimento($data)
     {
-        $data = split("/", $data);
+        $data = explode("/", $data);
         $ano = $data[2];
         $mes = $data[1];
         $dia = $data[0];
