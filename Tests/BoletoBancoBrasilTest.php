@@ -70,7 +70,6 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
                 ->setNumeroDocumento("23456")
                 ->setDataVencimento(new \DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
-
     }
 
     /**
@@ -95,6 +94,24 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
+    }
+
+    public function testConvenio6()
+    {
+        date_default_timezone_set("America/Recife");
+        $banco = new \Umbrella\Ya\Boleto\Banco\BancoBrasil("1234-5", "1234567-8");
+        $carteira = new \Umbrella\Ya\Boleto\Carteira\Carteira187("12345678");
+        $convenio = new \Umbrella\Ya\Boleto\Convenio($banco, $carteira, "123456");
+
+        $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "09007668404");
+        $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
+        $cedente = new \Umbrella\Ya\Boleto\Cedente("Cendente 01", "92.559.708/0001-03");
+
+        $boleto = new \Umbrella\Ya\Boleto\Boleto\BancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento("1.500,00")
+                ->setNumeroDocumento("23456")
+                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->getLinhaDigitavel();
     }
 
 }

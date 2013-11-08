@@ -90,20 +90,23 @@ abstract class Boleto implements BoletoInterface
         $banco = $this->convenio->getBanco();
         $convenio = $this->convenio;
 
-        $valor = Number::format($this->getValorDocumento());
-        $this->setValorDocumento($valor / 100);
+        $total = $this->getTotal();
 
-        if($this->getTotal() < 0) {
+        if ($total < 0) {
             throw new \LogicException("Valor total do boleto não pode ser negativo");
         }
+
+        $valor = Number::format($total);
+        $agencia = substr($banco->getAgencia(), 0, 4);
+        $conta = substr($banco->getConta(), 0, 4);
         
         $data = array(
             'Banco' => $banco->getNumero(),
             'Moeda' => Moedas::REAL,
             'Valor' => $valor,
-            'Agencia' => $banco->getAgencia(),
+            'Agencia' => $agencia,
             'Carteira' => $convenio->getCarteira()->getNumero(),
-            'Conta' => $banco->getAgencia(),
+            'Conta' => $conta,
             'NossoNumero' => $convenio->getCarteira()->getNossoNumero(),
             'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()->format("d/m/Y")),
             'CodigoCedente' => $convenio->getConvenio()
@@ -123,14 +126,13 @@ abstract class Boleto implements BoletoInterface
         $data['DigitoNossoNumero'] = Number::modulo11($data['NossoNumero']);
 
         $this->handleData($data);
-
         $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
 
         //Cálculo do dígito verificador geral do código de barras
         $dv = Number::modulo11($cod, 1, 1);
         //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
         $codigoBarras = String::putAt($cod, $dv, 4);
-
+        //Debugger::dump($codigoBarras);
         return $codigoBarras;
     }
 
