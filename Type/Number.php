@@ -36,8 +36,7 @@ class Number
 
     public static function format($number)
     {
-        $number = str_replace(",", ".", $number);
-        return str_replace(".", "", $number);
+        return (int)($number * 100);
     }
 
     public static function modulo11($number, $ifTen = '0', $ifZero = '0', $returnFull = false, $maxFactor = 9, $separator = '-')

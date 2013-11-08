@@ -90,10 +90,17 @@ abstract class Boleto implements BoletoInterface
         $banco = $this->convenio->getBanco();
         $convenio = $this->convenio;
 
+        $valor = Number::format($this->getValorDocumento());
+        $this->setValorDocumento($valor / 100);
+
+        if($this->getTotal() < 0) {
+            throw new \LogicException("Valor total do boleto não pode ser negativo");
+        }
+        
         $data = array(
             'Banco' => $banco->getNumero(),
             'Moeda' => Moedas::REAL,
-            'Valor' => Number::format($this->getValorDocumento()),
+            'Valor' => $valor,
             'Agencia' => $banco->getAgencia(),
             'Carteira' => $convenio->getCarteira()->getNumero(),
             'Conta' => $banco->getAgencia(),
@@ -376,6 +383,15 @@ abstract class Boleto implements BoletoInterface
     {
         $this->dataVencimento = $dataVencimento;
         return $this;
+    }
+
+    /**
+     * Retorna a data de vencimento
+     * @return DateTime
+     */
+    public function getTotal()
+    {
+        return $this->valorDocumento + $this->taxa - $this->desconto + $this->outrosAcrescimos - $this->outrasDeducoes;
     }
 
 }
