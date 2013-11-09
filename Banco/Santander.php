@@ -36,11 +36,24 @@ use Umbrella\Ya\Boleto\Banco;
 class Santander extends Banco
 {
 
+    protected $ios;
+
     public function __construct($agencia, $conta)
     {
         $numero = "033";
         $nome = "Santander Banespa";
         parent::__construct($numero, $nome, $agencia, $conta);
+    }
+
+    public function getIos()
+    {
+        return $this->ios;
+    }
+
+    public function setIos($ios)
+    {
+        $this->ios = $ios;
+        return $this;
     }
 
 }

@@ -63,6 +63,10 @@ abstract class Boleto implements BoletoInterface
     protected $outrosAcrescimos;
     protected $numeroDocumento;
     protected $instrucoes;
+    protected $quantidade;
+    protected $aceite;
+    protected $especie;
+    protected $localPagamento;
     protected $codigoBarras;
     protected $linhaDigitavel;
     protected $mascara = "00000.00000 00000.000000 00000.000000 0 00000000000000";
@@ -99,7 +103,6 @@ abstract class Boleto implements BoletoInterface
         $valor = Number::format($total);
         $agencia = substr($banco->getAgencia(), 0, 4);
         $conta = substr($banco->getConta(), 0, 4);
-
         $data = array(
             'Banco' => $banco->getNumero(),
             'Moeda' => Moedas::REAL,
@@ -119,11 +122,6 @@ abstract class Boleto implements BoletoInterface
                 $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
             }
         }
-
-        $data['Vencimento'] = $this->dataVencimento->format("d/m/Y");
-        $data['DigitoAgencia'] = Number::modulo11($data['Agencia']);
-        $data['DigitoConta'] = Number::modulo11($data['Conta']);
-        $data['DigitoNossoNumero'] = Number::modulo11($data['NossoNumero']);
 
         $data = array_merge($data, $this->handleData($data));
 
@@ -159,6 +157,50 @@ abstract class Boleto implements BoletoInterface
         $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
 
         return String::applyMask($linhaDigitavel, $this->mascara);
+    }
+
+    public function getQuantidade()
+    {
+        return $this->quantidade;
+    }
+
+    public function getAceite()
+    {
+        return $this->aceite;
+    }
+
+    public function getEspecie()
+    {
+        return $this->especie;
+    }
+
+    public function getLocalPagamento()
+    {
+        return $this->localPagamento;
+    }
+
+    public function setQuantidade($quantidade)
+    {
+        $this->quantidade = $quantidade;
+        return $this;
+    }
+
+    public function setAceite($aceite)
+    {
+        $this->aceite = $aceite;
+        return $this;
+    }
+
+    public function setEspecie($especie)
+    {
+        $this->especie = $especie;
+        return $this;
+    }
+
+    public function setLocalPagamento($localPagamento)
+    {
+        $this->localPagamento = $localPagamento;
+        return $this;
     }
 
     public function getInstrucoes()

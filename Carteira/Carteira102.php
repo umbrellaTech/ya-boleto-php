@@ -39,15 +39,14 @@ class Carteira102 implements CarteiraInterface
         'Moeda' => 1,
         'FatorVencimento' => 4,
         'Valor' => 10,
+        //Campos variávies
         'Fixo' => 1,
         'Ios' => 1,
-        //Campos variávies
         'CodigoCedente' => 7,
-        'NossoNumero' => 7,
-        'DigitoNossoNumero' => 5,
+        'NossoNumero' => 13,
         'Carteira' => 3,
     );
-    protected $layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente00000:NossoNumero:Ios:Carteira';
+    protected $layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     protected $nossoNumero;
 
     public function __construct($nossoNumero)
@@ -82,7 +81,7 @@ class Carteira102 implements CarteiraInterface
 
     public function getNumero()
     {
-        return "18-6";
+        return "102";
     }
 
     public function getTamanhos()

@@ -40,12 +40,12 @@ class Santander extends Boleto
     protected function handleData(array $data)
     {
         $data['Fixo'] = "9";
-        $data['Ios'] = "0";
-            
+        $data['Ios'] = $this->convenio->getBanco()->getIos();
+
         $nossoNumero = $data['NossoNumero'];
         $dvNossoNumero = Number::modulo11($nossoNumero);
-        $data['NossoNumero'] = "00000" . $nossoNumero . $dvNossoNumero;
-        
+        $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
+
         return $data;
     }
 
