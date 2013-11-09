@@ -36,7 +36,7 @@ class Number
 
     public static function format($number)
     {
-        return (int)($number * 100);
+        return (int) ($number * 100);
     }
 
     public static function modulo11($number, $ifTen = '0', $ifZero = '0', $returnFull = false, $maxFactor = 9, $separator = '-')
@@ -70,6 +70,26 @@ class Number
         } else {
             return $number . $separator . $rest;
         }
+    }
+
+    public static function modulo11Invertido()
+    {
+        $ftini = 2;
+        $fator = $ftfim = 9;
+        $soma = 0;
+
+        for ($i = strlen($num); $i > 0; $i--) {
+            $soma += substr($num, $i - 1, 1) * $fator;
+            if (--$fator < $ftini)
+                $fator = $ftfim;
+        }
+
+        $digito = $soma % 11;
+
+        if ($digito > 9)
+            $digito = 0;
+
+        return $digito;
     }
 
     /**

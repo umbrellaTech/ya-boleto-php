@@ -99,7 +99,7 @@ abstract class Boleto implements BoletoInterface
         $valor = Number::format($total);
         $agencia = substr($banco->getAgencia(), 0, 4);
         $conta = substr($banco->getConta(), 0, 4);
-        
+
         $data = array(
             'Banco' => $banco->getNumero(),
             'Moeda' => Moedas::REAL,
@@ -125,7 +125,8 @@ abstract class Boleto implements BoletoInterface
         $data['DigitoConta'] = Number::modulo11($data['Conta']);
         $data['DigitoNossoNumero'] = Number::modulo11($data['NossoNumero']);
 
-        $this->handleData($data);
+        $data = array_merge($data, $this->handleData($data));
+
         $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
 
         //Cálculo do dígito verificador geral do código de barras
