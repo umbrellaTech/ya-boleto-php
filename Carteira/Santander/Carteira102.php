@@ -24,7 +24,9 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira;
+namespace Umbrella\Ya\Boleto\Carteira\Santander;
+
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Description of Carteira18
@@ -66,7 +68,7 @@ class Carteira102 implements CarteiraInterface
     /**
      * Define o nosso numero
      * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
+     * @return CarteiraInterface
      */
     public function setNossoNumero($nossoNumero)
     {

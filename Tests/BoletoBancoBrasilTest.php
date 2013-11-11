@@ -38,7 +38,7 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set("America/Recife");
         $banco = new \Umbrella\Ya\Boleto\Banco\BancoBrasil("5579-0", "00000-0");
-        $carteira = new \Umbrella\Ya\Boleto\Carteira\Carteira187("2");
+        $carteira = new \Umbrella\Ya\Boleto\Carteira\BancoBrasil\Carteira187("2");
         $convenio = new \Umbrella\Ya\Boleto\Convenio($banco, $carteira, "2569589685");
 
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "09007668404");
@@ -58,7 +58,7 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set("America/Recife");
         $banco = new \Umbrella\Ya\Boleto\Banco\BancoBrasil("1234-5", "1234567-8");
-        $carteira = new \Umbrella\Ya\Boleto\Carteira\Carteira187("12345678");
+        $carteira = new \Umbrella\Ya\Boleto\Carteira\BancoBrasil\Carteira187("12345678");
         $convenio = new \Umbrella\Ya\Boleto\Convenio($banco, $carteira, "123456");
 
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "09007668404");
@@ -79,7 +79,7 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set("America/Recife");
         $banco = new \Umbrella\Ya\Boleto\Banco\BancoBrasil("5579-0", "00000-0");
-        $carteira = new \Umbrella\Ya\Boleto\Carteira\Carteira187("2");
+        $carteira = new \Umbrella\Ya\Boleto\Carteira\BancoBrasil\Carteira187("2");
         $convenio = new \Umbrella\Ya\Boleto\Convenio($banco, $carteira, "2569589685");
 
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "09007668404");
@@ -100,7 +100,7 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set("America/Recife");
         $banco = new \Umbrella\Ya\Boleto\Banco\BancoBrasil("1234-5", "1234567-8");
-        $carteira = new \Umbrella\Ya\Boleto\Carteira\Carteira187("12345678");
+        $carteira = new \Umbrella\Ya\Boleto\Carteira\BancoBrasil\Carteira186("123456");
         $convenio = new \Umbrella\Ya\Boleto\Convenio($banco, $carteira, "123456");
 
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "09007668404");
@@ -108,7 +108,7 @@ class BoletoBancoBrasilTest extends \PHPUnit_Framework_TestCase
         $cedente = new \Umbrella\Ya\Boleto\Cedente("Cendente 01", "92.559.708/0001-03");
 
         $boleto = new \Umbrella\Ya\Boleto\Boleto\BancoBrasil($sacado, $cedente, $convenio);
-        $boleto->setValorDocumento("1.500,00")
+        $boleto->setValorDocumento(1500.00)
                 ->setNumeroDocumento("23456")
                 ->setDataVencimento(new \DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
