@@ -31,12 +31,12 @@ namespace Umbrella\Ya\Boleto\Carteira\Santander;
  *
  * @author italo
  */
-class Carteira102 extends CarteiraSantander
+class Carteira101 extends CarteiraSantander
 {
 
     public function getNumero()
     {
-        return "102";
+        return "101";
     }
 
 }
