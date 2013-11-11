@@ -45,7 +45,7 @@ class BancoBrasil extends Boleto
         $carteira = $this->convenio->getCarteira();
 
         if ($carteira instanceof Carteira186 || $carteira instanceof Carteira188) {
-            $carteira->setNossoNumero($this->convenio->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
+            
         } elseif ($carteira instanceof Carteira187) {
             $carteira->setNossoNumero($this->convenio->getConvenio() . $carteira->getNossoNumero());
         }

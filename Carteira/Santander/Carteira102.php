@@ -26,6 +26,10 @@
 
 namespace Umbrella\Ya\Boleto\Carteira\Santander;
 
+use ArrayObject;
+use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Type\Number;
+
 /**
  * Description of Carteira18
  *
@@ -37,6 +41,16 @@ class Carteira102 extends CarteiraSantander
     public function getNumero()
     {
         return "102";
+    }
+
+    public function handleData(ArrayObject $data, Boleto $boleto)
+    {
+        $data['Fixo'] = "9";
+        $data['Ios'] = $boleto->getConvenio()->getBanco()->getIos();
+
+        $nossoNumero = $data['NossoNumero'];
+        $dvNossoNumero = Number::modulo11($nossoNumero);
+        $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
     }
 
 }

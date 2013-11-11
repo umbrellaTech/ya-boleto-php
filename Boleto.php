@@ -82,8 +82,6 @@ abstract class Boleto
         $this->dataDocumento = new DateTime();
     }
 
-    protected abstract function handleData(array $data);
-
     /**
      * Gera o codigo de barras, baseado nas informaoes do banco
      */
@@ -102,7 +100,8 @@ abstract class Boleto
         $valor = Number::format($total);
         $agencia = substr($banco->getAgencia(), 0, 4);
         $conta = substr($banco->getConta(), 0, 4);
-        $data = array(
+
+        $data = new \ArrayObject(array(
             'Banco' => $banco->getNumero(),
             'Moeda' => Moedas::REAL,
             'Valor' => $valor,
@@ -112,7 +111,8 @@ abstract class Boleto
             'NossoNumero' => $convenio->getCarteira()->getNossoNumero(),
             'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()->format("d/m/Y")),
             'CodigoCedente' => $convenio->getConvenio()
-        );
+        ));
+        $data->setFlags(\ArrayObject::ARRAY_AS_PROPS);
 
         $tamanhos = $convenio->getCarteira()->getTamanhos();
 
@@ -122,10 +122,10 @@ abstract class Boleto
             }
         }
 
-        $data = array_merge($data, $this->handleData($data));
+        $this->getConvenio()->getCarteira()->handleData($data, $this);
 
         $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
-        
+
         //Isso deveria ser um observer para todos os interessados nesse evento
         if (method_exists($this, 'afterGeneration')) {
             $this->afterGeneration($cod);

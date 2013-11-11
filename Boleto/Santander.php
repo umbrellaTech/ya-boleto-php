@@ -39,25 +39,6 @@ use Umbrella\Ya\Boleto\Type\Number;
 class Santander extends Boleto
 {
 
-    protected function handleData(array $data)
-    {
-        if ($this->convenio->getCarteira() instanceof Carteira102) {
-            $data['Fixo'] = "9";
-            $data['Ios'] = $this->convenio->getBanco()->getIos();
-
-            $nossoNumero = $data['NossoNumero'];
-            $dvNossoNumero = Number::modulo11($nossoNumero);
-            $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
-
-        } elseif ($this->convenio->getCarteira() instanceof Carteira57) {
-            $numero = $data['NossoNumero'] . $data['Agencia'] . $data['Conta'];
-            $data['DigitaoCobranca'] = Number::modulo10($numero);
- 
-        }
-        
-        return $data;
-    }
-
     protected function afterGeneration(&$cod)
     {
         $this->dvBarra($cod);

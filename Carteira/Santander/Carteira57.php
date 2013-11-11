@@ -26,12 +26,17 @@
 
 namespace Umbrella\Ya\Boleto\Carteira\Santander;
 
+use ArrayObject;
+use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
+use Umbrella\Ya\Boleto\Type\Number;
+
 /**
  * Description of Carteira18
  *
  * @author italo
  */
-class Carteira57 implements \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
+class Carteira57 implements CarteiraInterface
 {
 
     public $tamanhos = array(
@@ -86,6 +91,12 @@ class Carteira57 implements \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
     public function getNumero()
     {
         return "57";
+    }
+
+    public function handleData(ArrayObject $data, Boleto $boleto)
+    {
+        $numero = $data['NossoNumero'] . $data['Agencia'] . $data['Conta'];
+        $data['DigitaoCobranca'] = Number::modulo10($numero);
     }
 
 }

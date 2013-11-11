@@ -33,6 +33,8 @@ namespace Umbrella\Ya\Boleto\Carteira;
 interface CarteiraInterface
 {
 
+    public function handleData(\ArrayObject $data, \Umbrella\Ya\Boleto\Boleto $boleto);
+    
     public function getNumero();
 
     public function getLayout();

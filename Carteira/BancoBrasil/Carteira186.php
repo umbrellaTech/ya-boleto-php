@@ -26,7 +26,10 @@
 
 namespace Umbrella\Ya\Boleto\Carteira\BancoBrasil;
 
+use ArrayObject;
+use Umbrella\Ya\Boleto\Boleto;
 use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
  * Description of Carteira18
@@ -92,6 +95,12 @@ class Carteira186 implements CarteiraInterface
     public function getTamanhos()
     {
         return $this->tamanhos;
+    }
+
+    public function handleData(ArrayObject $data, Boleto $boleto)
+    {
+        $carteira = $this->convenio->getCarteira();
+        $carteira->setNossoNumero($this->convenio->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
     }
 
 }

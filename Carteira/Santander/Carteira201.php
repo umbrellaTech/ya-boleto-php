@@ -26,6 +26,9 @@
 
 namespace Umbrella\Ya\Boleto\Carteira\Santander;
 
+use ArrayObject;
+use Umbrella\Ya\Boleto\Boleto;
+
 /**
  * Description of Carteira18
  *
@@ -37,6 +40,11 @@ class Carteira201 extends CarteiraSantander
     public function getNumero()
     {
         return "201";
+    }
+
+    public function handleData(ArrayObject $data, Boleto $boleto)
+    {
+        
     }
 
 }
