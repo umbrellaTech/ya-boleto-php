@@ -27,7 +27,6 @@
 namespace Umbrella\Ya\Boleto;
 
 use DateTime;
-use Umbrella\Ya\Api\Boleto\BoletoInterface;
 use Umbrella\Ya\Boleto\Type\Number;
 use Umbrella\Ya\Boleto\Type\String;
 
@@ -36,7 +35,7 @@ use Umbrella\Ya\Boleto\Type\String;
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-abstract class Boleto implements BoletoInterface
+abstract class Boleto
 {
 
     /**
