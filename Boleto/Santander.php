@@ -27,6 +27,8 @@
 namespace Umbrella\Ya\Boleto\Boleto;
 
 use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Carteira\Santander\Carteira102;
+use Umbrella\Ya\Boleto\Carteira\Santander\Carteira57;
 use Umbrella\Ya\Boleto\Type\Number;
 
 /**
@@ -39,14 +41,40 @@ class Santander extends Boleto
 
     protected function handleData(array $data)
     {
-        $data['Fixo'] = "9";
-        $data['Ios'] = $this->convenio->getBanco()->getIos();
+        if ($this->convenio->getCarteira() instanceof Carteira102) {
+            $data['Fixo'] = "9";
+            $data['Ios'] = $this->convenio->getBanco()->getIos();
 
-        $nossoNumero = $data['NossoNumero'];
-        $dvNossoNumero = Number::modulo11($nossoNumero);
-        $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
+            $nossoNumero = $data['NossoNumero'];
+            $dvNossoNumero = Number::modulo11($nossoNumero);
+            $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
 
+        } elseif ($this->convenio->getCarteira() instanceof Carteira57) {
+            $numero = $data['NossoNumero'] . $data['Agencia'] . $data['Conta'];
+            $data['DigitaoCobranca'] = Number::modulo10($numero);
+ 
+        }
+        
         return $data;
+    }
+
+    protected function afterGeneration(&$cod)
+    {
+        $this->dvBarra($cod);
+    }
+
+    private function dvBarra(&$numero)
+    {
+        $pesos = "43290876543298765432987654329876543298765432";
+        if (strlen($numero) == 44) {
+            $soma = 0;
+            for ($i = 0; $i < strlen($numero); $i++) {
+                $soma += $numero[$i] * $pesos[$i];
+            } $num_temp = 11 - ($soma % 11);
+            if ($num_temp >= 10) {
+                $num_temp = 1;
+            } $numero[4] = $num_temp;
+        }
     }
 
 }

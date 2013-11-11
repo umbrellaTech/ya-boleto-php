@@ -31,12 +31,61 @@ namespace Umbrella\Ya\Boleto\Carteira\Santander;
  *
  * @author italo
  */
-class Carteira102 extends CarteiraSantander
+class Carteira57 implements \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
 {
+
+    public $tamanhos = array(
+        'Banco' => 3,
+        'Moeda' => 1,
+        'FatorVencimento' => 4,
+        'Valor' => 10,
+        //Campos variávies
+        'Agencia' => 4,
+        'Conta' => 7,
+        'NossoNumero' => 13,
+        'Carteira' => 2,
+    );
+    protected $layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Conta:DigitaoCobranca:NossoNumero';
+    protected $nossoNumero;
+
+    public function __construct($nossoNumero)
+    {
+        $this->nossoNumero = $nossoNumero;
+    }
+
+    /**
+     * Retorna o nosso numero
+     * @return string
+     */
+    public function getNossoNumero()
+    {
+        return $this->nossoNumero;
+    }
+
+    /**
+     * Define o nosso numero
+     * @param string $nossoNumero
+     * @return CarteiraInterface
+     */
+    public function setNossoNumero($nossoNumero)
+    {
+        $this->nossoNumero = $nossoNumero;
+        return $this;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
+    public function getTamanhos()
+    {
+        return $this->tamanhos;
+    }
 
     public function getNumero()
     {
-        return "102";
+        return "57";
     }
 
 }

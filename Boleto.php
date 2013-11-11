@@ -125,6 +125,11 @@ abstract class Boleto
         $data = array_merge($data, $this->handleData($data));
 
         $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
+        
+        //Isso deveria ser um observer para todos os interessados nesse evento
+        if (method_exists($this, 'afterGeneration')) {
+            $this->afterGeneration($cod);
+        }
 
         //Cálculo do dígito verificador geral do código de barras
         $dv = Number::modulo11($cod, 1, 1);
