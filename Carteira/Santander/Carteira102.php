@@ -47,10 +47,10 @@ class Carteira102 extends CarteiraSantander
     {
         $data['Fixo'] = "9";
         $data['Ios'] = $boleto->getConvenio()->getBanco()->getIos();
-
+        
         $nossoNumero = $data['NossoNumero'];
         $dvNossoNumero = Number::modulo11($nossoNumero);
-        $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
+        $this->setNossoNumero($nossoNumero . $dvNossoNumero);
     }
 
 }

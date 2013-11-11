@@ -130,7 +130,7 @@ abstract class Boleto
         if (method_exists($this, 'afterGeneration')) {
             $this->afterGeneration($cod);
         }
-
+        
         //Cálculo do dígito verificador geral do código de barras
         $dv = Number::modulo11($cod, 1, 1);
         //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.

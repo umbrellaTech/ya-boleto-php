@@ -29,32 +29,31 @@ namespace Umbrella\Ya\Boleto\Carteira\BancoBrasil;
 use ArrayObject;
 use Umbrella\Ya\Boleto\Boleto;
 use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
  * Description of Carteira18
  *
  * @author italo
  */
-class Carteira187 implements CarteiraInterface
+class Carteira216 implements CarteiraInterface
 {
 
     public $tamanhos = array(
-        //Campos comuns a todos os bancos
-        'Banco' => 3, //identificação do banco
-        'Moeda' => 1, //Código da moeda: real=9
-        'DV' => 1, //Dígito verificador geral da linha digitável
-        'FatorVencimento' => 4, //Fator de vencimento (Dias passados desde 7/out/1997)
-        'Valor' => 10, //Valor nominal do título
+        'Banco' => 3,
+        'Moeda' => 1,
+        'DV' => 1,
+        'FatorVencimento' => 4,
+        'Valor' => 10,
         //Campos variávies
-        'Agencia' => 4, //Código da agencia, sem dígito
-        'Conta' => 8, //Número da conta
-        'CodigoCedente' => 7, //Número do convênio fornecido pelo banco
-        'DigitoConta' => 1, //Dígito da conta do Cedente
-        'NossoNumero' => 10, //Nosso número
-        'DigitoNossoNumero' => 5, //Dígito do nosso número
-        'Carteira' => 2, //Código da carteira
+        'Agencia' => 4,
+        'Conta' => 8,
+        'CodigoCedente' => 6,
+        'DigitoConta' => 1,
+        'NossoNumero' => 17,
+        'Carteira' => 2,
     );
-    protected $layout = ':Banco:Moeda:FatorVencimento:Valor000000:CodigoCedente:NossoNumero:Carteira';
+    protected $layout = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira';
     protected $nossoNumero;
 
     public function __construct($nossoNumero)
@@ -89,7 +88,7 @@ class Carteira187 implements CarteiraInterface
 
     public function getNumero()
     {
-        return "18-7";
+        return "18-6";
     }
 
     public function getTamanhos()
@@ -99,8 +98,8 @@ class Carteira187 implements CarteiraInterface
 
     public function handleData(ArrayObject $data, Boleto $boleto)
     {
-        $carteira = $boleto->getConvenio()->getCarteira();
-        $carteira->setNossoNumero($boleto->getConvenio()->getConvenio() . $carteira->getNossoNumero());
+        $carteira = $this->convenio->getCarteira();
+        $carteira->setNossoNumero($this->convenio->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
     }
 
 }

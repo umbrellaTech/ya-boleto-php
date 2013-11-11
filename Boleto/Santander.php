@@ -41,7 +41,7 @@ class Santander extends Boleto
 
     protected function afterGeneration(&$cod)
     {
-        $this->dvBarra($cod);
+        //$this->dvBarra($cod);
     }
 
     private function dvBarra(&$numero)

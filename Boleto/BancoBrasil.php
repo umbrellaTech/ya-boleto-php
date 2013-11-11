@@ -27,10 +27,6 @@
 namespace Umbrella\Ya\Boleto\Boleto;
 
 use Umbrella\Ya\Boleto\Boleto;
-use Umbrella\Ya\Boleto\Carteira\Carteira186;
-use Umbrella\Ya\Boleto\Carteira\Carteira187;
-use Umbrella\Ya\Boleto\Carteira\Carteira188;
-use Umbrella\Ya\Boleto\Type\Number;
 
 /**
  * Clase abstrata que representa o Boleto do Banco do Brasil
@@ -39,16 +35,5 @@ use Umbrella\Ya\Boleto\Type\Number;
  */
 class BancoBrasil extends Boleto
 {
-
-    protected function handleData(array $data)
-    {
-        $carteira = $this->convenio->getCarteira();
-
-        if ($carteira instanceof Carteira186 || $carteira instanceof Carteira188) {
-            
-        } elseif ($carteira instanceof Carteira187) {
-            $carteira->setNossoNumero($this->convenio->getConvenio() . $carteira->getNossoNumero());
-        }
-    }
-
+    
 }
