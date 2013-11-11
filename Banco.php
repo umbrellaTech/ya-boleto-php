@@ -131,9 +131,14 @@ abstract class Banco
         return $this;
     }
 
-    public function getAgenciaConta()
+    /**
+     * Retorna o campo Agência/Cedente do boleto
+     *
+     * @return string
+     */
+    public function getAgenciaCodigoCedente()
     {
-        return $this->getAgencia() . '/' . $this->getConta();
+        return $this->getAgencia() . ' / ' . $this->getConta();
     }
 
 }

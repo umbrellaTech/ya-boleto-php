@@ -31,21 +31,22 @@ namespace Umbrella\Ya\Boleto\Carteira;
  *
  * @author italo
  */
-class Carteira1 implements CarteiraInterface
+class Carteira102 implements CarteiraInterface
 {
 
     public $tamanhos = array(
-        #Campos comuns a todos os bancos
-        'Banco' => 3, //identificação do banco
-        'Moeda' => 1, //Código da moeda: real=9
-        'DV' => 1, //Dígito verificador geral da linha digitável
-        'FatorVencimento' => 4, //Fator de vencimento (Dias passados desde 7/out/1997)
-        'Valor' => 10, //Valor nominal do título
-        #Campos variávies
-        'CodigoCedente' => 6, //Código do cedente
-        'NossoNumero' => 17, //Nosso número
+        'Banco' => 3,
+        'Moeda' => 1,
+        'FatorVencimento' => 4,
+        'Valor' => 10,
+        //Campos variávies
+        'Fixo' => 1,
+        'Ios' => 1,
+        'CodigoCedente' => 7,
+        'NossoNumero' => 13,
+        'Carteira' => 3,
     );
-    protected $layout = ':Banco:Moeda:FatorVencimento:Valor1:CodigoCedente9:NossoNumero';
+    protected $layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     protected $nossoNumero;
 
     public function __construct($nossoNumero)
@@ -80,7 +81,7 @@ class Carteira1 implements CarteiraInterface
 
     public function getNumero()
     {
-        return "18-7";
+        return "102";
     }
 
     public function getTamanhos()

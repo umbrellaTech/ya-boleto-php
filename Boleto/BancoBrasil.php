@@ -27,7 +27,9 @@
 namespace Umbrella\Ya\Boleto\Boleto;
 
 use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Carteira\Carteira186;
 use Umbrella\Ya\Boleto\Carteira\Carteira187;
+use Umbrella\Ya\Boleto\Carteira\Carteira188;
 use Umbrella\Ya\Boleto\Type\Number;
 
 /**
@@ -42,8 +44,8 @@ class BancoBrasil extends Boleto
     {
         $carteira = $this->convenio->getCarteira();
 
-        if ($carteira instanceof \Umbrella\Ya\Boleto\Carteira\Carteira186 || $carteira instanceof \Umbrella\Ya\Boleto\Carteira\Carteira188) {
-            $carteira->setNossoNumero(Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
+        if ($carteira instanceof Carteira186 || $carteira instanceof Carteira188) {
+            $carteira->setNossoNumero($this->convenio->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
         } elseif ($carteira instanceof Carteira187) {
             $carteira->setNossoNumero($this->convenio->getConvenio() . $carteira->getNossoNumero());
         }

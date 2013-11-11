@@ -24,44 +24,29 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Boleto;
+
+use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
- * Clase que representa um Sacado
+ * Clase abstrata que representa o Boleto do Banco do Brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Sacado
+class Santander extends Boleto
 {
 
-    /**
-     * @var Pessoa 
-     */
-    protected $tipo;
-
-    public function __construct(Pessoa $tipo)
+    protected function handleData(array $data)
     {
-        $this->tipo = $tipo;
-    }
+        $data['Fixo'] = "9";
+        $data['Ios'] = $this->convenio->getBanco()->getIos();
 
-    /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
+        $nossoNumero = $data['NossoNumero'];
+        $dvNossoNumero = Number::modulo11($nossoNumero);
+        $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
 
-    /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\Ya\Boleto\Pessoa $tipo
-     * @return \Umbrella\Ya\Boleto\Sacado
-     */
-    public function setTipo(Pessoa $tipo)
-    {
-        $this->tipo = $tipo;
-        return $this;
+        return $data;
     }
 
 }

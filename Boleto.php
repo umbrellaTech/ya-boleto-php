@@ -62,6 +62,10 @@ abstract class Boleto
     protected $outrosAcrescimos;
     protected $numeroDocumento;
     protected $instrucoes;
+    protected $quantidade;
+    protected $aceite;
+    protected $especie;
+    protected $localPagamento;
     protected $codigoBarras;
     protected $linhaDigitavel;
     protected $mascara = "00000.00000 00000.000000 00000.000000 0 00000000000000";
@@ -89,13 +93,22 @@ abstract class Boleto
         $banco = $this->convenio->getBanco();
         $convenio = $this->convenio;
 
+        $total = $this->getTotal();
+
+        if ($total < 0) {
+            throw new \LogicException("Valor total do boleto não pode ser negativo");
+        }
+
+        $valor = Number::format($total);
+        $agencia = substr($banco->getAgencia(), 0, 4);
+        $conta = substr($banco->getConta(), 0, 4);
         $data = array(
             'Banco' => $banco->getNumero(),
             'Moeda' => Moedas::REAL,
-            'Valor' => Number::format($this->getValorDocumento()),
-            'Agencia' => $banco->getAgencia(),
+            'Valor' => $valor,
+            'Agencia' => $agencia,
             'Carteira' => $convenio->getCarteira()->getNumero(),
-            'Conta' => $banco->getAgencia(),
+            'Conta' => $conta,
             'NossoNumero' => $convenio->getCarteira()->getNossoNumero(),
             'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()->format("d/m/Y")),
             'CodigoCedente' => $convenio->getConvenio()
@@ -109,12 +122,7 @@ abstract class Boleto
             }
         }
 
-        $data['Vencimento'] = $this->dataVencimento->format("d/m/Y");
-        $data['DigitoAgencia'] = Number::modulo11($data['Agencia']);
-        $data['DigitoConta'] = Number::modulo11($data['Conta']);
-        $data['DigitoNossoNumero'] = Number::modulo11($data['NossoNumero']);
-
-        $this->handleData($data);
+        $data = array_merge($data, $this->handleData($data));
 
         $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
 
@@ -122,7 +130,7 @@ abstract class Boleto
         $dv = Number::modulo11($cod, 1, 1);
         //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
         $codigoBarras = String::putAt($cod, $dv, 4);
-
+        //Debugger::dump($codigoBarras);
         return $codigoBarras;
     }
 
@@ -148,6 +156,50 @@ abstract class Boleto
         $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
 
         return String::applyMask($linhaDigitavel, $this->mascara);
+    }
+
+    public function getQuantidade()
+    {
+        return $this->quantidade;
+    }
+
+    public function getAceite()
+    {
+        return $this->aceite;
+    }
+
+    public function getEspecie()
+    {
+        return $this->especie;
+    }
+
+    public function getLocalPagamento()
+    {
+        return $this->localPagamento;
+    }
+
+    public function setQuantidade($quantidade)
+    {
+        $this->quantidade = $quantidade;
+        return $this;
+    }
+
+    public function setAceite($aceite)
+    {
+        $this->aceite = $aceite;
+        return $this;
+    }
+
+    public function setEspecie($especie)
+    {
+        $this->especie = $especie;
+        return $this;
+    }
+
+    public function setLocalPagamento($localPagamento)
+    {
+        $this->localPagamento = $localPagamento;
+        return $this;
     }
 
     public function getInstrucoes()
@@ -375,6 +427,15 @@ abstract class Boleto
     {
         $this->dataVencimento = $dataVencimento;
         return $this;
+    }
+
+    /**
+     * Retorna a data de vencimento
+     * @return DateTime
+     */
+    public function getTotal()
+    {
+        return $this->valorDocumento + $this->taxa - $this->desconto + $this->outrosAcrescimos - $this->outrasDeducoes;
     }
 
 }

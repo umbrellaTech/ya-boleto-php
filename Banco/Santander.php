@@ -24,43 +24,35 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Banco;
+
+use Umbrella\Ya\Boleto\Banco;
 
 /**
- * Clase que representa um Sacado
+ * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Sacado
+class Santander extends Banco
 {
 
-    /**
-     * @var Pessoa 
-     */
-    protected $tipo;
+    protected $ios;
 
-    public function __construct(Pessoa $tipo)
+    public function __construct($agencia, $conta)
     {
-        $this->tipo = $tipo;
+        $numero = "033";
+        $nome = "Santander Banespa";
+        parent::__construct($numero, $nome, $agencia, $conta);
     }
 
-    /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
-     */
-    public function getTipo()
+    public function getIos()
     {
-        return $this->tipo;
+        return $this->ios;
     }
 
-    /**
-     * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\Ya\Boleto\Pessoa $tipo
-     * @return \Umbrella\Ya\Boleto\Sacado
-     */
-    public function setTipo(Pessoa $tipo)
+    public function setIos($ios)
     {
-        $this->tipo = $tipo;
+        $this->ios = $ios;
         return $this;
     }
 
