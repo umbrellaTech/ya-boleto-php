@@ -32,9 +32,9 @@ use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 use Umbrella\Ya\Boleto\Type\Number;
 
 /**
- * Description of Carteira18
- *
- * @author italo
+ * Representa a carteira 201 para o banco do brasil
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 class Carteira216 implements CarteiraInterface
 {

@@ -24,36 +24,20 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira\Santander;
-
-use ArrayObject;
-use Umbrella\Ya\Boleto\Boleto;
+namespace Umbrella\Ya\Boleto\View\Helper;
 
 /**
- * Representa a carteira 101 para o banco Santander
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of String
+ *
+ * @author italo
  */
-class Carteira101 extends CarteiraSantander
+class BarcodeFont implements BracodeRenderInterface
 {
 
-    /**
-     * {@inheritdoc}
-     * @return string
-     */
-    public function getNumero()
+    public function render($codigoBarras)
     {
-        return "101";
+        return $codigoBarras;
     }
 
-    /**
-     * {@inheritdoc}
-     * @param ArrayObject $data
-     * @param \Umbrella\Ya\Boleto\Boleto $boleto
-     */
-    public function handleData(ArrayObject $data, Boleto $boleto)
-    {
-        
-    }
 
 }

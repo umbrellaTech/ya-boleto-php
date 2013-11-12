@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,36 +24,14 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira\Santander;
-
-use ArrayObject;
-use Umbrella\Ya\Boleto\Boleto;
+namespace Umbrella\Ya\Boleto\View\Helper;
 
 /**
- * Representa a carteira 101 para o banco Santander
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ *
+ * @author italo
  */
-class Carteira101 extends CarteiraSantander
+interface BracodeRenderInterface
 {
 
-    /**
-     * {@inheritdoc}
-     * @return string
-     */
-    public function getNumero()
-    {
-        return "101";
-    }
-
-    /**
-     * {@inheritdoc}
-     * @param ArrayObject $data
-     * @param \Umbrella\Ya\Boleto\Boleto $boleto
-     */
-    public function handleData(ArrayObject $data, Boleto $boleto)
-    {
-        
-    }
-
+    public function render($codigoBarras);
 }

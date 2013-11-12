@@ -27,9 +27,9 @@
 namespace Umbrella\Ya\Boleto\Carteira;
 
 /**
- * Description of Carteira18
- *
- * @author italo
+ * Representa a carteira 1 (Sem registro) ultilizada para qualquer banco sem carteira
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 class Carteira1 implements CarteiraInterface
 {
@@ -48,13 +48,17 @@ class Carteira1 implements CarteiraInterface
     protected $layout = ':Banco:Moeda:FatorVencimento:Valor1:CodigoCedente9:NossoNumero';
     protected $nossoNumero;
 
+    /**
+     * inicializa uma instancia da classe Carteira1
+     * @param string $nossoNumero
+     */
     public function __construct($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;
     }
 
     /**
-     * Retorna o nosso numero
+     * {@inheritdoc}
      * @return string
      */
     public function getNossoNumero()
@@ -63,7 +67,7 @@ class Carteira1 implements CarteiraInterface
     }
 
     /**
-     * Define o nosso numero
+     * {@inheritdoc}
      * @param string $nossoNumero
      * @return \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
      */
@@ -73,19 +77,41 @@ class Carteira1 implements CarteiraInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
     public function getLayout()
     {
         return $this->layout;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
     public function getNumero()
     {
-        return "18-7";
+        return "1";
     }
 
+    /**
+     * {@inheritdoc}
+     * @return array
+     */
     public function getTamanhos()
     {
         return $this->tamanhos;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @param \ArrayObject $data
+     * @param \Umbrella\Ya\Boleto\Boleto $boleto
+     */
+    public function handleData(\ArrayObject $data, \Umbrella\Ya\Boleto\Boleto $boleto)
+    {
+        
     }
 
 }

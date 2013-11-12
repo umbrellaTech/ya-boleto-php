@@ -32,9 +32,9 @@ use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 use Umbrella\Ya\Boleto\Type\Number;
 
 /**
- * Description of Carteira18
- *
- * @author italo
+ * Representa a carteira 18-6 para o banco do brasil
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 class Carteira186 implements CarteiraInterface
 {
@@ -57,13 +57,17 @@ class Carteira186 implements CarteiraInterface
     protected $layout = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira';
     protected $nossoNumero;
 
+    /**
+     * Inicializa uma nova instancia de Carteira186
+     * @param string $nossoNumero
+     */
     public function __construct($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;
     }
 
     /**
-     * Retorna o nosso numero
+     * {@inheritdoc}
      * @return string
      */
     public function getNossoNumero()
@@ -72,7 +76,7 @@ class Carteira186 implements CarteiraInterface
     }
 
     /**
-     * Define o nosso numero
+     * {@inheritdoc}
      * @param string $nossoNumero
      * @return CarteiraInterface
      */
@@ -82,21 +86,38 @@ class Carteira186 implements CarteiraInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
     public function getLayout()
     {
         return $this->layout;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
     public function getNumero()
     {
         return "18-6";
     }
 
+    /**
+     * {@inheritdoc}
+     * @return array
+     */
     public function getTamanhos()
     {
         return $this->tamanhos;
     }
 
+    /**
+     * {@inheritdoc}
+     * @param ArrayObject $data
+     * @param \Umbrella\Ya\Boleto\Boleto $boleto
+     */
     public function handleData(ArrayObject $data, Boleto $boleto)
     {
         $carteira = $this->convenio->getCarteira();

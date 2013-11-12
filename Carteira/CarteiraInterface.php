@@ -27,16 +27,29 @@
 namespace Umbrella\Ya\Boleto\Carteira;
 
 /**
- *
- * @author italo
+ * Contem as funcionalidades basicas para uma carteira
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 interface CarteiraInterface
 {
 
+    /**
+     * Callback utilizado para trabalhar os dados depois que eles consolidados. 
+     * Esse callback e executado antes de gerar o codigo de barras
+     */
     public function handleData(\ArrayObject $data, \Umbrella\Ya\Boleto\Boleto $boleto);
-    
+
+    /**
+     * Retorna o numero da carteira
+     * @return string 
+     */
     public function getNumero();
 
+    /**
+     * Retorna o layout do codigo de barras
+     * @return string
+     */
     public function getLayout();
 
     /**
@@ -57,5 +70,4 @@ interface CarteiraInterface
      * @return string
      */
     public function getTamanhos();
-
 }

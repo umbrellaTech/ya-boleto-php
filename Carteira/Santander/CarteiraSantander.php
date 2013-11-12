@@ -29,9 +29,9 @@ namespace Umbrella\Ya\Boleto\Carteira\Santander;
 use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
- * Description of Carteira18
- *
- * @author italo
+ * Representa a Carteira abstrata para o banco santander
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 abstract class CarteiraSantander implements CarteiraInterface
 {
@@ -51,13 +51,17 @@ abstract class CarteiraSantander implements CarteiraInterface
     protected $layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     protected $nossoNumero;
 
+    /**
+     * Inicializa uma instancia da classe especializada de CarteiraSantander
+     * @param string $nossoNumero
+     */
     public function __construct($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;
     }
 
     /**
-     * Retorna o nosso numero
+     * {@inheritdoc}
      * @return string
      */
     public function getNossoNumero()
@@ -66,7 +70,7 @@ abstract class CarteiraSantander implements CarteiraInterface
     }
 
     /**
-     * Define o nosso numero
+     * {@inheritdoc}
      * @param string $nossoNumero
      * @return CarteiraInterface
      */
@@ -76,11 +80,19 @@ abstract class CarteiraSantander implements CarteiraInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
     public function getLayout()
     {
         return $this->layout;
     }
 
+    /**
+     * {@inheritdoc}
+     * @return array
+     */
     public function getTamanhos()
     {
         return $this->tamanhos;

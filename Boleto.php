@@ -130,7 +130,7 @@ abstract class Boleto
         if (method_exists($this, 'afterGeneration')) {
             $this->afterGeneration($cod);
         }
-        
+
         //Cálculo do dígito verificador geral do código de barras
         $dv = Number::modulo11($cod, 1, 1);
         //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
@@ -139,7 +139,12 @@ abstract class Boleto
         return $codigoBarras;
     }
 
-    public function gerarLinhaDigitavel($codigoBarras)
+    /**
+     * Gera a linha digitavel baseado em um codigo de barras
+     * @param string $codigoBarras
+     * @return string
+     */
+    protected function gerarLinhaDigitavel($codigoBarras)
     {
         //Campo1 - Posições de 1-4 e 20-24
         $linhaDigitavel = substr($codigoBarras, 0, 4) . substr($codigoBarras, 19, 5)
@@ -163,21 +168,37 @@ abstract class Boleto
         return String::applyMask($linhaDigitavel, $this->mascara);
     }
 
+    /**
+     * Retorna a Quantidade
+     * @return int
+     */
     public function getQuantidade()
     {
         return $this->quantidade;
     }
 
+    /**
+     * Retorna o Aceite
+     * @return string
+     */
     public function getAceite()
     {
         return $this->aceite;
     }
 
+    /**
+     * Retorna a especie para o boleto
+     * @return string
+     */
     public function getEspecie()
     {
         return $this->especie;
     }
 
+    /**
+     * Retorna o local de pagamento
+     * @return string
+     */
     public function getLocalPagamento()
     {
         return $this->localPagamento;

@@ -30,18 +30,27 @@ use ArrayObject;
 use Umbrella\Ya\Boleto\Boleto;
 
 /**
- * Description of Carteira18
- *
- * @author italo
+ * Representa a carteira 201 para o banco Santander
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
 class Carteira201 extends CarteiraSantander
 {
 
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
     public function getNumero()
     {
         return "201";
     }
 
+    /**
+     * {@inheritdoc}
+     * @param ArrayObject $data
+     * @param \Umbrella\Ya\Boleto\Boleto $boleto
+     */
     public function handleData(ArrayObject $data, Boleto $boleto)
     {
         
