@@ -120,8 +120,8 @@ class Carteira186 implements CarteiraInterface
      */
     public function handleData(ArrayObject $data, Boleto $boleto)
     {
-        $carteira = $this->convenio->getCarteira();
-        $carteira->setNossoNumero($this->convenio->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
+        $carteira = $boleto->getConvenio()->getCarteira();
+        $carteira->setNossoNumero($boleto->getConvenio()->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
     }
 
 }
