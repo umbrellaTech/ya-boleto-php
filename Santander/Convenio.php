@@ -24,20 +24,34 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\View\Helper;
+namespace Umbrella\Ya\Boleto\Santander;
+
+use ArrayObject;
+use Umbrella\Ya\Boleto\AbstractConvenio;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
- * Description of String
- *
- * @author italo
+ * Clase abstrata que representa o Convenio
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
-class BarcodeFont implements BracodeRenderInterface
+class Convenio extends AbstractConvenio
 {
 
-    public function render($codigoBarras)
+    public function handleData(ArrayObject $data)
     {
-        return $codigoBarras;
-    }
+        $this->alterarTamanho('Fixo', 1);
+        $this->alterarTamanho('Ios', 1);
+        $this->alterarTamanho('CodigoCedente', 7);
+        $this->alterarTamanho('NossoNumero', 13);
 
+        $data['Fixo'] = "9";
+        $data['Ios'] = $this->banco->getIos();
+
+        $nossoNumero = $data['NossoNumero'];
+        $dvNossoNumero = Number::modulo11($nossoNumero);
+        $this->nossoNumero = $nossoNumero . $dvNossoNumero;
+        $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
+    }
 
 }

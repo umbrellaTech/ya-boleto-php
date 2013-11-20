@@ -24,36 +24,25 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Banco;
+namespace Umbrella\Ya\Boleto\Santander\Carteira;
 
-use Umbrella\Ya\Boleto\Banco;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
+ * Representa a carteira 201 para o banco Santander
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Santander extends Banco
+class Carteira201 implements ICarteira
 {
 
-    protected $ios;
-
-    public function __construct($agencia, $conta)
+    /**
+     * {@inheritdoc}
+     * @return string
+     */
+    public function getNumero()
     {
-        $numero = "033";
-        $nome = "Santander Banespa";
-        parent::__construct($numero, $nome, $agencia, $conta);
-    }
-
-    public function getIos()
-    {
-        return $this->ios;
-    }
-
-    public function setIos($ios)
-    {
-        $this->ios = $ios;
-        return $this;
+        return "201";
     }
 
 }

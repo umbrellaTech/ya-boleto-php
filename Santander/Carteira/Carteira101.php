@@ -24,18 +24,16 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira\Santander;
+namespace Umbrella\Ya\Boleto\Santander\Carteira;
 
-use ArrayObject;
-use Umbrella\Ya\Boleto\Boleto;
-use Umbrella\Ya\Boleto\Type\Number;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Representa a carteira 102 (Sem registro) para o banco Santander
+ * Representa a carteira 101 para o banco Santander
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Carteira102 extends CarteiraSantander
+class Carteira101 implements ICarteira
 {
 
     /**
@@ -44,22 +42,7 @@ class Carteira102 extends CarteiraSantander
      */
     public function getNumero()
     {
-        return "102";
-    }
-
-    /**
-     * {@inheritdoc}
-     * @param ArrayObject $data
-     * @param \Umbrella\Ya\Boleto\Boleto $boleto
-     */
-    public function handleData(ArrayObject $data, Boleto $boleto)
-    {
-        $data['Fixo'] = "9";
-        $data['Ios'] = $boleto->getConvenio()->getBanco()->getIos();
-
-        $nossoNumero = $data['NossoNumero'];
-        $dvNossoNumero = Number::modulo11($nossoNumero);
-        $this->setNossoNumero($nossoNumero . $dvNossoNumero);
+        return "101";
     }
 
 }

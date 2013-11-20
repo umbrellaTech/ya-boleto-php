@@ -24,23 +24,21 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Banco;
+namespace Umbrella\Ya\Boleto\Santander\Carteira;
 
-use Umbrella\Ya\Boleto\Banco;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Clase que representa o Banco Caixa. Os dados da classe foram retirados da FEBRABAN
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of Carteira18
+ *
+ * @author italo
  */
-class Caixa extends Banco
+class Carteira57 implements ICarteira
 {
 
-    public function __construct($agencia, $conta)
+    public function getNumero()
     {
-        $numero = "104";
-        $nome = "Caixa";
-        parent::__construct($numero, $nome, $agencia, $conta);
+        return "57";
     }
 
 }

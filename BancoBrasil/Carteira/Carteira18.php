@@ -24,23 +24,24 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Boleto;
+namespace Umbrella\Ya\Boleto\BancoBrasil\Carteira;
 
-use Umbrella\Ya\Boleto\Boleto;
-use Umbrella\Ya\Boleto\Type\Number;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Clase que representa o Boleto do Caixa
+ * Representa a carteira 18 para o banco do brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Caixa extends Boleto
+class Carteira18 implements ICarteira
 {
 
-    protected function handleData(array $data)
+    /**
+     * {@inheritdoc}
+     */
+    public function getNumero()
     {
-        $carteira = $this->convenio->getCarteira();
-        $carteira->setNossoNumero(Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
+        return '18';
     }
 
 }

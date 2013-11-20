@@ -24,38 +24,45 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Boleto;
-
-use Umbrella\Ya\Boleto\Boleto;
-use Umbrella\Ya\Boleto\Carteira\Santander\Carteira102;
-use Umbrella\Ya\Boleto\Carteira\Santander\Carteira57;
-use Umbrella\Ya\Boleto\Type\Number;
+namespace Umbrella\Ya\Boleto;
 
 /**
- * Clase abstrata que representa o Boleto do Banco do Brasil
+ * Contem as funcionalidades basicas para uma carteira
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Santander extends Boleto
+interface IConvenio
 {
 
-    protected function afterGeneration(&$cod)
-    {
-        //$this->dvBarra($cod);
-    }
+    /**
+     * Retorna o layout do codigo de barras
+     * @return string
+     */
+    public function getLayout();
 
-    private function dvBarra(&$numero)
-    {
-        $pesos = "43290876543298765432987654329876543298765432";
-        if (strlen($numero) == 44) {
-            $soma = 0;
-            for ($i = 0; $i < strlen($numero); $i++) {
-                $soma += $numero[$i] * $pesos[$i];
-            } $num_temp = 11 - ($soma % 11);
-            if ($num_temp >= 10) {
-                $num_temp = 1;
-            } $numero[4] = $num_temp;
-        }
-    }
+    public function setLayout($layout);
 
+    /**
+     * Retorna o nosso numero
+     * @return string
+     */
+    public function getNossoNumero();
+
+    /**
+     * Define o nosso numero
+     * @param string $nossoNumero
+     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
+     */
+    public function setNossoNumero($nossoNumero);
+
+    /**
+     * Retorna os padroes de tamanhos para calculo do codigo de barras
+     * @return string
+     */
+    public function getTamanhos();
+
+    /**
+     * Altera o valor de uma composiao dos tamanhos da carteira
+     */
+    public function alterarTamanho($index, $tamanho);
 }

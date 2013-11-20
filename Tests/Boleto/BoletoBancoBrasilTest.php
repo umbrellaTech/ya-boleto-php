@@ -36,18 +36,34 @@ class BoletoBancoBrasilTest extends BoletoTestCase
 
     protected function bancoProvider()
     {
-        return new \Umbrella\Ya\Boleto\Banco\BancoBrasil("5579-0", "00000-0");
+        return new \Umbrella\Ya\Boleto\BancoBrasil\BancoBrasil("5579-0", "00000-0");
     }
 
     protected function convenio187Provider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\Carteira\BancoBrasil\Carteira187("2");
-        return new \Umbrella\Ya\Boleto\Convenio($this->bancoProvider(), $carteira, "2569589685");
+        $carteira = new \Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18();
+        return new \Umbrella\Ya\Boleto\BancoBrasil\Convenio($this->bancoProvider(), $carteira, "2569589", "2");
+    }
+
+    protected function convenio186Provider()
+    {
+        $carteira = new \Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18();
+        return new \Umbrella\Ya\Boleto\BancoBrasil\Convenio($this->bancoProvider(), $carteira, "1643044", "2");
+    }
+
+    protected function convenio184Provider()
+    {
+        $carteira = new \Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18();
+        return new \Umbrella\Ya\Boleto\BancoBrasil\Convenio($this->bancoProvider(), $carteira, "1643", "2");
     }
 
     public function boletoProvider()
     {
-        return array(array($this->pessoaProvider(), $this->convenio187Provider()));
+        return array(
+            array($this->pessoaProvider(), $this->convenio187Provider()),
+            array($this->pessoaProvider(), $this->convenio186Provider()),
+            array($this->pessoaProvider(), $this->convenio184Provider())
+        );
     }
 
     /**
@@ -55,13 +71,13 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testCriacaoBoletoComBanco($pessoa, $convenio)
     {
-        $boletoBB = new \Umbrella\Ya\Boleto\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
-        $boletoBB->setValorDocumento(1.00)
+        $boleto = new \Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto->setValorDocumento(1.00)
                 ->setNumeroDocumento("024588722")
                 ->setDataVencimento(new \DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
-        $this->assertNotEmpty($boletoBB);
+        $this->assertNotEmpty($boleto);
     }
 
     /**
@@ -69,7 +85,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testBoletoComValorAlto($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new \Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento("1.500,00")
                 ->setNumeroDocumento("23456")
                 ->setDataVencimento(new \DateTime("2013-11-02"))
@@ -84,24 +100,10 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testValorNegativo($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new \Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setDesconto(2.00)
                 ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
-                ->getLinhaDigitavel();
-
-        $this->assertNotEmpty($boleto);
-    }
-
-    /**
-     * @dataProvider boletoProvider
-     */
-    public function testConvenio6($pessoa, $convenio)
-    {
-        $boleto = new \Umbrella\Ya\Boleto\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
-        $boleto->setValorDocumento(1500.00)
-                ->setNumeroDocumento("23456")
                 ->setDataVencimento(new \DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 

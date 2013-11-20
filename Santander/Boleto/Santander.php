@@ -24,20 +24,35 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\View\Helper;
+namespace Umbrella\Ya\Boleto\Santander\Boleto;
+
+use Umbrella\Ya\Boleto\Boleto;
 
 /**
- * Description of String
- *
- * @author italo
+ * Clase abstrata que representa o Boleto do Banco do Brasil
+ * @author italo <italolelis@lellysinformatica.com>
+ * @since 1.0.0
  */
-class BarcodeFont implements BracodeRenderInterface
+class Santander extends Boleto
 {
 
-    public function render($codigoBarras)
+    protected function afterGeneration(&$cod)
     {
-        return $codigoBarras;
+        //$this->dvBarra($cod);
     }
 
+    private function dvBarra(&$numero)
+    {
+        $pesos = "43290876543298765432987654329876543298765432";
+        if (strlen($numero) == 44) {
+            $soma = 0;
+            for ($i = 0; $i < strlen($numero); $i++) {
+                $soma += $numero[$i] * $pesos[$i];
+            } $num_temp = 11 - ($soma % 11);
+            if ($num_temp >= 10) {
+                $num_temp = 1;
+            } $numero[4] = $num_temp;
+        }
+    }
 
 }

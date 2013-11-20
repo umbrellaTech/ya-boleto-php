@@ -31,7 +31,7 @@ namespace Umbrella\Ya\Boleto\Carteira;
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Carteira1 implements CarteiraInterface
+class Carteira1 implements ICarteira
 {
 
     public $tamanhos = array(
@@ -69,7 +69,7 @@ class Carteira1 implements CarteiraInterface
     /**
      * {@inheritdoc}
      * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
+     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
      */
     public function setNossoNumero($nossoNumero)
     {

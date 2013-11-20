@@ -39,7 +39,7 @@ abstract class Boleto
 {
 
     /**
-     * @var Convenio
+     * @var AbstractConvenio
      */
     protected $convenio;
 
@@ -74,7 +74,7 @@ abstract class Boleto
      * Cria uma nova instancia do Boleto
      * @param Banco $banco Instancia do Banco para o boleto
      */
-    public function __construct(Sacado $sacado, Cedente $cedente, Convenio $convenio)
+    public function __construct(Sacado $sacado, Cedente $cedente, AbstractConvenio $convenio)
     {
         $this->convenio = $convenio;
         $this->sacado = $sacado;
@@ -108,13 +108,13 @@ abstract class Boleto
             'Agencia' => $agencia,
             'Carteira' => $convenio->getCarteira()->getNumero(),
             'Conta' => $conta,
-            'NossoNumero' => $convenio->getCarteira()->getNossoNumero(),
+            'NossoNumero' => $convenio->getNossoNumero(),
             'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()->format("d/m/Y")),
             'CodigoCedente' => $convenio->getConvenio()
         ));
         $data->setFlags(\ArrayObject::ARRAY_AS_PROPS);
 
-        $tamanhos = $convenio->getCarteira()->getTamanhos();
+        $tamanhos = $convenio->getTamanhos();
 
         foreach ($data as $var => $value) {
             if (array_key_exists($var, $tamanhos)) {
@@ -122,9 +122,9 @@ abstract class Boleto
             }
         }
 
-        $this->getConvenio()->getCarteira()->handleData($data, $this);
+        $this->getConvenio()->handleData($data, $this);
 
-        $cod = String::insert($convenio->getCarteira()->getLayout(), $data);
+        $cod = String::insert($convenio->getLayout(), $data);
 
         //Isso deveria ser um observer para todos os interessados nesse evento
         if (method_exists($this, 'afterGeneration')) {
@@ -296,7 +296,7 @@ abstract class Boleto
 
     /**
      * Retorna o convenio do boleto
-     * @return Convenio
+     * @return AbstractConvenio
      */
     public function getConvenio()
     {
@@ -305,10 +305,10 @@ abstract class Boleto
 
     /**
      * Define o convenio do boleto
-     * @param Convenio $convenio
+     * @param AbstractConvenio $convenio
      * @return Boleto
      */
-    public function setConvenio(Convenio $convenio)
+    public function setConvenio(AbstractConvenio $convenio)
     {
         $this->convenio = $convenio;
         return $this;

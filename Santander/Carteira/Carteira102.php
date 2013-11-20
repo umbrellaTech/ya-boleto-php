@@ -24,50 +24,25 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira;
+namespace Umbrella\Ya\Boleto\Santander\Carteira;
+
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
+ * Representa a carteira 102 (Sem registro) para o banco Santander
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-interface CarteiraInterface
+class Carteira102 implements ICarteira
 {
 
     /**
-     * Callback utilizado para trabalhar os dados depois que eles consolidados. 
-     * Esse callback e executado antes de gerar o codigo de barras
-     */
-    public function handleData(\ArrayObject $data, \Umbrella\Ya\Boleto\Boleto $boleto);
-
-    /**
-     * Retorna o numero da carteira
-     * @return string 
-     */
-    public function getNumero();
-
-    /**
-     * Retorna o layout do codigo de barras
+     * {@inheritdoc}
      * @return string
      */
-    public function getLayout();
+    public function getNumero()
+    {
+        return "102";
+    }
 
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\CarteiraInterface
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
 }

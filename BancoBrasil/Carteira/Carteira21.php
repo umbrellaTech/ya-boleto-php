@@ -24,19 +24,16 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira\BancoBrasil;
+namespace Umbrella\Ya\Boleto\BancoBrasil\Carteira;
 
-use ArrayObject;
-use Umbrella\Ya\Boleto\Boleto;
-use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
-use Umbrella\Ya\Boleto\Type\Number;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
  * Representa a carteira 201 para o banco do brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Carteira216 implements CarteiraInterface
+class Carteira21 implements ICarteira
 {
 
     public $tamanhos = array(
@@ -48,12 +45,9 @@ class Carteira216 implements CarteiraInterface
         //Campos variávies
         'Agencia' => 4,
         'Conta' => 8,
-        'CodigoCedente' => 6,
-        'DigitoConta' => 1,
-        'NossoNumero' => 17,
         'Carteira' => 2,
     );
-    protected $layout = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira';
+    protected $layout;
     protected $nossoNumero;
 
     public function __construct($nossoNumero)
@@ -73,7 +67,7 @@ class Carteira216 implements CarteiraInterface
     /**
      * Define o nosso numero
      * @param string $nossoNumero
-     * @return CarteiraInterface
+     * @return ICarteira
      */
     public function setNossoNumero($nossoNumero)
     {
@@ -88,7 +82,7 @@ class Carteira216 implements CarteiraInterface
 
     public function getNumero()
     {
-        return "18-6";
+        return "21";
     }
 
     public function getTamanhos()
@@ -96,10 +90,14 @@ class Carteira216 implements CarteiraInterface
         return $this->tamanhos;
     }
 
-    public function handleData(ArrayObject $data, Boleto $boleto)
+    public function alterarTamanho($index, $tamanho)
     {
-        $carteira = $this->convenio->getCarteira();
-        $carteira->setNossoNumero($this->convenio->getConvenio() . Number::modulo11($carteira->getNossoNumero(), 0, 0, true));
+        $this->tamanhos[$index] = $tamanho;
+    }
+
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
     }
 
 }

@@ -31,7 +31,7 @@ namespace Umbrella\Ya\Boleto;
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Convenio
+class AbstractConvenio implements IConvenio
 {
 
     /**
@@ -40,16 +40,29 @@ class Convenio
     protected $banco;
 
     /**
-     * @var Carteira\CarteiraInterface 
+     * @var Carteira\ICarteira 
      */
     protected $carteira;
     protected $convenio;
+    protected $nossoNumero;
+    protected $layout;
+    public $tamanhos = array(
+        'Banco' => 3,
+        'Moeda' => 1,
+        'DV' => 1,
+        'FatorVencimento' => 4,
+        'Valor' => 10,
+        'Agencia' => 4,
+        'Conta' => 8,
+        'Carteira' => 2
+    );
 
-    public function __construct(Banco $banco, Carteira\CarteiraInterface $carteira, $convenio)
+    public function __construct(Banco $banco, Carteira\ICarteira $carteira, $convenio, $nossoNumero)
     {
         $this->banco = $banco;
         $this->carteira = $carteira;
         $this->convenio = $convenio;
+        $this->nossoNumero = $nossoNumero;
     }
 
     /**
@@ -64,7 +77,7 @@ class Convenio
     /**
      * Define o banco para o convenio
      * @param \Umbrella\Ya\Boleto\Banco $banco
-     * @return \Umbrella\Ya\Boleto\Convenio
+     * @return \Umbrella\Ya\Boleto\AbstractConvenio
      */
     public function setBanco(Banco $banco)
     {
@@ -74,7 +87,7 @@ class Convenio
 
     /**
      * Retorna a carteira do convenio
-     * @return Carteira\CarteiraInterface
+     * @return Carteira\ICarteira
      */
     public function getCarteira()
     {
@@ -92,8 +105,8 @@ class Convenio
 
     /**
      * Define a carteira do convenio
-     * @param Carteira\CarteiraInterface $carteira
-     * @return \Umbrella\Ya\Boleto\Convenio
+     * @param Carteira\ICarteira $carteira
+     * @return \Umbrella\Ya\Boleto\AbstractConvenio
      */
     public function setCarteira($carteira)
     {
@@ -104,11 +117,43 @@ class Convenio
     /**
      * Define o numero do convenio
      * @param string $convenio
-     * @return \Umbrella\Ya\Boleto\Convenio
+     * @return \Umbrella\Ya\Boleto\AbstractConvenio
      */
     public function setConvenio($convenio)
     {
         $this->convenio = $convenio;
+        return $this;
+    }
+
+    public function alterarTamanho($index, $tamanho)
+    {
+        $this->tamanhos[$index] = $tamanho;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
+    public function getNossoNumero()
+    {
+        return $this->nossoNumero;
+    }
+
+    public function getTamanhos()
+    {
+        return $this->tamanhos;
+    }
+
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+        return $this;
+    }
+
+    public function setNossoNumero($nossoNumero)
+    {
+        $this->nossoNumero = $nossoNumero;
         return $this;
     }
 

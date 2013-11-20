@@ -24,36 +24,16 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Carteira\Santander;
+namespace Umbrella\Ya\Boleto\BancoBrasil\Boleto;
 
-use ArrayObject;
 use Umbrella\Ya\Boleto\Boleto;
 
 /**
- * Representa a carteira 101 para o banco Santander
+ * Clase abstrata que representa o Boleto do Banco do Brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Carteira101 extends CarteiraSantander
+class BancoBrasil extends Boleto
 {
-
-    /**
-     * {@inheritdoc}
-     * @return string
-     */
-    public function getNumero()
-    {
-        return "101";
-    }
-
-    /**
-     * {@inheritdoc}
-     * @param ArrayObject $data
-     * @param \Umbrella\Ya\Boleto\Boleto $boleto
-     */
-    public function handleData(ArrayObject $data, Boleto $boleto)
-    {
-        
-    }
-
+    
 }
