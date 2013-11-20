@@ -31,13 +31,15 @@ namespace Umbrella\Ya\Boleto\View\Helper;
  *
  * @author italo
  */
-class BarcodeFont implements BracodeRenderInterface
+class BarcodeFont implements IBracodeRender
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function render($codigoBarras)
     {
         return $codigoBarras;
     }
-
 
 }

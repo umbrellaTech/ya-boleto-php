@@ -122,7 +122,7 @@ abstract class Boleto
             }
         }
 
-        $this->getConvenio()->handleData($data, $this);
+        $this->getConvenio()->gerarCampoLivre($data, $this);
 
         $cod = String::insert($convenio->getLayout(), $data);
 

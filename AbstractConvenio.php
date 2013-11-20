@@ -125,32 +125,50 @@ class AbstractConvenio implements IConvenio
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function alterarTamanho($index, $tamanho)
     {
         $this->tamanhos[$index] = $tamanho;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLayout()
     {
         return $this->layout;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getNossoNumero()
     {
         return $this->nossoNumero;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getTamanhos()
     {
         return $this->tamanhos;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setLayout($layout)
     {
         $this->layout = $layout;
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setNossoNumero($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;

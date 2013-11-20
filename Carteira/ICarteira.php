@@ -39,36 +39,4 @@ interface ICarteira
      * @return string 
      */
     public function getNumero();
-//
-//    /**
-//     * Retorna o layout do codigo de barras
-//     * @return string
-//     */
-//    public function getLayout();
-//
-//    public function setLayout($layout);
-//
-//    /**
-//     * Retorna o nosso numero
-//     * @return string
-//     */
-//    public function getNossoNumero();
-//
-//    /**
-//     * Define o nosso numero
-//     * @param string $nossoNumero
-//     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-//     */
-//    public function setNossoNumero($nossoNumero);
-//
-//    /**
-//     * Retorna os padroes de tamanhos para calculo do codigo de barras
-//     * @return string
-//     */
-//    public function getTamanhos();
-//
-//    /**
-//     * Altera o valor de uma composiao dos tamanhos da carteira
-//     */
-//    public function alterarTamanho($index, $tamanho);
 }

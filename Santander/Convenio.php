@@ -38,7 +38,7 @@ use Umbrella\Ya\Boleto\Type\Number;
 class Convenio extends AbstractConvenio
 {
 
-    public function handleData(ArrayObject $data)
+    public function gerarCampoLivre(ArrayObject $data)
     {
         $this->alterarTamanho('Fixo', 1);
         $this->alterarTamanho('Ios', 1);

@@ -31,9 +31,12 @@ namespace Umbrella\Ya\Boleto\View\Helper;
  *
  * @author italo
  */
-class BarcodeCss implements BracodeRenderInterface
+class BarcodeCss implements IBracodeRender
 {
 
+    /**
+     * {@inheritdoc}
+     */
     public function render($codigoBarras)
     {
         $barcodes = array('00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010');

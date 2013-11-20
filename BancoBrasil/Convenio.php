@@ -40,7 +40,7 @@ use Umbrella\Ya\Boleto\Type\Number;
 class Convenio extends AbstractConvenio
 {
 
-    public function handleData(ArrayObject $data)
+    public function gerarCampoLivre(ArrayObject $data)
     {
         $carteira = $this->carteira;
 
@@ -56,7 +56,7 @@ class Convenio extends AbstractConvenio
                     $this->alterarTamanho('NossoNumero', 17);
                     $this->layout = ':Banco:Moeda:FatorVencimento:Valor:NossoNumero:Agencia:Conta:Carteira';
                 } else {
-                    $this->nossoNumero = $this->convenio . Number::modulo11($carteira->getNossoNumero(), 0, 0, true);
+                    $this->nossoNumero = $this->convenio . Number::modulo11($this->getNossoNumero(), 0, 0, true);
                     $this->alterarTamanho('CodigoCedente', 6);
                     $this->alterarTamanho('NossoNumero', 5);
                     $this->layout = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira';

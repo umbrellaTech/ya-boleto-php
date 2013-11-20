@@ -30,8 +30,12 @@ namespace Umbrella\Ya\Boleto\View\Helper;
  *
  * @author italo
  */
-interface BracodeRenderInterface
+interface IBracodeRender
 {
 
+    /**
+     * Renderiza a imagem para um codigo de barras
+     * @param string $$codigoBarras O codigo de barras para gerar a imagem
+     */
     public function render($codigoBarras);
 }
