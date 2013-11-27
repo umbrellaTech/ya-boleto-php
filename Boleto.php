@@ -69,6 +69,7 @@ abstract class Boleto
     protected $codigoBarras;
     protected $linhaDigitavel;
     protected $mascara = "00000.00000 00000.000000 00000.000000 0 00000000000000";
+    protected $erros = array();
 
     /**
      * Cria uma nova instancia do Boleto
@@ -166,6 +167,38 @@ abstract class Boleto
         $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
 
         return String::applyMask($linhaDigitavel, $this->mascara);
+    }
+
+    /**
+     * Valida todos os dados que são obrigatórios para a geraçao de qualquer boleto
+     * @throws \InvalidArgumentException
+     */
+    public function validarDadosObrigatorios()
+    {
+        if (null === $this->getValorDocumento()) {
+            $this->erros['valor'] = 'Valor do documento é obrigatório';
+        }
+        if (null === $this->getConvenio()->getBanco()->getAgencia()) {
+            $this->erros['agencia'] = 'Agência do banco é obrigatório';
+        }
+        if (null === $this->getConvenio()->getBanco()->getConta()) {
+            $this->erros['conta'] = 'Conta do banco é obrigatório';
+        }
+        if (null === $this->getConvenio()->getCarteira()->getNumero()) {
+            $this->erros['carteira'] = 'Carteira do convênio é obrigatório';
+        }
+        if (!empty($this->erros)) {
+            throw new \InvalidArgumentException('Faltam dados a serem fornecidos.');
+        }
+    }
+
+    /**
+     * Retorna as mensagens de errors depois da validação
+     * @return array
+     */
+    public function getErros()
+    {
+        return $this->erros;
     }
 
     /**

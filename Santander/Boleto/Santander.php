@@ -55,4 +55,15 @@ class Santander extends Boleto
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function validarDadosObrigatorios()
+    {
+        if (null == $this->getConvenio()->getBanco()->getIos()) {
+            $this->erros['ios'] = 'Ios é um atributo obrigatório';
+        }
+        parent::validarDadosObrigatorios();
+    }
+
 }
