@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Tests\Boleto;
+namespace Umbrella\Ya\Boleto\Tests;
 
 /**
  * Description of BoletoTestCase

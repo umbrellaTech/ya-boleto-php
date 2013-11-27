@@ -24,7 +24,14 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Tests\Boleto;
+namespace Umbrella\Ya\Boleto\Tests\BancoBrasil\Boleto;
+
+use DateTime;
+use LogicException;
+use Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18;
+use Umbrella\Ya\Boleto\BancoBrasil\Convenio;
+use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
+use Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil as BoletoBancoBrasil;
 
 /**
  * Description of BoletoBancoBrasilTest
@@ -41,20 +48,20 @@ class BoletoBancoBrasilTest extends BoletoTestCase
 
     protected function convenio187Provider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18();
-        return new \Umbrella\Ya\Boleto\BancoBrasil\Convenio($this->bancoProvider(), $carteira, "2569589", "2");
+        $carteira = new Carteira18();
+        return new Convenio($this->bancoProvider(), $carteira, "2569589", "2");
     }
 
     protected function convenio186Provider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18();
-        return new \Umbrella\Ya\Boleto\BancoBrasil\Convenio($this->bancoProvider(), $carteira, "1643044", "2");
+        $carteira = new Carteira18();
+        return new Convenio($this->bancoProvider(), $carteira, "1643044", "2");
     }
 
     protected function convenio184Provider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18();
-        return new \Umbrella\Ya\Boleto\BancoBrasil\Convenio($this->bancoProvider(), $carteira, "1643", "2");
+        $carteira = new Carteira18();
+        return new Convenio($this->bancoProvider(), $carteira, "1643", "2");
     }
 
     public function boletoProvider()
@@ -71,10 +78,10 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testCriacaoBoletoComBanco($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->setDataVencimento(new DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -85,26 +92,40 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testBoletoComValorAlto($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento("1.500,00")
                 ->setNumeroDocumento("23456")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->setDataVencimento(new DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
 
     /**
-     * @expectedException \LogicException 
+     * @expectedException LogicException 
      * @dataProvider boletoProvider
      */
     public function testValorNegativo($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setDesconto(2.00)
                 ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->setDataVencimento(new DateTime("2013-11-02"))
+                ->getLinhaDigitavel();
+
+        $this->assertNotEmpty($boleto);
+    }
+
+    /**
+     * @dataProvider boletoProvider
+     */
+    public function testValidarCamposObrigatorios($pessoa, $convenio)
+    {
+        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        $boleto->setValorDocumento("1.500,00")
+                ->setNumeroDocumento("23456")
+                ->setDataVencimento(new DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);

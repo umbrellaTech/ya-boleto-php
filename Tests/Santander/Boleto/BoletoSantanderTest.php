@@ -24,27 +24,35 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Tests\Boleto;
+namespace Umbrella\Ya\Boleto\Tests\Santander\Boleto;
+
+use DateTime;
+use LogicException;
+use Umbrella\Ya\Boleto\Santander\Carteira\Carteira102;
+use Umbrella\Ya\Boleto\Santander\Convenio;
+use Umbrella\Ya\Boleto\Santander\Santander;
+use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
+use Umbrella\Ya\Boleto\Santander\Boleto\Santander as BoletoSantander;
 
 /**
  * Description of BoletoBancoBrasilTest
  *
  * @author italo
  */
-class SantanderTest extends BoletoTestCase
+class BoletoSantanderTest extends BoletoTestCase
 {
 
     protected function bancoProvider()
     {
-        $banco = new \Umbrella\Ya\Boleto\Santander\Santander("3857", "6188974");
+        $banco = new Santander("3857", "6188974");
         $banco->setIos(0);
         return $banco;
     }
 
     protected function convenio102Provider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\Santander\Carteira\Carteira102();
-        return new \Umbrella\Ya\Boleto\Santander\Convenio($this->bancoProvider(), $carteira, "0033418619006188974", "2");
+        $carteira = new Carteira102();
+        return new Convenio($this->bancoProvider(), $carteira, "0033418619006188974", "2");
     }
 
     public function boletoProvider()
@@ -57,10 +65,10 @@ class SantanderTest extends BoletoTestCase
      */
     public function testCriacaoBoletoComBanco($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\Santander\Boleto\Santander($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new BoletoSantander($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->setDataVencimento(new DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -71,26 +79,26 @@ class SantanderTest extends BoletoTestCase
      */
     public function testBoletoComValorAlto($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\Santander\Boleto\Santander($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new BoletoSantander($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento("1.500,00")
                 ->setNumeroDocumento("23456")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->setDataVencimento(new DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
 
     /**
-     * @expectedException \LogicException 
+     * @expectedException LogicException 
      * @dataProvider boletoProvider
      */
     public function testValorNegativo($pessoa, $convenio)
     {
-        $boleto = new \Umbrella\Ya\Boleto\Santander\Boleto\Santander($pessoa[0], $pessoa[1], $convenio);
+        $boleto = new BoletoSantander($pessoa[0], $pessoa[1], $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setDesconto(2.00)
                 ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new \DateTime("2013-11-02"))
+                ->setDataVencimento(new DateTime("2013-11-02"))
                 ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
