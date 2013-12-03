@@ -22,7 +22,17 @@ Atualmente o YABoleto funciona com os bancos abaixo:
 * Banco do Brasil (Carteiras 18-7, 18-6)
 * Santander (Carteira 102)
 
-Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum outro banco, fique à vontade para explorar o código, veja como é bastante simples integrar qualquer banco à biblioteca.
+## Contribua
+Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum outro banco, fique à vontade para explorar o código, 
+veja como é bastante simples integrar qualquer banco à biblioteca. Para instalar clone o projeto dentro da pasta **Umbrella/Ya/Boleto**.
+```
+git clone https://github.com/umbrellaTech/ya-boleto-php.git ya-boleto-php/Umbrella/Ya/Boleto
+```
+Ou usando o composer.
+```
+php composer.phar create-project umbrella/boleto ya-boleto-php/Umbrella/Ya/Boleto dev-master
+```
+Isso se deve por conta do autoloader que segue a [PSR-0][3].
 
 ## Licença
 
@@ -30,3 +40,4 @@ Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum out
 
 [1]: https://github.com/umbrellaTech/ya-boleto-demo
 [2]: https://github.com/umbrellaTech/ya-boleto-php/docs
+[3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
