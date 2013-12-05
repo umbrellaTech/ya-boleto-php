@@ -36,6 +36,11 @@ use Umbrella\Ya\Boleto\Banco;
 class BancoBrasil extends Banco
 {
 
+    /**
+     * 
+     * @param string $agencia
+     * @param string $conta
+     */
     public function __construct($agencia, $conta)
     {
         $numero = "001";

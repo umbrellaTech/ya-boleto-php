@@ -32,6 +32,8 @@ use Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18;
 use Umbrella\Ya\Boleto\BancoBrasil\Convenio;
 use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
 use Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil as BoletoBancoBrasil;
+use Umbrella\Ya\Boleto\BancoBrasil\BancoBrasil;
+use Umbrella\Ya\Boleto\Tests\Mock\Carteira as CarteiraMock;
 
 /**
  * Description of BoletoBancoBrasilTest
@@ -43,7 +45,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
 
     protected function bancoProvider()
     {
-        return new \Umbrella\Ya\Boleto\BancoBrasil\BancoBrasil("5579-0", "00000-0");
+        return new BancoBrasil("5579-0", "00000-0");
     }
 
     protected function convenio187Provider()
@@ -76,9 +78,10 @@ class BoletoBancoBrasilTest extends BoletoTestCase
     /**
      * @dataProvider boletoProvider
      */
-    public function testCriacaoBoletoComBanco($pessoa, $convenio)
+    public function testCriacaoBoletoComBanco($pessoa, \Umbrella\Ya\Boleto\AbstractConvenio $convenio)
     {
-        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        list($sacado, $cedente) = $pessoa;
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setNumeroDocumento("024588722")
                 ->setDataVencimento(new DateTime("2013-11-02"))
@@ -92,7 +95,8 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testBoletoComValorAlto($pessoa, $convenio)
     {
-        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        list($sacado, $cedente) = $pessoa;
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("1.500,00")
                 ->setNumeroDocumento("23456")
                 ->setDataVencimento(new DateTime("2013-11-02"))
@@ -107,7 +111,8 @@ class BoletoBancoBrasilTest extends BoletoTestCase
      */
     public function testValorNegativo($pessoa, $convenio)
     {
-        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
+        list($sacado, $cedente) = $pessoa;
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
                 ->setDesconto(2.00)
                 ->setNumeroDocumento("024588722")
@@ -117,18 +122,63 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $this->assertNotEmpty($boleto);
     }
 
-    /**
-     * @dataProvider boletoProvider
-     */
-    public function testValidarCamposObrigatorios($pessoa, $convenio)
+    public function validarCamposObrigatoriosProvider()
     {
-        $boleto = new BoletoBancoBrasil($pessoa[0], $pessoa[1], $convenio);
-        $boleto->setValorDocumento("1.500,00")
-                ->setNumeroDocumento("23456")
-                ->setDataVencimento(new DateTime("2013-11-02"))
-                ->getLinhaDigitavel();
+        $getMensagemException = function (array $nomesDosCampos) {
+            $dadosFaltantes = implode("', '", $nomesDosCampos);
+            return "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')";
+        };
 
-        $this->assertNotEmpty($boleto);
+        $carteiraNormal = new CarteiraMock();
+        $carteiraNormal->setNumero(18);
+
+        $carteiraNumeroNull = new CarteiraMock();
+        $carteiraNumeroNull->setNumero(null);
+
+        $bancoNormal = new BancoBrasil('agenciaTantoFaz', 'contaTantoFaz');
+        $bancoAngenciaNull = new BancoBrasil(null, 'contaTantoFaz');
+        $bancoAngenciaContaNull = new BancoBrasil(null, null);
+
+        $convenioNormal = new Convenio($bancoNormal, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
+        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
+        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
+        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
+
+        return array(
+            array(
+                $this->pessoaProvider(),
+                $convenioNormal,
+                $getMensagemException(array('valor')),
+            ),
+            array(
+                $this->pessoaProvider(),
+                $convenioAgenciaNull,
+                $getMensagemException(array('valor', 'agencia')),
+            ),
+            array(
+                $this->pessoaProvider(),
+                $convenioAgenciaContaNull,
+                $getMensagemException(array('valor', 'agencia', 'conta')),
+            ),
+            array(
+                $this->pessoaProvider(),
+                $convenioAgenciaContaCarteiraNull,
+                $getMensagemException(array('valor', 'agencia', 'conta', 'carteira')),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider validarCamposObrigatoriosProvider
+     */
+    public function testValidarCamposObrigatorios($pessoa, Convenio $convenio, $mensagem)
+    {
+        $this->setExpectedException('InvalidArgumentException', $mensagem);
+        list($sacado, $cedente) = $pessoa;
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento(null)->setConvenio($convenio);
+        $boleto->validarDadosObrigatorios();
+        $this->assertNotEmpty($boleto->getErros());
     }
 
 }

@@ -34,9 +34,8 @@ namespace Umbrella\Ya\Boleto\Tests;
 class BoletoTestCase extends \PHPUnit_Framework_TestCase
 {
 
-    protected function setUp()
+    public static function setUpBeforeClass()
     {
-        parent::setUp();
         date_default_timezone_set("America/Recife");
     }
 

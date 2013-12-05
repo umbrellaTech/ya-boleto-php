@@ -188,7 +188,10 @@ abstract class Boleto
             $this->erros['carteira'] = 'Carteira do convênio é obrigatório';
         }
         if (!empty($this->erros)) {
-            throw new \InvalidArgumentException('Faltam dados a serem fornecidos.');
+            $dadosFaltantes = implode("', '", array_keys($this->erros));
+            throw new \InvalidArgumentException(
+                "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')"
+            );
         }
     }
 
