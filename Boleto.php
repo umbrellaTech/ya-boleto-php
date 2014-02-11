@@ -115,6 +115,8 @@ abstract class Boleto
         ));
         $data->setFlags(\ArrayObject::ARRAY_AS_PROPS);
 
+        $this->getConvenio()->gerarCampoLivre($data, $this);
+        
         $tamanhos = $convenio->getTamanhos();
 
         foreach ($data as $var => $value) {
@@ -122,8 +124,6 @@ abstract class Boleto
                 $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
             }
         }
-
-        $this->getConvenio()->gerarCampoLivre($data, $this);
 
         $cod = String::insert($convenio->getLayout(), $data);
 
