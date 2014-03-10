@@ -31,7 +31,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Umbrella\\Ya\\Boleto": ""
+            "": "src/"
         }
     },
     "target-dir": "Umbrella/Ya/Boleto"
