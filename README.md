@@ -1,5 +1,10 @@
 # Yet Another Boleto
 
+
+[![Build Status](https://travis-ci.org/umbrellaTech/ya-boleto-php.png?branch=master)](https://travis-ci.org/umbrellaTech/ya-boleto-php)
+[![Latest Stable Version](https://poser.pugx.org/umbrella/ya-boleto-php/v/stable.png)](https://packagist.org/packages/umbrella/ya-boleto-php)
+[![Latest Unstable Version](https://poser.pugx.org/umbrella/ya-boleto-php/v/unstable.png)](https://packagist.org/packages/umbrella/ya-boleto-php)
+
 O YaBoleto e um novo componete de boleto bancario em PHP, mas qual a diferença dos outros? Simples... Ele foi projetado de forma simples e Orientada a Objetos.
 Seguimos os padrões PSR-0, PSR-1 e PSR-2, utilizamos padrões de projetos onde seria necessário e Voilà. O Ya Boleto vai mudar a forma de como você trabalha com boletos bancários.
 
