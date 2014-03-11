@@ -24,45 +24,36 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\Santander;
+
+use Umbrella\Ya\Boleto\Banco;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
+ * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-interface IConvenio
+class Santander extends Banco
 {
 
-    /**
-     * Retorna o layout do codigo de barras
-     * @return string
-     */
-    public function getLayout();
+    protected $ios;
 
-    public function setLayout($layout);
+    public function __construct($agencia, $conta)
+    {
+        $numero = "033";
+        $nome = "Santander Banespa";
+        parent::__construct($numero, $nome, $agencia, $conta);
+    }
 
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
+    public function getIos()
+    {
+        return $this->ios;
+    }
 
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
+    public function setIos($ios)
+    {
+        $this->ios = $ios;
+        return $this;
+    }
 
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
 }

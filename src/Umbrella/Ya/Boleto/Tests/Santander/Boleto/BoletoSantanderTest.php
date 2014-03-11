@@ -28,11 +28,11 @@ namespace Umbrella\Ya\Boleto\Tests\Santander\Boleto;
 
 use DateTime;
 use LogicException;
-use Umbrella\Ya\Boleto\Santander\Carteira\Carteira102;
-use Umbrella\Ya\Boleto\Santander\Convenio;
-use Umbrella\Ya\Boleto\Santander\Santander;
+use Umbrella\Ya\Boleto\Bancos\Santander\Carteira\Carteira102;
+use Umbrella\Ya\Boleto\Bancos\Santander\Convenio;
+use Umbrella\Ya\Boleto\Bancos\Santander\Santander;
 use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
-use Umbrella\Ya\Boleto\Santander\Boleto\Santander as BoletoSantander;
+use Umbrella\Ya\Boleto\Bancos\Santander\Boleto\Santander as BoletoSantander;
 
 /**
  * Description of BoletoBancoBrasilTest

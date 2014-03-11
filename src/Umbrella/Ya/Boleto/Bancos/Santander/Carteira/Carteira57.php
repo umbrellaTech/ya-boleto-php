@@ -24,45 +24,21 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\Santander\Carteira;
+
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Description of Carteira18
+ *
+ * @author italo
  */
-interface IConvenio
+class Carteira57 implements ICarteira
 {
 
-    /**
-     * Retorna o layout do codigo de barras
-     * @return string
-     */
-    public function getLayout();
+    public function getNumero()
+    {
+        return "57";
+    }
 
-    public function setLayout($layout);
-
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
 }

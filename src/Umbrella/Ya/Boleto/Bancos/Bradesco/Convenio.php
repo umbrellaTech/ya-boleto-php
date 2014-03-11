@@ -24,45 +24,27 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\Bradesco;
+
+use ArrayObject;
+use Umbrella\Ya\Boleto\AbstractConvenio;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
- * @author italo <italolelis@lellysinformatica.com>
+ * Clase abstrata que representa o Convenio
+ * @author edmo <edmofarias@gmail.com>
  * @since 1.0.0
  */
-interface IConvenio
+class Convenio extends AbstractConvenio
 {
 
-    /**
-     * Retorna o layout do codigo de barras
-     * @return string
-     */
-    public function getLayout();
+    public function gerarCampoLivre(ArrayObject $data)
+    {
+        $this->alterarTamanho('Agencia', 4);
+    	$this->alterarTamanho('Carteira', 2);
+        $this->alterarTamanho('NossoNumero', 11);
+        $this->alterarTamanho('CodigoCedente', 7);
 
-    public function setLayout($layout);
+        $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Carteira:NossoNumero:CodigoCedente0';
+    }
 
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
 }

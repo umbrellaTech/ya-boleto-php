@@ -24,45 +24,34 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\Santander;
+
+use ArrayObject;
+use Umbrella\Ya\Boleto\AbstractConvenio;
+use Umbrella\Ya\Boleto\Type\Number;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
+ * Clase abstrata que representa o Convenio
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-interface IConvenio
+class Convenio extends AbstractConvenio
 {
 
-    /**
-     * Retorna o layout do codigo de barras
-     * @return string
-     */
-    public function getLayout();
+    public function gerarCampoLivre(ArrayObject $data)
+    {
+        $this->alterarTamanho('Fixo', 1);
+        $this->alterarTamanho('Ios', 1);
+        $this->alterarTamanho('CodigoCedente', 7);
+        $this->alterarTamanho('NossoNumero', 13);
 
-    public function setLayout($layout);
+        $data['Fixo'] = "9";
+        $data['Ios'] = $this->banco->getIos();
 
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
+        $nossoNumero = $data['NossoNumero'];
+        $dvNossoNumero = Number::modulo11($nossoNumero);
+        $this->nossoNumero = $nossoNumero . $dvNossoNumero;
+        $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
+    }
 
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
 }
