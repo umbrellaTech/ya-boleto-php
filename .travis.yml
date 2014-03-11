@@ -13,4 +13,4 @@ before_install:
   - composer install --dev
 
 script:
- - phpunit --log-junit /tmp/nb-phpunit-log.xml --configuration ./phpunit.xml ./test
+ - phpunit --log-junit /tmp/nb-phpunit-log.xml --configuration ./phpunit.xml ./src/Umbrella/Ya/Boleto/Tests
