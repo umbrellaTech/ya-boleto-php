@@ -14,7 +14,7 @@ Quer utilizar o YaBoleto? Leia nossa [documentaçao][2] e veja como é simples.
 ### Composer
 Se você já conhece o **Composer** (o que é extremamente recomendado), simplesmente adicione a dependência abaixo à diretiva *"require"* no seu **composer.json**:
 ```
-"umbrella/boleto": "1.0.0"
+"umbrella/boleto": "1.4.0"
 ```
 
 Sim, só isso! Lembre-se de que cada banco possui alguma particularidade, mas em geral são estes parâmetros os obrigatórios. 
@@ -26,6 +26,8 @@ Atualmente o YABoleto funciona com os bancos abaixo:
 
 * Banco do Brasil (Carteiras 18-7, 18-6)
 * Santander (Carteira 102)
+* Caixa Econômica
+* Bradesco
 
 ## Contribua
 Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum outro banco, fique à vontade para explorar o código, 
