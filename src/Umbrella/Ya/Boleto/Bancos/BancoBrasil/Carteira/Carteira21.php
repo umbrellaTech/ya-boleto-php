@@ -24,45 +24,80 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira;
+
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
+ * Representa a carteira 201 para o banco do brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-interface IConvenio
+class Carteira21 implements ICarteira
 {
 
-    /**
-     * Retorna o layout do codigo de barras
-     * @return string
-     */
-    public function getLayout();
+    public $tamanhos = array(
+        'Banco' => 3,
+        'Moeda' => 1,
+        'DV' => 1,
+        'FatorVencimento' => 4,
+        'Valor' => 10,
+        //Campos variávies
+        'Agencia' => 4,
+        'Conta' => 8,
+        'Carteira' => 2,
+    );
+    protected $layout;
+    protected $nossoNumero;
 
-    public function setLayout($layout);
+    public function __construct($nossoNumero)
+    {
+        $this->nossoNumero = $nossoNumero;
+    }
 
     /**
      * Retorna o nosso numero
      * @return string
      */
-    public function getNossoNumero();
+    public function getNossoNumero()
+    {
+        return $this->nossoNumero;
+    }
 
     /**
      * Define o nosso numero
      * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
+     * @return ICarteira
      */
-    public function setNossoNumero($nossoNumero);
+    public function setNossoNumero($nossoNumero)
+    {
+        $this->nossoNumero = $nossoNumero;
+        return $this;
+    }
 
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
+    public function getLayout()
+    {
+        return $this->layout;
+    }
 
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
+    public function getNumero()
+    {
+        return "21";
+    }
+
+    public function getTamanhos()
+    {
+        return $this->tamanhos;
+    }
+
+    public function alterarTamanho($index, $tamanho)
+    {
+        $this->tamanhos[$index] = $tamanho;
+    }
+
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
 }

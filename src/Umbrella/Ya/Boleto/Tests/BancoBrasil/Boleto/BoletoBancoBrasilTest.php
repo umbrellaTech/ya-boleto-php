@@ -28,11 +28,11 @@ namespace Umbrella\Ya\Boleto\Tests\BancoBrasil\Boleto;
 
 use DateTime;
 use LogicException;
-use Umbrella\Ya\Boleto\BancoBrasil\Carteira\Carteira18;
-use Umbrella\Ya\Boleto\BancoBrasil\Convenio;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira\Carteira18;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Convenio;
 use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
-use Umbrella\Ya\Boleto\BancoBrasil\Boleto\BancoBrasil as BoletoBancoBrasil;
-use Umbrella\Ya\Boleto\BancoBrasil\BancoBrasil;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Boleto\BancoBrasil as BoletoBancoBrasil;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\BancoBrasil;
 use Umbrella\Ya\Boleto\Tests\Mock\Carteira as CarteiraMock;
 
 /**

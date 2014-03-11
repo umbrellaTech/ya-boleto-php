@@ -24,45 +24,16 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\BancoBrasil\Boleto;
+
+use Umbrella\Ya\Boleto\Boleto;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
+ * Clase abstrata que representa o Boleto do Banco do Brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-interface IConvenio
+class BancoBrasil extends Boleto
 {
-
-    /**
-     * Retorna o layout do codigo de barras
-     * @return string
-     */
-    public function getLayout();
-
-    public function setLayout($layout);
-
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
+    
 }

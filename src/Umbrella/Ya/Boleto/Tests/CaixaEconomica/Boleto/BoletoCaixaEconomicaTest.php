@@ -26,14 +26,14 @@
 
 namespace Umbrella\Ya\Boleto\Tests\CaixaEconomica\Boleto;
 
-use Umbrella\Ya\Boleto\CaixaEconomica\Carteira\Carteira01;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\Carteira01;
 
 use DateTime;
 use LogicException;
-use Umbrella\Ya\Boleto\CaixaEconomica\Convenio;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio;
 use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
-use Umbrella\Ya\Boleto\CaixaEconomica\Boleto\CaixaEconomica as BoletoCaixaEconomica;
-use Umbrella\Ya\Boleto\CaixaEconomica\CaixaEconomica;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica as BoletoCaixaEconomica;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\CaixaEconomica;
 use Umbrella\Ya\Boleto\Tests\Mock\Carteira as CarteiraMock;
 
 /**
@@ -51,7 +51,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
 
     protected function convenioProvider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\CaixaEconomica\Carteira\CarteiraSigcb();
+        $carteira = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb();
         return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
     }
 
@@ -64,9 +64,9 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
 
     public function testCriacaoBoleto()
     {
-    	$banco = new \Umbrella\Ya\Boleto\CaixaEconomica\CaixaEconomica('1101', '015776');
-        $carteira = new \Umbrella\Ya\Boleto\CaixaEconomica\Carteira\CarteiraSigcb();
-        $convenio = new \Umbrella\Ya\Boleto\CaixaEconomica\Convenio($banco, $carteira, '808080', '789631');
+    	$banco = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\CaixaEconomica('1101', '015776');
+        $carteira = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb();
+        $convenio = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio($banco, $carteira, '808080', '789631');
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica('Edmo Farias da Costa', "12345678909");
         $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
         $cedente = new \Umbrella\Ya\Boleto\Cedente('Empresa x','92559708000103');
@@ -74,7 +74,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $dataValida = date("Y-m-d");
         $data = new DateTime($dataValida);
 
-        $boletoCEF = new \Umbrella\Ya\Boleto\CaixaEconomica\Boleto\CaixaEconomica($sacado,$cedente, $convenio);
+        $boletoCEF = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica($sacado,$cedente, $convenio);
         $boletoCEF->setValorDocumento('388.99')
                 ->setNumeroDocumento('01235')
                 ->setDataVencimento($data)

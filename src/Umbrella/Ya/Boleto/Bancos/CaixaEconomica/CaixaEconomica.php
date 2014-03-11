@@ -24,45 +24,28 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica;
+
+use Umbrella\Ya\Boleto\Banco;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
- * @author italo <italolelis@lellysinformatica.com>
+ * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
+ * @author edmo <edmofarias@gmail.com>
  * @since 1.0.0
  */
-interface IConvenio
+class CaixaEconomica extends Banco
 {
 
     /**
-     * Retorna o layout do codigo de barras
-     * @return string
+     * 
+     * @param string $agencia
+     * @param string $conta
      */
-    public function getLayout();
+    public function __construct($agencia, $conta)
+    {
+        $numero = "104";
+        $nome = "Caixa Ecônomica Federal";
+        parent::__construct($numero, $nome, $agencia, $conta);
+    }
 
-    public function setLayout($layout);
-
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
 }

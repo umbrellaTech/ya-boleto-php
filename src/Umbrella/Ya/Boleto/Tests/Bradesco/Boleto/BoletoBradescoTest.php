@@ -26,14 +26,14 @@
 
 namespace Umbrella\Ya\Boleto\Tests\Bradesco\Boleto;
 
-use Umbrella\Ya\Boleto\Bradesco\Carteira\Carteira01;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira01;
 
 use DateTime;
 use LogicException;
-use Umbrella\Ya\Boleto\Bradesco\Convenio;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Convenio;
 use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
-use Umbrella\Ya\Boleto\Bradesco\Boleto\Bradesco as BoletoBradesco;
-use Umbrella\Ya\Boleto\Bradesco\Bradesco;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Boleto\Bradesco as BoletoBradesco;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Bradesco;
 use Umbrella\Ya\Boleto\Tests\Mock\Carteira as CarteiraMock;
 
 /**
@@ -51,7 +51,7 @@ class BoletoBradescoTest extends BoletoTestCase
 
     protected function convenioProvider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\Bradesco\Carteira\Carteira06();
+        $carteira = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira06();
         return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
     }
 
@@ -64,9 +64,9 @@ class BoletoBradescoTest extends BoletoTestCase
 
     public function testCriacaoBoleto()
     {
-    	$banco = new \Umbrella\Ya\Boleto\Bradesco\Bradesco('1101', '015776');
-        $carteira = new \Umbrella\Ya\Boleto\Bradesco\Carteira\Carteira06();
-        $convenio = new \Umbrella\Ya\Boleto\Bradesco\Convenio($banco, $carteira, '808080', '789631');
+    	$banco = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Bradesco('1101', '015776');
+        $carteira = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira06();
+        $convenio = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Convenio($banco, $carteira, '808080', '789631');
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica('Edmo Farias da Costa', "12345678909");
         $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
         $cedente = new \Umbrella\Ya\Boleto\Cedente('Empresa x','92559708000103');
@@ -74,7 +74,7 @@ class BoletoBradescoTest extends BoletoTestCase
         $dataValida = date("Y-m-d");
         $data = new DateTime($dataValida);
 
-        $boletoBRA = new \Umbrella\Ya\Boleto\Bradesco\Boleto\Bradesco($sacado,$cedente, $convenio);
+        $boletoBRA = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Boleto\Bradesco($sacado,$cedente, $convenio);
         $boletoBRA->setValorDocumento('388.99')
                 ->setNumeroDocumento('01235')
                 ->setDataVencimento($data)

@@ -24,45 +24,31 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira;
+
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 
 /**
- * Contem as funcionalidades basicas para uma carteira
- * @author italo <italolelis@lellysinformatica.com>
+ * Representa a carteira Sigcb para a CEF
+ * @author Edmo Farias <edmofarias@gmail.com>
  * @since 1.0.0
  */
-interface IConvenio
+class CarteiraSigcb implements ICarteira
 {
-
+    private $_tipo;
+    
+    public function __construct($tipo = null) {
+        $this->_tipo = $tipo;
+    }
     /**
-     * Retorna o layout do codigo de barras
-     * @return string
+     * {@inheritdoc}
      */
-    public function getLayout();
+    public function getNumero()
+    {
+        if($this->_tipo){
+            return $this->_tipo;
+        }
+        return '1';
+    }
 
-    public function setLayout($layout);
-
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param string $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     */
-    public function alterarTamanho($index, $tamanho);
 }
