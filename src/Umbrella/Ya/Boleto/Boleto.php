@@ -124,7 +124,10 @@ abstract class Boleto
                 $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
             }
         }
-
+        
+        //Atualiza o nossonumero normalizado no objeto Convenio
+        $convenio->setNossoNumero($data['NossoNumero']);
+        
         $cod = String::insert($convenio->getLayout(), $data);
 
         //Isso deveria ser um observer para todos os interessados nesse evento
