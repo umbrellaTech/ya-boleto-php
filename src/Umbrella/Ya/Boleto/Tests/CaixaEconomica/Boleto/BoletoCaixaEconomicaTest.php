@@ -26,8 +26,6 @@
 
 namespace Umbrella\Ya\Boleto\Tests\CaixaEconomica\Boleto;
 
-use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\Carteira01;
-
 use DateTime;
 use LogicException;
 use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio;

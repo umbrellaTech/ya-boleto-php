@@ -38,6 +38,10 @@ class Santander extends Banco
 
     protected $ios;
 
+    /**
+     * @param string $agencia
+     * @param string $conta
+     */
     public function __construct($agencia, $conta)
     {
         $numero = "033";
@@ -50,9 +54,13 @@ class Santander extends Banco
         return $this->ios;
     }
 
+    /**
+     * @param integer $ios
+     */
     public function setIos($ios)
     {
         $this->ios = $ios;
+
         return $this;
     }
 

@@ -36,6 +36,9 @@ abstract class Pessoa
 
     protected $nome;
 
+    /**
+     * @param string $nome
+     */
     public function __construct($nome)
     {
         $this->nome = $nome;
@@ -52,12 +55,13 @@ abstract class Pessoa
 
     /**
      * Define o nome da pessoa
-     * @param string $nome
+     * @param  string                     $nome
      * @return \Umbrella\Ya\Boleto\Pessoa
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
+
         return $this;
     }
 

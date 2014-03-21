@@ -46,12 +46,14 @@ class BoletoSantanderTest extends BoletoTestCase
     {
         $banco = new Santander("3857", "6188974");
         $banco->setIos(0);
+
         return $banco;
     }
 
     protected function convenio102Provider()
     {
         $carteira = new Carteira102();
+
         return new Convenio($this->bancoProvider(), $carteira, "0033418619006188974", "2");
     }
 
@@ -89,7 +91,7 @@ class BoletoSantanderTest extends BoletoTestCase
     }
 
     /**
-     * @expectedException LogicException 
+     * @expectedException LogicException
      * @dataProvider boletoProvider
      */
     public function testValorNegativo($pessoa, $convenio)

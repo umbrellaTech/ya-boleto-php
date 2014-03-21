@@ -37,7 +37,7 @@ class CaixaEconomica extends Banco
 {
 
     /**
-     * 
+     *
      * @param string $agencia
      * @param string $conta
      */

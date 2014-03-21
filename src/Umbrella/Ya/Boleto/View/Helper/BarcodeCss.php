@@ -103,8 +103,8 @@ class BarcodeCss implements IBracodeRender
     /**
      * Helper para obter os caracteres à esquerda
      *
-     * @param string $string
-     * @param int $num Quantidade de caracteres para se obter
+     * @param  string $string
+     * @param  int    $num    Quantidade de caracteres para se obter
      * @return string
      */
     protected function caracteresEsquerda($string, $num)
@@ -115,8 +115,8 @@ class BarcodeCss implements IBracodeRender
     /**
      * Helper para se obter os caracteres à direita
      *
-     * @param string $string
-     * @param int $num Quantidade de caracteres para se obter
+     * @param  string $string
+     * @param  int    $num    Quantidade de caracteres para se obter
      * @return string
      */
     protected function caracteresDireita($string, $num)

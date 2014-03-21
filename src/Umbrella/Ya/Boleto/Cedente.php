@@ -33,5 +33,5 @@ namespace Umbrella\Ya\Boleto;
  */
 class Cedente extends PessoaJuridica
 {
-    
+
 }

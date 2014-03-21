@@ -66,12 +66,13 @@ class Carteira21 implements ICarteira
 
     /**
      * Define o nosso numero
-     * @param string $nossoNumero
+     * @param  string    $nossoNumero
      * @return ICarteira
      */
     public function setNossoNumero($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;
+
         return $this;
     }
 

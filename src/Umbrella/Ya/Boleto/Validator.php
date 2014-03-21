@@ -40,6 +40,7 @@ class Validator
      * traços ao número informado.
      *                       
      * @param $value CPF a ser verificado
+     * @param string $cpf
      * @return boolean
      */
     public static function cpf($cpf)
@@ -70,7 +71,7 @@ class Validator
      * Valida um CNPJ.
      * cnpj() não considera pontos, traços e barras.
      * 
-     * @param $cnpj CNPJ a ser verificado
+     * @param string $cnpj CNPJ a ser verificado
      * @return boolean
      */
     public static function cnpj($cnpj)

@@ -68,12 +68,13 @@ class Carteira1 implements ICarteira
 
     /**
      * {@inheritdoc}
-     * @param string $nossoNumero
+     * @param  string                                 $nossoNumero
      * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
      */
     public function setNossoNumero($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;
+
         return $this;
     }
 
@@ -106,12 +107,12 @@ class Carteira1 implements ICarteira
 
     /**
      * {@inheritdoc}
-     * @param \ArrayObject $data
+     * @param \ArrayObject               $data
      * @param \Umbrella\Ya\Boleto\Boleto $boleto
      */
     public function handleData(\ArrayObject $data, \Umbrella\Ya\Boleto\Boleto $boleto)
     {
-        
+
     }
 
 }

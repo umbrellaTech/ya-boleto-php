@@ -51,18 +51,21 @@ class BoletoBancoBrasilTest extends BoletoTestCase
     protected function convenio187Provider()
     {
         $carteira = new Carteira18();
+
         return new Convenio($this->bancoProvider(), $carteira, "2569589", "2");
     }
 
     protected function convenio186Provider()
     {
         $carteira = new Carteira18();
+
         return new Convenio($this->bancoProvider(), $carteira, "1643044", "2");
     }
 
     protected function convenio184Provider()
     {
         $carteira = new Carteira18();
+
         return new Convenio($this->bancoProvider(), $carteira, "1643", "2");
     }
 
@@ -106,7 +109,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
     }
 
     /**
-     * @expectedException LogicException 
+     * @expectedException LogicException
      * @dataProvider boletoProvider
      */
     public function testValorNegativo($pessoa, $convenio)
@@ -126,6 +129,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
     {
         $getMensagemException = function (array $nomesDosCampos) {
             $dadosFaltantes = implode("', '", $nomesDosCampos);
+
             return "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')";
         };
 

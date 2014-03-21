@@ -37,7 +37,7 @@ class Bradesco extends Banco
 {
 
     /**
-     * 
+     *
      * @param string $agencia
      * @param string $conta
      */

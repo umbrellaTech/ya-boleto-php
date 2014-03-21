@@ -26,8 +26,6 @@
 
 namespace Umbrella\Ya\Boleto\Tests\Bradesco\Boleto;
 
-use Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira01;
-
 use DateTime;
 use LogicException;
 use Umbrella\Ya\Boleto\Bancos\Bradesco\Convenio;

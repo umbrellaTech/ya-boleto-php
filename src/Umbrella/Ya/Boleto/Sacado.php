@@ -35,7 +35,7 @@ class Sacado
 {
 
     /**
-     * @var Pessoa 
+     * @var Pessoa
      */
     protected $tipo;
 
@@ -55,12 +55,13 @@ class Sacado
 
     /**
      * Define o tipo da pessoa para o sacado
-     * @param \Umbrella\Ya\Boleto\Pessoa $tipo
+     * @param  \Umbrella\Ya\Boleto\Pessoa $tipo
      * @return \Umbrella\Ya\Boleto\Sacado
      */
     public function setTipo(Pessoa $tipo)
     {
         $this->tipo = $tipo;
+
         return $this;
     }
 

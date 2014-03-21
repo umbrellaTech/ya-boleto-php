@@ -58,7 +58,7 @@ class PessoaFisica extends Pessoa
 
     /**
      * Define o cpf da pessoa fisica
-     * @param string $cpf
+     * @param  string                           $cpf
      * @return \Umbrella\Ya\Boleto\PessoaFisica
      */
     public function setCpf($cpf)
@@ -67,6 +67,7 @@ class PessoaFisica extends Pessoa
             throw new \InvalidArgumentException("O CPF informado e invalido");
         }
         $this->cpf = $cpf;
+
         return $this;
     }
 

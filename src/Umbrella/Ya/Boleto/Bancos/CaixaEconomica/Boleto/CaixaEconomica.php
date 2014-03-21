@@ -35,5 +35,5 @@ use Umbrella\Ya\Boleto\Boleto;
  */
 class CaixaEconomica extends Boleto
 {
-    
+
 }
