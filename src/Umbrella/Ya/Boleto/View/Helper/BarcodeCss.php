@@ -39,6 +39,10 @@ class BarcodeCss implements IBracodeRender
      */
     public function render($codigoBarras)
     {
+        if (!is_string($codigoBarras)) {
+            throw new \InvalidArgumentException('O código de barras deve ser uma string');
+        }
+        
         $barcodes = array('00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010');
 
         for ($f1 = 9; $f1 >= 0; $f1--) {
