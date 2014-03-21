@@ -2,7 +2,6 @@ before_commands:
     - "composer install --dev --prefer-source"
 
 tools:
-    external_code_coverage: true
     php_code_sniffer:
         enabled: true
         config:
