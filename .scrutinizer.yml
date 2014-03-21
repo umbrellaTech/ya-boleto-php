@@ -12,7 +12,7 @@ tools:
         enabled: true
         excluded_dirs: ["/src/Umbrella/Ya/Boleto/Tests/", "vendor"]
     php_cs_fixer:
-        enabled: true
+        enabled: false
         config:
             level: all
         filter:
