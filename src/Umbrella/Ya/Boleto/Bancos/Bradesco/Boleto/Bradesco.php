@@ -35,5 +35,5 @@ use Umbrella\Ya\Boleto\Boleto;
  */
 class Bradesco extends Boleto
 {
-    
+
 }

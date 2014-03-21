@@ -40,7 +40,7 @@ class Convenio extends AbstractConvenio
     public function gerarCampoLivre(ArrayObject $data)
     {
         $this->alterarTamanho('Agencia', 4);
-    	$this->alterarTamanho('Carteira', 2);
+        $this->alterarTamanho('Carteira', 2);
         $this->alterarTamanho('NossoNumero', 11);
         $this->alterarTamanho('CodigoCedente', 7);
 

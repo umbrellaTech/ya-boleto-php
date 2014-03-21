@@ -38,8 +38,8 @@ class String
      * 
      * @param type $text
      * @param type $put
-     * @param type $at
-     * @return type
+     * @param integer $at
+     * @return string
      */
     public static function putAt($text, $put, $at)
     {
@@ -50,7 +50,7 @@ class String
      * 
      * @param type $text
      * @param type $length
-     * @return type
+     * @return string
      */
     public static function left($text, $length)
     {
@@ -59,9 +59,9 @@ class String
 
     /**
      * 
-     * @param type $text
+     * @param string $text
      * @param type $mask
-     * @return type
+     * @return string
      */
     public static function applyMask($text, $mask)
     {
@@ -91,7 +91,7 @@ class String
      * 
      * @param type $text
      * @param type $length
-     * @return type
+     * @return string
      */
     public static function zeros($text, $length)
     {
@@ -105,7 +105,7 @@ class String
      * 
      * @param type $var
      * @param type $length
-     * @return type
+     * @return string
      */
     public static function normalize(&$var, $length)
     {
@@ -115,7 +115,7 @@ class String
     /**
      * 
      * @param type $string
-     * @param type $data
+     * @param \ArrayObject $data
      * @return type
      */
     public static function insert($string, $data)

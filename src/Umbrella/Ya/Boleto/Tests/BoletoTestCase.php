@@ -49,7 +49,7 @@ class BoletoTestCase extends \PHPUnit_Framework_TestCase
             $sacado,
             $cedente
         );
-        
+
         return $pessoa;
     }
 

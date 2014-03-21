@@ -40,6 +40,9 @@ interface IConvenio
      */
     public function getLayout();
 
+    /**
+     * @return AbstractConvenio
+     */
     public function setLayout($layout);
 
     /**
@@ -50,7 +53,7 @@ interface IConvenio
 
     /**
      * Define o nosso numero
-     * @param string $nossoNumero
+     * @param  string                                 $nossoNumero
      * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
      */
     public function setNossoNumero($nossoNumero);
@@ -63,6 +66,7 @@ interface IConvenio
 
     /**
      * Altera o valor de uma composiao dos tamanhos da carteira
+     * @return void
      */
     public function alterarTamanho($index, $tamanho);
 }

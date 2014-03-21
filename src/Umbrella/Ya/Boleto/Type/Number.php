@@ -34,6 +34,9 @@ namespace Umbrella\Ya\Boleto\Type;
 class Number
 {
 
+    /**
+     * @param double $number
+     */
     public static function format($number)
     {
         return (int) ($number * 100);
@@ -99,7 +102,8 @@ class Number
      * 
      * @since   1.0.0
      * @param   string
-     * @return  string
+     * @param string $num
+     * @return  integer
      */
     public static function modulo10($num)
     {
@@ -138,6 +142,9 @@ class Number
         return $digito;
     }
 
+    /**
+     * @param string $data
+     */
     public static function fatorVencimento($data)
     {
         $data = explode("/", $data);

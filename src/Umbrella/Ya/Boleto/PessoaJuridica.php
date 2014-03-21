@@ -58,7 +58,7 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Define o cnpj da pessoa juridica
-     * @param string $cnpj
+     * @param  string                             $cnpj
      * @return \Umbrella\Ya\Boleto\PessoaJuridica
      */
     public function setCnpj($cnpj)
@@ -67,6 +67,7 @@ class PessoaJuridica extends Pessoa
             throw new \InvalidArgumentException("O CNPJ informado e invalido");
         }
         $this->cnpj = $cnpj;
+
         return $this;
     }
 

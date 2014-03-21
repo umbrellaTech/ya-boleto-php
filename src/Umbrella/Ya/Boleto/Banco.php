@@ -40,6 +40,10 @@ abstract class Banco
     protected $conta;
     protected $nome;
 
+    /**
+     * @param string $numero
+     * @param string $nome
+     */
     public function __construct($numero, $nome, $agencia, $conta)
     {
         $this->numero = $numero;
@@ -62,12 +66,14 @@ abstract class Banco
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
+
         return $this;
     }
 
     public function setNome($nome)
     {
         $this->nome = $nome;
+
         return $this;
     }
 
@@ -100,34 +106,37 @@ abstract class Banco
 
     /**
      * Define o numero do banco
-     * @param int $numero
+     * @param  int                       $numero
      * @return \Umbrella\Ya\Boleto\Banco
      */
     public function setNumero($numero)
     {
         $this->numero = $numero;
+
         return $this;
     }
 
     /**
      * Define o numero da agencia
-     * @param string $agencia
+     * @param  string                    $agencia
      * @return \Umbrella\Ya\Boleto\Banco
      */
     public function setAgencia($agencia)
     {
         $this->agencia = $agencia;
+
         return $this;
     }
 
     /**
      * Define o numero da conta
-     * @param setring $conta
+     * @param  setring                   $conta
      * @return \Umbrella\Ya\Boleto\Banco
      */
     public function setConta($conta)
     {
         $this->conta = $conta;
+
         return $this;
     }
 

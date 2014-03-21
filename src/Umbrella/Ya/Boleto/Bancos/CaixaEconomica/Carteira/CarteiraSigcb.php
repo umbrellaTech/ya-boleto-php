@@ -36,8 +36,9 @@ use Umbrella\Ya\Boleto\Carteira\ICarteira;
 class CarteiraSigcb implements ICarteira
 {
     private $_tipo;
-    
-    public function __construct($tipo = null) {
+
+    public function __construct($tipo = null)
+    {
         $this->_tipo = $tipo;
     }
     /**
@@ -45,9 +46,10 @@ class CarteiraSigcb implements ICarteira
      */
     public function getNumero()
     {
-        if($this->_tipo){
+        if ($this->_tipo) {
             return $this->_tipo;
         }
+
         return '1';
     }
 

@@ -35,12 +35,12 @@ class AbstractConvenio implements IConvenio
 {
 
     /**
-     * @var Banco 
+     * @var Banco
      */
     protected $banco;
 
     /**
-     * @var Carteira\ICarteira 
+     * @var Carteira\ICarteira
      */
     protected $carteira;
     protected $convenio;
@@ -57,6 +57,10 @@ class AbstractConvenio implements IConvenio
         'Carteira' => 2
     );
 
+    /**
+     * @param string $convenio
+     * @param string $nossoNumero
+     */
     public function __construct(Banco $banco, Carteira\ICarteira $carteira, $convenio, $nossoNumero)
     {
         $this->banco = $banco;
@@ -76,12 +80,13 @@ class AbstractConvenio implements IConvenio
 
     /**
      * Define o banco para o convenio
-     * @param \Umbrella\Ya\Boleto\Banco $banco
+     * @param  \Umbrella\Ya\Boleto\Banco            $banco
      * @return \Umbrella\Ya\Boleto\AbstractConvenio
      */
     public function setBanco(Banco $banco)
     {
         $this->banco = $banco;
+
         return $this;
     }
 
@@ -105,23 +110,25 @@ class AbstractConvenio implements IConvenio
 
     /**
      * Define a carteira do convenio
-     * @param Carteira\ICarteira $carteira
+     * @param  Carteira\ICarteira                   $carteira
      * @return \Umbrella\Ya\Boleto\AbstractConvenio
      */
     public function setCarteira($carteira)
     {
         $this->carteira = $carteira;
+
         return $this;
     }
 
     /**
      * Define o numero do convenio
-     * @param string $convenio
+     * @param  string                               $convenio
      * @return \Umbrella\Ya\Boleto\AbstractConvenio
      */
     public function setConvenio($convenio)
     {
         $this->convenio = $convenio;
+
         return $this;
     }
 
@@ -163,6 +170,7 @@ class AbstractConvenio implements IConvenio
     public function setLayout($layout)
     {
         $this->layout = $layout;
+
         return $this;
     }
 
@@ -172,6 +180,7 @@ class AbstractConvenio implements IConvenio
     public function setNossoNumero($nossoNumero)
     {
         $this->nossoNumero = $nossoNumero;
+
         return $this;
     }
 

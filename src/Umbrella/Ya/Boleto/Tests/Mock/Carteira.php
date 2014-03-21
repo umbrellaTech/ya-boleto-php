@@ -9,8 +9,8 @@ use Umbrella\Ya\Boleto\Carteira\ICarteira;
  *
  * @author mikhail
  */
-class Carteira implements ICarteira {
-
+class Carteira implements ICarteira
+{
     private $numero;
 
     public function getNumero()
@@ -18,6 +18,9 @@ class Carteira implements ICarteira {
         return $this->numero;
     }
 
+    /**
+     * @param integer|null $numero
+     */
     public function setNumero($numero)
     {
         $this->numero = $numero;

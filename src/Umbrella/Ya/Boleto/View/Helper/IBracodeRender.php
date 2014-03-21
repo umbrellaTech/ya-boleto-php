@@ -35,7 +35,7 @@ interface IBracodeRender
 
     /**
      * Renderiza a imagem para um codigo de barras
-     * @param string $$codigoBarras O codigo de barras para gerar a imagem
+     * @param string $codigoBarras O codigo de barras para gerar a imagem
      */
     public function render($codigoBarras);
 }

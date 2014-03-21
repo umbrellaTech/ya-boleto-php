@@ -36,7 +36,7 @@ interface ICarteira
 
     /**
      * Retorna o numero da carteira
-     * @return string 
+     * @return string
      */
     public function getNumero();
 }

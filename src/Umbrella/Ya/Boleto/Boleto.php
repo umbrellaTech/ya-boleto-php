@@ -44,7 +44,7 @@ abstract class Boleto
     protected $convenio;
 
     /**
-     * @var Cedente 
+     * @var Cedente
      */
     protected $cedente;
 
@@ -73,7 +73,6 @@ abstract class Boleto
 
     /**
      * Cria uma nova instancia do Boleto
-     * @param Banco $banco Instancia do Banco para o boleto
      */
     public function __construct(Sacado $sacado, Cedente $cedente, AbstractConvenio $convenio)
     {
@@ -116,7 +115,7 @@ abstract class Boleto
         $data->setFlags(\ArrayObject::ARRAY_AS_PROPS);
 
         $this->getConvenio()->gerarCampoLivre($data, $this);
-        
+
         $tamanhos = $convenio->getTamanhos();
 
         foreach ($data as $var => $value) {
@@ -124,10 +123,10 @@ abstract class Boleto
                 $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
             }
         }
-        
+
         //Atualiza o nossonumero normalizado no objeto Convenio
         $convenio->setNossoNumero($data['NossoNumero']);
-        
+
         $cod = String::insert($convenio->getLayout(), $data);
 
         //Isso deveria ser um observer para todos os interessados nesse evento
@@ -145,7 +144,7 @@ abstract class Boleto
 
     /**
      * Gera a linha digitavel baseado em um codigo de barras
-     * @param string $codigoBarras
+     * @param  string $codigoBarras
      * @return string
      */
     protected function gerarLinhaDigitavel($codigoBarras)
@@ -246,24 +245,28 @@ abstract class Boleto
     public function setQuantidade($quantidade)
     {
         $this->quantidade = $quantidade;
+
         return $this;
     }
 
     public function setAceite($aceite)
     {
         $this->aceite = $aceite;
+
         return $this;
     }
 
     public function setEspecie($especie)
     {
         $this->especie = $especie;
+
         return $this;
     }
 
     public function setLocalPagamento($localPagamento)
     {
         $this->localPagamento = $localPagamento;
+
         return $this;
     }
 
@@ -275,6 +278,7 @@ abstract class Boleto
     public function setInstrucoes($instrucoes)
     {
         $this->instrucoes = $instrucoes;
+
         return $this;
     }
 
@@ -298,27 +302,34 @@ abstract class Boleto
         return $this->outrosAcrescimos;
     }
 
+    /**
+     * @param double $desconto
+     */
     public function setDesconto($desconto)
     {
         $this->desconto = $desconto;
+
         return $this;
     }
 
     public function setOutrasDeducoes($outrasDeducoes)
     {
         $this->outrasDeducoes = $outrasDeducoes;
+
         return $this;
     }
 
     public function setMulta($multa)
     {
         $this->multa = $multa;
+
         return $this;
     }
 
     public function setOutrosAcrescimos($outrosAcrescimos)
     {
         $this->outrosAcrescimos = $outrosAcrescimos;
+
         return $this;
     }
 
@@ -330,6 +341,7 @@ abstract class Boleto
     public function setDataDocumento($dataDocumento)
     {
         $this->dataDocumento = $dataDocumento;
+
         return $this;
     }
 
@@ -344,12 +356,13 @@ abstract class Boleto
 
     /**
      * Define o convenio do boleto
-     * @param AbstractConvenio $convenio
+     * @param  AbstractConvenio $convenio
      * @return Boleto
      */
     public function setConvenio(AbstractConvenio $convenio)
     {
         $this->convenio = $convenio;
+
         return $this;
     }
 
@@ -373,23 +386,25 @@ abstract class Boleto
 
     /**
      * Define a taxa do boleto
-     * @param float $taxa
+     * @param  float  $taxa
      * @return Boleto
      */
     public function setTaxa($taxa)
     {
         $this->taxa = $taxa;
+
         return $this;
     }
 
     /**
      * Define o numero do documento
-     * @param int $numeroDocumento
+     * @param  int    $numeroDocumento
      * @return Boleto
      */
     public function setNumeroDocumento($numeroDocumento)
     {
         $this->numeroDocumento = $numeroDocumento;
+
         return $this;
     }
 
@@ -413,23 +428,25 @@ abstract class Boleto
 
     /**
      * Define o cedente
-     * @param Pessoa $cendente
+     * @param  Pessoa $cendente
      * @return Boleto
      */
     public function setCedente(Pessoa $cendente)
     {
         $this->cedente = $cendente;
+
         return $this;
     }
 
     /**
      * Define o sacado
-     * @param Pessoa $sacado
+     * @param  Pessoa $sacado
      * @return Boleto
      */
     public function setSacado(Pessoa $sacado)
     {
         $this->sacado = $sacado;
+
         return $this;
     }
 
@@ -453,7 +470,7 @@ abstract class Boleto
 
     /**
      * Retorna o codigo de barras
-     * @return int
+     * @return string
      */
     public function getCodigoBarras()
     {
@@ -462,7 +479,7 @@ abstract class Boleto
 
     /**
      * Retorna a linha digitavel
-     * @return int
+     * @return string
      */
     public function getLinhaDigitavel()
     {
@@ -474,29 +491,31 @@ abstract class Boleto
 
     /**
      * Define o valor do documento
-     * @param string $valorDocumento
+     * @param  string $valorDocumento
      * @return Boleto
      */
     public function setValorDocumento($valorDocumento)
     {
         $this->valorDocumento = $valorDocumento;
+
         return $this;
     }
 
     /**
      * Define a data de venciemnto
-     * @param DateTime $dataVencimento
+     * @param  DateTime $dataVencimento
      * @return Boleto
      */
     public function setDataVencimento(DateTime $dataVencimento)
     {
         $this->dataVencimento = $dataVencimento;
+
         return $this;
     }
 
     /**
      * Retorna a data de vencimento
-     * @return DateTime
+     * @return double
      */
     public function getTotal()
     {
