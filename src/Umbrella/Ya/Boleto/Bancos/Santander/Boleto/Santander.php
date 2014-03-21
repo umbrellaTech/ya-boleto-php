@@ -36,25 +36,6 @@ use Umbrella\Ya\Boleto\Boleto;
 class Santander extends Boleto
 {
 
-    protected function afterGeneration(&$cod)
-    {
-        //$this->dvBarra($cod);
-    }
-
-    private function dvBarra(&$numero)
-    {
-        $pesos = "43290876543298765432987654329876543298765432";
-        if (strlen($numero) == 44) {
-            $soma = 0;
-            for ($i = 0; $i < strlen($numero); $i++) {
-                $soma += $numero[$i] * $pesos[$i];
-            } $num_temp = 11 - ($soma % 11);
-            if ($num_temp >= 10) {
-                $num_temp = 1;
-            } $numero[4] = $num_temp;
-        }
-    }
-
     /**
      * {@inheritdoc}
      */

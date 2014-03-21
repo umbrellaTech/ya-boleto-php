@@ -26,12 +26,15 @@
 
 namespace Umbrella\Ya\Boleto;
 
+use ArrayObject;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
+
 /**
  * Clase abstrata que representa o Convenio
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class AbstractConvenio implements IConvenio
+abstract class AbstractConvenio implements IConvenio
 {
 
     /**
@@ -40,7 +43,7 @@ class AbstractConvenio implements IConvenio
     protected $banco;
 
     /**
-     * @var Carteira\ICarteira
+     * @var ICarteira
      */
     protected $carteira;
     protected $convenio;
@@ -61,13 +64,15 @@ class AbstractConvenio implements IConvenio
      * @param string $convenio
      * @param string $nossoNumero
      */
-    public function __construct(Banco $banco, Carteira\ICarteira $carteira, $convenio, $nossoNumero)
+    public function __construct(Banco $banco, ICarteira $carteira, $convenio, $nossoNumero)
     {
         $this->banco = $banco;
         $this->carteira = $carteira;
         $this->convenio = $convenio;
         $this->nossoNumero = $nossoNumero;
     }
+
+    abstract public function gerarCampoLivre(ArrayObject $data);
 
     /**
      * Retorna o banco para o convenio
@@ -80,8 +85,8 @@ class AbstractConvenio implements IConvenio
 
     /**
      * Define o banco para o convenio
-     * @param  \Umbrella\Ya\Boleto\Banco            $banco
-     * @return \Umbrella\Ya\Boleto\AbstractConvenio
+     * @param  Banco            $banco
+     * @return AbstractConvenio
      */
     public function setBanco(Banco $banco)
     {
@@ -92,7 +97,7 @@ class AbstractConvenio implements IConvenio
 
     /**
      * Retorna a carteira do convenio
-     * @return Carteira\ICarteira
+     * @return ICarteira
      */
     public function getCarteira()
     {
@@ -110,8 +115,8 @@ class AbstractConvenio implements IConvenio
 
     /**
      * Define a carteira do convenio
-     * @param  Carteira\ICarteira                   $carteira
-     * @return \Umbrella\Ya\Boleto\AbstractConvenio
+     * @param  ICarteira                   $carteira
+     * @return AbstractConvenio
      */
     public function setCarteira($carteira)
     {
@@ -123,7 +128,7 @@ class AbstractConvenio implements IConvenio
     /**
      * Define o numero do convenio
      * @param  string                               $convenio
-     * @return \Umbrella\Ya\Boleto\AbstractConvenio
+     * @return AbstractConvenio
      */
     public function setConvenio($convenio)
     {

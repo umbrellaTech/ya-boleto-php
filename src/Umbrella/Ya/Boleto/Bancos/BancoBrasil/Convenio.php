@@ -71,6 +71,8 @@ class Convenio extends AbstractConvenio
             default:
                 throw new LogicException('O codigo do convenio precisa ter 4, 6 ou 7 digitos!');
         }
+
+        return $data;
     }
 
 }

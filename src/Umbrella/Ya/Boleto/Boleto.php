@@ -129,11 +129,6 @@ abstract class Boleto
 
         $cod = String::insert($convenio->getLayout(), $data);
 
-        //Isso deveria ser um observer para todos os interessados nesse evento
-        if (method_exists($this, 'afterGeneration')) {
-            $this->afterGeneration($cod);
-        }
-
         //Cálculo do dígito verificador geral do código de barras
         $dv = Number::modulo11($cod, 1, 1);
         //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
@@ -192,7 +187,7 @@ abstract class Boleto
         if (!empty($this->erros)) {
             $dadosFaltantes = implode("', '", array_keys($this->erros));
             throw new \InvalidArgumentException(
-                "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')"
+            "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')"
             );
         }
     }

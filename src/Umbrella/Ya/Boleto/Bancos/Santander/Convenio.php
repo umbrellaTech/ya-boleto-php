@@ -28,6 +28,7 @@ namespace Umbrella\Ya\Boleto\Bancos\Santander;
 
 use ArrayObject;
 use Umbrella\Ya\Boleto\AbstractConvenio;
+use Umbrella\Ya\Boleto\Carteira\ICarteira;
 use Umbrella\Ya\Boleto\Type\Number;
 
 /**
@@ -37,6 +38,15 @@ use Umbrella\Ya\Boleto\Type\Number;
  */
 class Convenio extends AbstractConvenio
 {
+
+    /**
+     * @param string $convenio
+     * @param string $nossoNumero
+     */
+    public function __construct(Santander $banco, ICarteira $carteira, $convenio, $nossoNumero)
+    {
+        parent::__construct($banco, $carteira, $convenio, $nossoNumero);
+    }
 
     public function gerarCampoLivre(ArrayObject $data)
     {

@@ -62,30 +62,23 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
 
     public function testCriacaoBoleto()
     {
-    	$banco = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\CaixaEconomica('1101', '015776');
+        $banco = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\CaixaEconomica('1101', '015776');
         $carteira = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb();
         $convenio = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio($banco, $carteira, '808080', '789631');
         $pf = new \Umbrella\Ya\Boleto\PessoaFisica('Edmo Farias da Costa', "12345678909");
         $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
-        $cedente = new \Umbrella\Ya\Boleto\Cedente('Empresa x','92559708000103');
+        $cedente = new \Umbrella\Ya\Boleto\Cedente('Empresa x', '92559708000103');
 
         $dataValida = date("Y-m-d");
         $data = new DateTime($dataValida);
 
-        $boletoCEF = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica($sacado,$cedente, $convenio);
+        $boletoCEF = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica($sacado, $cedente, $convenio);
         $boletoCEF->setValorDocumento('388.99')
                 ->setNumeroDocumento('01235')
                 ->setDataVencimento($data)
                 ->getLinhaDigitavel();
-             
-	var_dump($boletoCEF->getCodigoBarras());
-        //$this->assertCount(44, $boletoCEF->getLinhaDigitavel());
-        /*$barcode = new Application_View_Helper_BarCode();
-        $img = $barcode
-                ->barCode($boletoBB->getCodigoBarras(), "Code25Interleaved");
-        $this->setCodigoBarra($img);*/
     }
-    
+
     /**
      * @dataProvider boletoProvider
      */

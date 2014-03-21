@@ -45,6 +45,7 @@ class Convenio extends AbstractConvenio
         $this->alterarTamanho('CodigoCedente', 7);
 
         $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Carteira:NossoNumero:CodigoCedente0';
+        return $data;
     }
 
 }

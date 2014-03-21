@@ -75,26 +75,6 @@ class Number
         }
     }
 
-    public static function modulo11Invertido()
-    {
-        $ftini = 2;
-        $fator = $ftfim = 9;
-        $soma = 0;
-
-        for ($i = strlen($num); $i > 0; $i--) {
-            $soma += substr($num, $i - 1, 1) * $fator;
-            if (--$fator < $ftini)
-                $fator = $ftfim;
-        }
-
-        $digito = $soma % 11;
-
-        if ($digito > 9)
-            $digito = 0;
-
-        return $digito;
-    }
-
     /**
      * Calcula o modulo 10
      * 
@@ -109,7 +89,9 @@ class Number
     {
         $numtotal10 = 0;
         $fator = 2;
-
+        $numeros = array();
+        $parcial10 = array();
+        
         // Separacao dos numeros
         for ($i = strlen($num); $i > 0; $i--) {
             // pega cada numero isoladamente

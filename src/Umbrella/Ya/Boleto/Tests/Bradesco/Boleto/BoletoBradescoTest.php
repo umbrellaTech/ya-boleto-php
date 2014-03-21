@@ -77,8 +77,6 @@ class BoletoBradescoTest extends BoletoTestCase
                 ->setNumeroDocumento('01235')
                 ->setDataVencimento($data)
                 ->getLinhaDigitavel();
-             
-	var_dump($boletoBRA->getCodigoBarras());
     }
     
     /**
