@@ -114,7 +114,7 @@ abstract class Boleto
         ));
         $data->setFlags(\ArrayObject::ARRAY_AS_PROPS);
 
-        $this->getConvenio()->gerarCampoLivre($data, $this);
+        $this->getConvenio()->gerarCampoLivre($data);
 
         $tamanhos = $convenio->getTamanhos();
 
@@ -186,9 +186,7 @@ abstract class Boleto
         }
         if (!empty($this->erros)) {
             $dadosFaltantes = implode("', '", array_keys($this->erros));
-            throw new \InvalidArgumentException(
-            "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')"
-            );
+            throw new \InvalidArgumentException("Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')");
         }
     }
 
