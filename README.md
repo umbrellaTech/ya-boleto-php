@@ -24,32 +24,19 @@ O projeto [umbrellaTech/demo][1] possui um exemplo funcional de cada banco, voc�
 ## Bancos suportados
 Atualmente o YABoleto funciona com os bancos abaixo:
 
-
- +----------------------+----------------+-----------------+------------+
- | **Banco**            | **Carteira /** | **Implementado**| **Testado**|
- |                      | **Convenio**   |                 |            |
- +======================+================+=================+============+
- | **Banco do Brasil**  | 17, 18, 21     | Sim             | Sim        |
- +----------------------+----------------+-----------------+------------+
- | **Banrisul**         | x              | Nao             | Nao        |
- +----------------------+----------------+-----------------+------------+
- | **Bradesco**         | 06, 03         | Sim             | Sim        |
- +----------------------+----------------+-----------------+------------+
- | **Caixa Economica**  | SR             | Sim             | Sim        |
- +----------------------+----------------+-----------------+------------+
- | **HSBC**             | CNR, CSB       | Nao             | Nao        |
- +----------------------+----------------+-----------------+------------+
- | **Itau**             | 157            | Nao             | Nao        |
- +----------------------+----------------+-----------------+------------+
- | **Itau**             | 175, 174, 178, | Nao             | Nao        |
- |                      | 104, 109       |                 |            |
- +----------------------+----------------+-----------------+------------+
- | **Real**             | 57             | Sim             | Sim        |
- +----------------------+----------------+-----------------+------------+
- | **Santander**        | 102            | Sim             | Sim        |
- +----------------------+----------------+-----------------+------------+
- | **Santander**        | 101, 201       | Sim             | Sim        |
- +----------------------+----------------+-----------------+------------+
+| **Banco**           |  **Carteira/Convenio** | **Implementado** | **Testado** |
+|---------------------|--------------------------|--------------------|---------------|
+| **Banco do Brasil** | 17, 18, 21               | Sim                | Sim           |
+| **Banrisul**        | x                        | Nao                | Nao           |
+| **Bradesco**        | 06, 03                   | Sim                | Sim           |
+| **Caixa Economica** | SR                       | Sim                | Sim           |
+| **HSBC**            | CNR, CSB                 | Nao                | Nao           |
+| **Itau**            | 157                      | Nao                | Nao           |
+| **Itau**            | 175, 174, 178, 104, 109  | Nao                | Nao           |
+| **Real**            | 57                       | Sim                | Sim           |
+| **Santander**       | 102                      | Sim                | Sim           |
+| **Santander**       | 101, 201                 | Sim                | Sim           |
+|                     |                          |                    |               |
 
 ## Contribua
 Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum outro banco, fique à vontade para explorar o código, 
