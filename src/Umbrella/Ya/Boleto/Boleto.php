@@ -133,7 +133,6 @@ abstract class Boleto
         $dv = Number::modulo11($cod, 1, 1);
         //Inserindo o dígito verificador exatamente na posição 4, iniciando em 0.
         $codigoBarras = String::putAt($cod, $dv, 4);
-        //Debugger::dump($codigoBarras);
         return $codigoBarras;
     }
 

@@ -103,7 +103,7 @@ class Number
             foreach (preg_split('//', $temp, -1, PREG_SPLIT_NO_EMPTY) as $k => $v) {
                 $temp0+=$v;
             }
-            $parcial10[$i] = $temp0; //$numeros[$i] * $fator;
+            $parcial10[$i] = $temp0;
             // monta sequencia para soma dos digitos no (modulo 10)
             $numtotal10 += $parcial10[$i];
             if ($fator == 2) {
