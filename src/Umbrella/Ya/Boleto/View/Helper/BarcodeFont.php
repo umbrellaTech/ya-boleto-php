@@ -23,7 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\View\Helper;
 
 /**
@@ -31,7 +30,7 @@ namespace Umbrella\Ya\Boleto\View\Helper;
  *
  * @author italo
  */
-class BarcodeFont implements IBracodeRender
+class BarcodeFont implements BarcodeRenderInterface
 {
 
     /**
@@ -41,5 +40,4 @@ class BarcodeFont implements IBracodeRender
     {
         return $codigoBarras;
     }
-
 }

@@ -23,14 +23,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\View\Helper;
 
 /**
  *
  * @author italo
  */
-interface IBracodeRender
+interface BarcodeRenderInterface
 {
 
     /**

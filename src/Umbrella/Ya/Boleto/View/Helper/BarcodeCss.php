@@ -23,15 +23,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\View\Helper;
+
+use InvalidArgumentException;
 
 /**
  * Description of String
  *
  * @author italo
  */
-class BarcodeCss implements IBracodeRender
+class BarcodeCss implements BarcodeRenderInterface
 {
 
     /**
@@ -40,9 +41,9 @@ class BarcodeCss implements IBracodeRender
     public function render($codigoBarras)
     {
         if (!is_string($codigoBarras)) {
-            throw new \InvalidArgumentException('O código de barras deve ser uma string');
+            throw new InvalidArgumentException('O código de barras deve ser uma string');
         }
-        
+
         $barcodes = array('00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010');
 
         for ($f1 = 9; $f1 >= 0; $f1--) {
@@ -61,10 +62,10 @@ class BarcodeCss implements IBracodeRender
 
         // Guarda inicial
         $retorno = '<div class="barcode">' .
-                '<div class="black thin"></div>' .
-                '<div class="white thin"></div>' .
-                '<div class="black thin"></div>' .
-                '<div class="white thin"></div>';
+            '<div class="black thin"></div>' .
+            '<div class="white thin"></div>' .
+            '<div class="black thin"></div>' .
+            '<div class="white thin"></div>';
 
         if (strlen($codigoBarras) % 2 != 0) {
             $codigoBarras = "0" . $codigoBarras;
@@ -99,9 +100,9 @@ class BarcodeCss implements IBracodeRender
 
         // Final
         return $retorno . '<div class="black large"></div>' .
-                '<div class="white thin"></div>' .
-                '<div class="black thin"></div>' .
-                '</div>';
+            '<div class="white thin"></div>' .
+            '<div class="black thin"></div>' .
+            '</div>';
     }
 
     /**
@@ -127,5 +128,4 @@ class BarcodeCss implements IBracodeRender
     {
         return substr($string, strlen($string) - $num, $num);
     }
-
 }
