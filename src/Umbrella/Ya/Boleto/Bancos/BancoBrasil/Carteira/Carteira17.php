@@ -23,17 +23,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Representa a carteira 17 para o banco do brasil
  * @author Edmo Farias <edmofarias@gmail.com>
  * @since 1.0.0
  */
-class Carteira17 implements ICarteira
+class Carteira17 implements CarteiraInterface
 {
 
     /**
@@ -43,5 +42,4 @@ class Carteira17 implements ICarteira
     {
         return '17';
     }
-
 }

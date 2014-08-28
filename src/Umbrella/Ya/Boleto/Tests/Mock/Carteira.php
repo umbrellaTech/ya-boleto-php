@@ -2,14 +2,14 @@
 
 namespace Umbrella\Ya\Boleto\Tests\Mock;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Description of Carteira
  *
  * @author mikhail
  */
-class Carteira implements ICarteira
+class Carteira implements CarteiraInterface
 {
     private $numero;
 
@@ -25,5 +25,4 @@ class Carteira implements ICarteira
     {
         $this->numero = $numero;
     }
-
 }

@@ -23,34 +23,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Representa a carteira Sigcb para a CEF
  * @author Edmo Farias <edmofarias@gmail.com>
  * @since 1.0.0
  */
-class CarteiraSigcb implements ICarteira
+class CarteiraSigcb implements CarteiraInterface
 {
-    private $_tipo;
+    private $tipo;
 
     public function __construct($tipo = null)
     {
-        $this->_tipo = $tipo;
+        $this->tipo = $tipo;
     }
+
     /**
      * {@inheritdoc}
      */
     public function getNumero()
     {
-        if ($this->_tipo) {
-            return $this->_tipo;
+        if ($this->tipo) {
+            return $this->tipo;
         }
 
         return '1';
     }
-
 }

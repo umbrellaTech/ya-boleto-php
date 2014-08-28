@@ -23,50 +23,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\Ya\Boleto\Carteira;
 
 /**
  * Contem as funcionalidades basicas para uma carteira
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-interface IConvenio
+interface CarteiraInterface
 {
 
     /**
-     * Retorna o layout do codigo de barras
+     * Retorna o numero da carteira
      * @return string
      */
-    public function getLayout();
-
-    /**
-     * @return AbstractConvenio
-     */
-    public function setLayout($layout);
-
-    /**
-     * Retorna o nosso numero
-     * @return string
-     */
-    public function getNossoNumero();
-
-    /**
-     * Define o nosso numero
-     * @param  string                                 $nossoNumero
-     * @return \Umbrella\Ya\Boleto\Carteira\ICarteira
-     */
-    public function setNossoNumero($nossoNumero);
-
-    /**
-     * Retorna os padroes de tamanhos para calculo do codigo de barras
-     * @return string
-     */
-    public function getTamanhos();
-
-    /**
-     * Altera o valor de uma composiao dos tamanhos da carteira
-     * @return void
-     */
-    public function alterarTamanho($index, $tamanho);
+    public function getNumero();
 }

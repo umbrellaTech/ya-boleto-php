@@ -23,17 +23,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\Santander\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Representa a carteira 102 (Sem registro) para o banco Santander
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Carteira102 implements ICarteira
+class Carteira102 implements CarteiraInterface
 {
 
     /**
@@ -44,5 +43,4 @@ class Carteira102 implements ICarteira
     {
         return "102";
     }
-
 }

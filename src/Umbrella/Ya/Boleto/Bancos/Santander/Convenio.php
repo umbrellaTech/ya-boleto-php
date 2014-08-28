@@ -23,12 +23,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\Santander;
 
 use ArrayObject;
 use Umbrella\Ya\Boleto\AbstractConvenio;
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 use Umbrella\Ya\Boleto\Type\Number;
 
 /**
@@ -43,7 +42,7 @@ class Convenio extends AbstractConvenio
      * @param string $convenio
      * @param string $nossoNumero
      */
-    public function __construct(Santander $banco, ICarteira $carteira, $convenio, $nossoNumero)
+    public function __construct(Santander $banco, CarteiraInterface $carteira, $convenio, $nossoNumero)
     {
         parent::__construct($banco, $carteira, $convenio, $nossoNumero);
     }
@@ -63,5 +62,4 @@ class Convenio extends AbstractConvenio
         $this->nossoNumero = $nossoNumero . $dvNossoNumero;
         $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     }
-
 }

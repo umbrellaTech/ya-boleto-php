@@ -23,27 +23,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto;
 
 use ArrayObject;
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Clase abstrata que representa o Convenio
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-abstract class AbstractConvenio implements IConvenio
+abstract class AbstractConvenio implements ConvenioInterface
 {
-
     /**
      * @var Banco
      */
     protected $banco;
 
     /**
-     * @var ICarteira
+     * @var CarteiraInterface
      */
     protected $carteira;
     protected $convenio;
@@ -64,7 +62,7 @@ abstract class AbstractConvenio implements IConvenio
      * @param string $convenio
      * @param string $nossoNumero
      */
-    public function __construct(Banco $banco, ICarteira $carteira, $convenio, $nossoNumero)
+    public function __construct(Banco $banco, CarteiraInterface $carteira, $convenio, $nossoNumero)
     {
         $this->banco = $banco;
         $this->carteira = $carteira;
@@ -97,7 +95,7 @@ abstract class AbstractConvenio implements IConvenio
 
     /**
      * Retorna a carteira do convenio
-     * @return ICarteira
+     * @return CarteiraInterface
      */
     public function getCarteira()
     {
@@ -115,7 +113,7 @@ abstract class AbstractConvenio implements IConvenio
 
     /**
      * Define a carteira do convenio
-     * @param  ICarteira                   $carteira
+     * @param  CarteiraInterface                   $carteira
      * @return AbstractConvenio
      */
     public function setCarteira($carteira)
@@ -188,5 +186,4 @@ abstract class AbstractConvenio implements IConvenio
 
         return $this;
     }
-
 }

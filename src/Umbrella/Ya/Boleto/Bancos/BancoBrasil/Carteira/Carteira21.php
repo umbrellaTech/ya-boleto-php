@@ -23,19 +23,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Representa a carteira 201 para o banco do brasil
  * @author italo <italolelis@lellysinformatica.com>
  * @since 1.0.0
  */
-class Carteira21 implements ICarteira
+class Carteira21 implements CarteiraInterface
 {
-
     public $tamanhos = array(
         'Banco' => 3,
         'Moeda' => 1,
@@ -67,7 +65,7 @@ class Carteira21 implements ICarteira
     /**
      * Define o nosso numero
      * @param  string    $nossoNumero
-     * @return ICarteira
+     * @return CarteiraInterface
      */
     public function setNossoNumero($nossoNumero)
     {
@@ -100,5 +98,4 @@ class Carteira21 implements ICarteira
     {
         $this->layout = $layout;
     }
-
 }

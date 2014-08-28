@@ -23,17 +23,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Representa a carteira Sicob Sem Registro para a CEF
  * @author Edmo Farias <edmofarias@gmail.com>
  * @since 1.0.0
  */
-class CarteiraSicob implements ICarteira
+class CarteiraSicob implements CarteiraInterface
 {
 
     /**
@@ -43,5 +42,4 @@ class CarteiraSicob implements ICarteira
     {
         return '1';
     }
-
 }

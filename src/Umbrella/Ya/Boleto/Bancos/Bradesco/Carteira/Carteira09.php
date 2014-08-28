@@ -23,17 +23,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Representa a carteira 09 Com Registro do Bradesco
  * @author Edmo Farias <edmofarias@gmail.com>
  * @since 1.0.0
  */
-class Carteira09 implements ICarteira
+class Carteira09 implements CarteiraInterface
 {
 
     /**
@@ -43,5 +42,4 @@ class Carteira09 implements ICarteira
     {
         return '09';
     }
-
 }

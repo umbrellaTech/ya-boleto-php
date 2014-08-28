@@ -23,22 +23,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Bancos\Santander\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\ICarteira;
+use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
 
 /**
  * Description of Carteira18
  *
  * @author italo
  */
-class Carteira57 implements ICarteira
+class Carteira57 implements CarteiraInterface
 {
 
     public function getNumero()
     {
         return "57";
     }
-
 }
