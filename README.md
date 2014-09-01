@@ -40,7 +40,9 @@ Atualmente o YABoleto funciona com os bancos abaixo:
 | **Santander**       | 101, 201                 | Sim                | Sim           |
 |                     |                          |                    |               |
 
-## Contribua
+Contribua
+----------
+
 Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum outro banco, fique à vontade para explorar o código, 
 veja como é bastante simples integrar qualquer banco à biblioteca. Para instalar clone o projeto dentro da pasta **Umbrella/Ya/Boleto**.
 ```
@@ -52,7 +54,12 @@ php composer.phar create-project umbrella/boleto ya-boleto-php/Umbrella/Ya/Bolet
 ```
 Isso se deve por conta do autoloader que segue a [PSR-0][3].
 
-## Licença
+Demo
+----------
+A aplicação de demonstração está no repositório [Ya Boleto Demo](https://github.com/umbrellaTech/ya-boleto-demo)
+
+Licença
+----------
 
 * MIT License
 
