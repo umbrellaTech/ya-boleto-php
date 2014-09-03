@@ -9,7 +9,7 @@ before_install:
   - composer install --dev
 
 script:
- - phpunit --coverage-clover=coverage.clover --configuration ./phpunit.xml ./src/Umbrella/Ya/Boleto/Tests
+ - phpunit --coverage-clover=coverage.clover --configuration ./phpunit.xml.dist ./tests
 
 after_script:
  - wget https://scrutinizer-ci.com/ocular.phar
