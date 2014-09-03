@@ -13,7 +13,7 @@
 >
     <testsuites>
         <testsuite name="Suite de Testes do YABoleto">
-            <directory>./Umbrella/Ya/Boleto/Tests</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -21,7 +21,7 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory>./Umbrella/Ya/Boleto/Tests</directory>
+                <directory>./tests/</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>

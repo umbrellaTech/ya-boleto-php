@@ -40,6 +40,58 @@ Atualmente o YABoleto funciona com os bancos abaixo:
 | **Santander**       | 101, 201                 | Sim                | Sim           |
 |                     |                          |                    |               |
 
+Uso
+----------
+
+A forma mais simples é utilizar o Builder.
+
+```php
+use DateTime;
+use Umbrella\Ya\Boleto\Builder\Bancos;
+use Umbrella\Ya\Boleto\Builder\BoletoBuilder;
+
+$builder = new BoletoBuilder(Bancos::BANCO_BRASIL);
+
+$boleto = $builder
+    ->sacado('Sacado', '61670634787') // também pode ser passado com a máscara 616.706.347-87
+    ->cedente('Cendente', '08365691000139') // também pode ser passado com a máscara 08.365.691/0001-39
+    ->banco(1234, 123456787)
+    ->carteira(18)
+    ->convenio(1234567, 2)
+    ->build(50, 2, new DateTime('2014-09-02'));
+
+echo $boleto->getLinhaDigitavel() // 00190.00009 01234.567004 00000.002188 7 61740000005000
+```
+
+A forma Orientada a Objetos é um pouco mais trabalhossa, mas permite maior flexibilidade.
+
+```php
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\BancoBrasil as BancoBrasil2;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Boleto\BancoBrasil;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira\Carteira17;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira\Carteira18;
+use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Convenio;
+use Umbrella\Ya\Boleto\Cedente;
+use Umbrella\Ya\Boleto\PessoaFisica;
+use Umbrella\Ya\Boleto\Sacado;
+
+$banco  = new BancoBrasil2(1234, 123456787);
+$carteira   = new Carteira18();
+
+$convenio   = new Convenio($banco, $carteira, 1234567, 2);
+$pf         = new PessoaFisica('Sacado', '61670634787');
+$sacado     = new Sacado($pf);
+$cedente    = new Cedente('Cendente', '08365691000139');
+
+$boletoBB = new BancoBrasil($sacado, $cedente, $convenio);
+$boletoBB->setValorDocumento(50)
+        ->setNumeroDocumento(2)
+        ->setDataVencimento($new DateTime('2014-09-02'));
+
+echo $boleto->getLinhaDigitavel() // 00190.00009 01234.567004 00000.002188 7 61740000005000
+
+```
+
 Contribua
 ----------
 
