@@ -23,15 +23,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Tests\CaixaEconomica\Boleto;
 
 use DateTime;
 use LogicException;
-use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio;
-use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
+use Umbrella\Ya\Boleto\AbstractConvenio;
 use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica as BoletoCaixaEconomica;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica as CaixaEconomica2;
 use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\CaixaEconomica;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSicob;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb;
+use Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio;
+use Umbrella\Ya\Boleto\Cedente;
+use Umbrella\Ya\Boleto\PessoaFisica;
+use Umbrella\Ya\Boleto\Sacado;
+use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
 use Umbrella\Ya\Boleto\Tests\Mock\Carteira as CarteiraMock;
 
 /**
@@ -47,49 +53,63 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         return new CaixaEconomica("1101-0", "015776-7");
     }
 
-    protected function convenioProvider()
+    protected function convenioSigcbProvider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb();
+        $carteira = new CarteiraSigcb();
+        return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
+    }
+
+    protected function convenioSigcbTipoProvider()
+    {
+        $carteira = new CarteiraSigcb('RG');
+        return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
+    }
+
+    protected function convenioSicobProvider()
+    {
+        $carteira = new CarteiraSicob();
         return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
     }
 
     public function boletoProvider()
     {
         return array(
-            array($this->pessoaProvider(), $this->convenioProvider()),
+            array($this->pessoaProvider(), $this->convenioSigcbProvider()),
+            array($this->pessoaProvider(), $this->convenioSicobProvider()),
+            array($this->pessoaProvider(), $this->convenioSigcbTipoProvider()),
         );
     }
 
     public function testCriacaoBoleto()
     {
-        $banco = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\CaixaEconomica('1101', '015776');
-        $carteira = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb();
-        $convenio = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Convenio($banco, $carteira, '808080', '789631');
-        $pf = new \Umbrella\Ya\Boleto\PessoaFisica('Edmo Farias da Costa', "12345678909");
-        $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
-        $cedente = new \Umbrella\Ya\Boleto\Cedente('Empresa x', '92559708000103');
+        $banco = new CaixaEconomica('1101', '015776');
+        $carteira = new CarteiraSigcb();
+        $convenio = new Convenio($banco, $carteira, '808080', '789631');
+        $pf = new PessoaFisica('Edmo Farias da Costa', "12345678909");
+        $sacado = new Sacado($pf);
+        $cedente = new Cedente('Empresa x', '92559708000103');
 
         $dataValida = date("Y-m-d");
         $data = new DateTime($dataValida);
 
-        $boletoCEF = new \Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica($sacado, $cedente, $convenio);
+        $boletoCEF = new CaixaEconomica2($sacado, $cedente, $convenio);
         $boletoCEF->setValorDocumento('388.99')
-                ->setNumeroDocumento('01235')
-                ->setDataVencimento($data)
-                ->getLinhaDigitavel();
+            ->setNumeroDocumento('01235')
+            ->setDataVencimento($data)
+            ->getLinhaDigitavel();
     }
 
     /**
      * @dataProvider boletoProvider
      */
-    public function testCriacaoBoletoComBanco($pessoa, \Umbrella\Ya\Boleto\AbstractConvenio $convenio)
+    public function testCriacaoBoletoComBanco($pessoa, AbstractConvenio $convenio)
     {
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(12.50)
-                ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new DateTime("2014-02-28"))
-                ->getLinhaDigitavel();
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new DateTime("2014-02-28"))
+            ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -102,9 +122,9 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("315.500,00")
-                ->setNumeroDocumento("23456")
-                ->setDataVencimento(new DateTime("2013-11-02"))
-                ->getLinhaDigitavel();
+            ->setNumeroDocumento("23456")
+            ->setDataVencimento(new DateTime("2013-11-02"))
+            ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -118,10 +138,10 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-                ->setDesconto(2.00)
-                ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new DateTime("2013-11-02"))
-                ->getLinhaDigitavel();
+            ->setDesconto(2.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new DateTime("2013-11-02"))
+            ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -144,9 +164,12 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $bancoAngenciaContaNull = new CaixaEconomica(null, null);
 
         $convenioNormal = new Convenio($bancoNormal, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
-        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
-        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
-        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
+        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, 'convenioTantoFaz',
+                                            'nossoNumeroTantoFaz');
+        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, 'convenioTantoFaz',
+                                                 'nossoNumeroTantoFaz');
+        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull,
+                                                         'convenioTantoFaz', 'nossoNumeroTantoFaz');
 
         return array(
             array(
@@ -184,5 +207,4 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto->validarDadosObrigatorios();
         $this->assertNotEmpty($boleto->getErros());
     }
-
 }

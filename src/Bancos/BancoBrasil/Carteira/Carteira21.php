@@ -34,68 +34,12 @@ use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
  */
 class Carteira21 implements CarteiraInterface
 {
-    public $tamanhos = array(
-        'Banco' => 3,
-        'Moeda' => 1,
-        'DV' => 1,
-        'FatorVencimento' => 4,
-        'Valor' => 10,
-        //Campos variávies
-        'Agencia' => 4,
-        'Conta' => 8,
-        'Carteira' => 2,
-    );
-    protected $layout;
-    protected $nossoNumero;
-
-    public function __construct($nossoNumero)
-    {
-        $this->nossoNumero = $nossoNumero;
-    }
 
     /**
-     * Retorna o nosso numero
-     * @return string
+     * {@inheritdoc}
      */
-    public function getNossoNumero()
-    {
-        return $this->nossoNumero;
-    }
-
-    /**
-     * Define o nosso numero
-     * @param  string    $nossoNumero
-     * @return CarteiraInterface
-     */
-    public function setNossoNumero($nossoNumero)
-    {
-        $this->nossoNumero = $nossoNumero;
-
-        return $this;
-    }
-
-    public function getLayout()
-    {
-        return $this->layout;
-    }
-
     public function getNumero()
     {
-        return "21";
-    }
-
-    public function getTamanhos()
-    {
-        return $this->tamanhos;
-    }
-
-    public function alterarTamanho($index, $tamanho)
-    {
-        $this->tamanhos[$index] = $tamanho;
-    }
-
-    public function setLayout($layout)
-    {
-        $this->layout = $layout;
+        return '21';
     }
 }

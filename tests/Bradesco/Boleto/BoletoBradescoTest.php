@@ -23,15 +23,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 namespace Umbrella\Ya\Boleto\Tests\Bradesco\Boleto;
 
 use DateTime;
 use LogicException;
-use Umbrella\Ya\Boleto\Bancos\Bradesco\Convenio;
-use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
+use Umbrella\Ya\Boleto\AbstractConvenio;
 use Umbrella\Ya\Boleto\Bancos\Bradesco\Boleto\Bradesco as BoletoBradesco;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Boleto\Bradesco as Bradesco2;
 use Umbrella\Ya\Boleto\Bancos\Bradesco\Bradesco;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira06;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira09;
+use Umbrella\Ya\Boleto\Bancos\Bradesco\Convenio;
+use Umbrella\Ya\Boleto\Cedente;
+use Umbrella\Ya\Boleto\PessoaFisica;
+use Umbrella\Ya\Boleto\Sacado;
+use Umbrella\Ya\Boleto\Tests\BoletoTestCase;
 use Umbrella\Ya\Boleto\Tests\Mock\Carteira as CarteiraMock;
 
 /**
@@ -47,49 +53,56 @@ class BoletoBradescoTest extends BoletoTestCase
         return new Bradesco("1101-0", "015776-7");
     }
 
-    protected function convenioProvider()
+    protected function convenio6Provider()
     {
-        $carteira = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira06();
+        $carteira = new Carteira06();
+        return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
+    }
+
+    protected function convenio9Provider()
+    {
+        $carteira = new Carteira09();
         return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
     }
 
     public function boletoProvider()
     {
         return array(
-            array($this->pessoaProvider(), $this->convenioProvider()),
+            array($this->pessoaProvider(), $this->convenio6Provider()),
+            array($this->pessoaProvider(), $this->convenio9Provider()),
         );
     }
 
     public function testCriacaoBoleto()
     {
-    	$banco = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Bradesco('1101', '015776');
-        $carteira = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Carteira\Carteira06();
-        $convenio = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Convenio($banco, $carteira, '808080', '789631');
-        $pf = new \Umbrella\Ya\Boleto\PessoaFisica('Edmo Farias da Costa', "12345678909");
-        $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
-        $cedente = new \Umbrella\Ya\Boleto\Cedente('Empresa x','92559708000103');
+        $banco = new Bradesco('1101', '015776');
+        $carteira = new Carteira06();
+        $convenio = new Convenio($banco, $carteira, '808080', '789631');
+        $pf = new PessoaFisica('Edmo Farias da Costa', "12345678909");
+        $sacado = new Sacado($pf);
+        $cedente = new Cedente('Empresa x', '92559708000103');
 
         $dataValida = date("Y-m-d");
         $data = new DateTime($dataValida);
 
-        $boletoBRA = new \Umbrella\Ya\Boleto\Bancos\Bradesco\Boleto\Bradesco($sacado,$cedente, $convenio);
+        $boletoBRA = new Bradesco2($sacado, $cedente, $convenio);
         $boletoBRA->setValorDocumento('388.99')
-                ->setNumeroDocumento('01235')
-                ->setDataVencimento($data)
-                ->getLinhaDigitavel();
+            ->setNumeroDocumento('01235')
+            ->setDataVencimento($data)
+            ->getLinhaDigitavel();
     }
-    
+
     /**
      * @dataProvider boletoProvider
      */
-    public function testCriacaoBoletoComBanco($pessoa, \Umbrella\Ya\Boleto\AbstractConvenio $convenio)
+    public function testCriacaoBoletoComBanco($pessoa, AbstractConvenio $convenio)
     {
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoBradesco($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(12.50)
-                ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new DateTime("2014-02-28"))
-                ->getLinhaDigitavel();
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new DateTime("2014-02-28"))
+            ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -102,9 +115,9 @@ class BoletoBradescoTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoBradesco($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("315.500,00")
-                ->setNumeroDocumento("23456")
-                ->setDataVencimento(new DateTime("2013-11-02"))
-                ->getLinhaDigitavel();
+            ->setNumeroDocumento("23456")
+            ->setDataVencimento(new DateTime("2013-11-02"))
+            ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -118,10 +131,10 @@ class BoletoBradescoTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoBradesco($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-                ->setDesconto(2.00)
-                ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new DateTime("2013-11-02"))
-                ->getLinhaDigitavel();
+            ->setDesconto(2.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new DateTime("2013-11-02"))
+            ->getLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -144,9 +157,12 @@ class BoletoBradescoTest extends BoletoTestCase
         $bancoAngenciaContaNull = new Bradesco(null, null);
 
         $convenioNormal = new Convenio($bancoNormal, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
-        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
-        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
-        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull, 'convenioTantoFaz', 'nossoNumeroTantoFaz');
+        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, 'convenioTantoFaz',
+                                            'nossoNumeroTantoFaz');
+        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, 'convenioTantoFaz',
+                                                 'nossoNumeroTantoFaz');
+        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull,
+                                                         'convenioTantoFaz', 'nossoNumeroTantoFaz');
 
         return array(
             array(
@@ -184,5 +200,4 @@ class BoletoBradescoTest extends BoletoTestCase
         $boleto->validarDadosObrigatorios();
         $this->assertNotEmpty($boleto->getErros());
     }
-
 }
