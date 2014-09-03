@@ -2,6 +2,8 @@
 
 
 [![Build Status](https://travis-ci.org/umbrellaTech/ya-boleto-php.png?branch=master)](https://travis-ci.org/umbrellaTech/ya-boleto-php)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/umbrella/boleto/v/stable.png)](https://packagist.org/packages/umbrella/boleto)
 [![Latest Unstable Version](https://poser.pugx.org/umbrella/boleto/v/unstable.png)](https://packagist.org/packages/umbrella/boleto)
 
