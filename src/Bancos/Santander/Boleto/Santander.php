@@ -41,7 +41,7 @@ class Santander extends Boleto
      */
     public function validarDadosObrigatorios()
     {
-        if (null == $this->getConvenio()->getBanco()->getIos()) {
+        if (null === $this->getConvenio()->getBanco()->getIos()) {
             $this->erros['ios'] = 'Ios é um atributo obrigatório';
         }
         parent::validarDadosObrigatorios();

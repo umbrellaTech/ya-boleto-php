@@ -39,7 +39,7 @@ class Number
      */
     public static function format($number)
     {
-        return (int) ($number * 100);
+        return (int)($number * 100);
     }
 
     public static function modulo11($number, $ifTen = '0', $ifZero = '0', $returnFull = false, $maxFactor = 9, $separator = '-')
@@ -48,7 +48,7 @@ class Number
         $sum = 0;
         $factor = 2;
 
-        for ($i = $numLen; $i >= 0; $i --) {
+        for ($i = $numLen; $i >= 0; $i--) {
             $sum += substr($number, $i, 1) * $factor;
             $factor = $factor >= $maxFactor ? 2 : $factor + 1;
         }
@@ -60,15 +60,18 @@ class Number
         $rest = $rest === 0 ? $ifZero : $rest;
         #Verificando se é 0, 10
         switch ($rest) {
-            case 10: $ifTen;
+            case 10:
+                $ifTen;
                 break;
-            case 0: $ifZero;
+            case 0:
+                $ifZero;
                 break;
-            default: $rest;
+            default:
+                $rest;
                 break;
         }
 
-        if ($returnFull == false) {
+        if ($returnFull === false) {
             return $rest;
         } else {
             return $number . $separator . $rest;
@@ -77,9 +80,9 @@ class Number
 
     /**
      * Calcula o modulo 10
-     * 
+     *
      * @author  Caio Ferraz de Lucena
-     * 
+     *
      * @since   1.0.0
      * @param   string
      * @param string $num
@@ -91,7 +94,7 @@ class Number
         $fator = 2;
         $numeros = array();
         $parcial10 = array();
-        
+
         // Separacao dos numeros
         for ($i = strlen($num); $i > 0; $i--) {
             // pega cada numero isoladamente
@@ -101,7 +104,7 @@ class Number
             $temp = $numeros[$i] * $fator;
             $temp0 = 0;
             foreach (preg_split('//', $temp, -1, PREG_SPLIT_NO_EMPTY) as $k => $v) {
-                $temp0+=$v;
+                $temp0 += $v;
             }
             $parcial10[$i] = $temp0;
             // monta sequencia para soma dos digitos no (modulo 10)
@@ -149,14 +152,14 @@ class Number
                 $year--;
             } else {
                 $year = 99;
-                $century --;
+                $century--;
             }
         }
 
-        return ( floor(( 146097 * $century) / 4) +
-                floor(( 1461 * $year) / 4) +
-                floor(( 153 * $month + 2) / 5) +
-                $day + 1721119);
+        return (floor((146097 * $century) / 4) +
+            floor((1461 * $year) / 4) +
+            floor((153 * $month + 2) / 5) +
+            $day + 1721119);
     }
 
 }
