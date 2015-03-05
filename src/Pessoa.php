@@ -78,7 +78,7 @@ abstract class Pessoa
      */
     public function getEndereco()
     {
-        return $this->endereco.' - '.$cep.' - '.$cidade.'/'.$uf;;
+        return $this->endereco.' - '.$this->cep.' - '.$this->cidade.'/'.$this->uf;;
     }
 
     /**
