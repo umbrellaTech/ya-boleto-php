@@ -27,14 +27,19 @@
 namespace Umbrella\Ya\Boleto;
 
 /**
- * Clase abstrata que representa uma Pessoa
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Classe abstrata que representa uma Pessoa
+ * 
+ * @author Ian Rodrigues <me@ianrodrigu.es>
+ * @since 1.5.1
  */
 abstract class Pessoa
 {
 
     protected $nome;
+    protected $endereco;
+    protected $cep;
+    protected $cidade;
+    protected $uf;
 
     /**
      * @param string $nome
@@ -55,12 +60,42 @@ abstract class Pessoa
 
     /**
      * Define o nome da pessoa
-     * @param  string                     $nome
+     * 
+     * @param  string   $nome
      * @return \Umbrella\Ya\Boleto\Pessoa
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
+
+        return $this;
+    }
+
+    /**
+     * Retorna o endereço formatado
+     * 
+     * @return string
+     */
+    public function getEndereco()
+    {
+        return $this->endereco.' - '.$cep.' - '.$cidade.'/'.$uf;;
+    }
+
+    /**
+     * Define o endereço da pessoa
+     * 
+     * @param string $endereco
+     * @param string $cep
+     * @param string $cidade
+     * @param string $uf
+     * @return \Umbrella\Ya\Boleto\Pessoa
+     */
+    public function setEndereco($endereco, $cep, $cidade, $uf)
+    {
+        $this->endereco = $endereco;
+        $this->cep      = $cep;
+        $this->cidade   = $cidade;
+        $this->estado   = $estado;
 
         return $this;
     }
