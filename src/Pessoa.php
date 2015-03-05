@@ -95,7 +95,7 @@ abstract class Pessoa
         $this->endereco = $endereco;
         $this->cep      = $cep;
         $this->cidade   = $cidade;
-        $this->estado   = $estado;
+        $this->uf       = $uf;
 
         return $this;
     }
