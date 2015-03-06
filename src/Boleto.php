@@ -62,6 +62,7 @@ abstract class Boleto
     protected $outrosAcrescimos;
     protected $numeroDocumento;
     protected $instrucoes;
+    protected $demonstrativo;
     protected $quantidade;
     protected $aceite;
     protected $especie;
@@ -270,6 +271,18 @@ abstract class Boleto
     public function setInstrucoes($instrucoes)
     {
         $this->instrucoes = $instrucoes;
+
+        return $this;
+    }
+
+    public function getDemonstrativo()
+    {
+        return $this->demonstrativo;
+    }
+
+    public function setDemonstrativo($demonstrativo)
+    {
+        $this->demonstrativo = $demonstrativo;
 
         return $this;
     }

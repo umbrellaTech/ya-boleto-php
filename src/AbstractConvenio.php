@@ -46,6 +46,7 @@ abstract class AbstractConvenio implements ConvenioInterface
     protected $carteira;
     protected $convenio;
     protected $nossoNumero;
+    protected $dvNossoNumero;
     protected $layout;
     public $tamanhos = array(
         'Banco' => 3,
@@ -162,6 +163,14 @@ abstract class AbstractConvenio implements ConvenioInterface
     /**
      * {@inheritdoc}
      */
+    public function getDvNossoNumero()
+    {
+        return $this->dvNossoNumero;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getTamanhos()
     {
         return $this->tamanhos;
@@ -180,8 +189,21 @@ abstract class AbstractConvenio implements ConvenioInterface
     /**
      * {@inheritdoc}
      */
+    public function setDvNossoNumero($carteira, $nossoNumero, $ifTen = 'P', $ifZero = '0')
+    {
+        $this->dvNossoNumero = Type\Number::modulo11($carteira.$nossoNumero, $ifTen, $ifZero, false, 7);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setNossoNumero($nossoNumero)
     {
+        /** Seta o DV do Nosso Número */
+        $this->setDvNossoNumero($this->carteira->getNumero(), $nossoNumero);
+
         $this->nossoNumero = $nossoNumero;
 
         return $this;
