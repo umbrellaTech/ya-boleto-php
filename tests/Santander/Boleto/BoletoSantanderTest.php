@@ -130,7 +130,6 @@ class BoletoSantanderTest extends BoletoTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
      * @dataProvider boletoProvider
      */
     public function testValidacaoDadosObrigatorios($pessoa, $convenio)
