@@ -1,5 +1,4 @@
 <?php
-
 /*
  * The MIT License
  *
@@ -23,18 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\View\Helper;
+
+namespace Umbrella\YaBoleto\View\Helper;
 
 /**
- *
- * @author italo
+ * Interface para as funcionalidades básicas para um renderizador de código de barras.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 interface BarcodeRenderInterface
 {
-
-    /**
-     * Renderiza a imagem para um codigo de barras
-     * @param string $codigoBarras O codigo de barras para gerar a imagem
-     */
     public function render($codigoBarras);
 }

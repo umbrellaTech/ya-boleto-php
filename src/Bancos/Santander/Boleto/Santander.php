@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,25 +23,27 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Bancos\Santander\Boleto;
+namespace Umbrella\YaBoleto\Bancos\Santander\Boleto;
 
-use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\YaBoleto\AbstractBoleto;
 
 /**
- * Clase abstrata que representa o Boleto do Banco do Brasil
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Classe que representa o boleto do Santander.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
-class Santander extends Boleto
+class Santander extends AbstractBoleto
 {
-
     /**
-     * {@inheritdoc}
+     * Valida todos os dados que são obrigatórios para a geraçao de qualquer boleto.
+     * 
+     * @throws \InvalidArgumentException
      */
     public function validarDadosObrigatorios()
     {
         if (null === $this->getConvenio()->getBanco()->getIos()) {
-            $this->erros['ios'] = 'Ios é um atributo obrigatório';
+            $this->erros["ios"] = "Ios é um atributo obrigatório";
         }
         parent::validarDadosObrigatorios();
     }

@@ -1,46 +1,42 @@
-<?php
+<?php namespace Umbrella\YaBoleto\Tests;
 
-/*
- * The MIT License
- *
- * Copyright 2013 Umbrella Tech.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+use Umbrella\YaBoleto\PessoaFisica;
+use Umbrella\YaBoleto\Sacado;
 
-namespace Umbrella\Ya\Boleto\Tests;
-
-/**
- * Description of SacadoTest
- *
- * @author italo
- */
 class SacadoTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testValidarCnpj()
+    public function testShouldThrownInvalidArgumentException()
     {
-        $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "12312312312");
-        $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
+        $nomeSacado      = "John Doe";
+        $documentoSacado = "12112112112";
+        $enderecoSacado  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
+        $pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
+        $sacado       = new Sacado($pessoaFisica);
+    }
+
+    /**
+     * @see http://www.geradordecpf.org/
+     */
+    public function testShouldNotThrownInvalidArgumentException()
+    {
+        $nomeSacado      = "John Doe";
+        $documentoSacado = "66837381229";
+        $enderecoSacado  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
+        $pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
+        $sacado       = new Sacado($pessoaFisica);
     }
 
 }

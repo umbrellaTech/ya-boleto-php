@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,33 +23,44 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\YaBoleto;
 
 /**
- * Classe abstrata que representa uma Pessoa
+ * Classe abstrata que representa uma pessoa, física ou jurídica.
  * 
- * @author Ian Rodrigues <me@ianrodrigu.es>
- * @since 1.5.1
+ * @author  Ian Rodrigues <me@ianrodrigu.es>
+ * @package YaBoleto
  */
 abstract class Pessoa
 {
-
+    /** @var string Nome/Razão Social da pessoa */
     protected $nome;
-    protected $endereco;
+    /** @var string Logradouro da pessoa - ex.: 'Rua das Oliveiras, 10 - Sala 301' */
+    protected $logradouro;
+    /** @var string CEP do endereço da pessoa */
     protected $cep;
+    /** @var string Cidade da pessoa */
     protected $cidade;
+    /** @var string Estado da pessoa */
     protected $uf;
 
     /**
-     * @param string $nome
+     * Inicializa uma nova instância da classe.
+     * 
+     * @param string $nome             Nome da Nome/Razão Social da pessoa
+     * @param array  $enderecoCompleto Endereço da pessoa - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
-    public function __construct($nome)
+    public function __construct($nome, array $enderecoCompleto)
     {
         $this->nome = $nome;
+        foreach ($enderecoCompleto as $key => $value) {
+            $this->$key = $value;
+        }
     }
 
     /**
-     * Retorna o nome da pessoa
+     * Retorna o nome da pessoa.
+     * 
      * @return string
      */
     public function getNome()
@@ -59,10 +69,10 @@ abstract class Pessoa
     }
 
     /**
-     * Define o nome da pessoa
+     * Define o nome da pessoa.
      * 
      * @param  string   $nome
-     * @return \Umbrella\Ya\Boleto\Pessoa
+     * @return \Umbrella\YaBoleto\Pessoa
      */
     public function setNome($nome)
     {
@@ -72,30 +82,30 @@ abstract class Pessoa
     }
 
     /**
-     * Retorna o endereço formatado
+     * Retorna o endereço formatado da pessoa.
      * 
      * @return string
      */
     public function getEndereco()
     {
-        return $this->endereco.' - '.$this->cep.' - '.$this->cidade.'/'.$this->uf;;
+        return sprintf('%s - %s - %s/%s', $this->logradouro, $this->cep, $this->cidade, $this->uf);
     }
 
     /**
-     * Define o endereço da pessoa
+     * Define o endereço completo da pessoa.
      * 
-     * @param string $endereco
-     * @param string $cep
-     * @param string $cidade
-     * @param string $uf
-     * @return \Umbrella\Ya\Boleto\Pessoa
+     * @param string $logradouro Logradouro da pessoa - ex.: 'Rua das Oliveiras, 10 - Sala 301'
+     * @param string $cep        CEP do endereço da pessoa
+     * @param string $cidade     Cidade da pessoa
+     * @param string $uf         UF da pessoa
+     * @return \Umbrella\YaBoleto\Pessoa
      */
-    public function setEndereco($endereco, $cep, $cidade, $uf)
+    public function setEndereco($logradouro, $cep, $cidade, $uf)
     {
-        $this->endereco = $endereco;
-        $this->cep      = $cep;
-        $this->cidade   = $cidade;
-        $this->uf       = $uf;
+        $this->logradouro = $logradouro;
+        $this->cep        = $cep;
+        $this->cidade     = $cidade;
+        $this->uf         = $uf;
 
         return $this;
     }

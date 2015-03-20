@@ -1,56 +1,44 @@
-<?php
+<?php namespace Umbrella\YaBoleto\Tests;
 
-/*
- * The MIT License
- *
- * Copyright 2013 italo.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+use Umbrella\YaBoleto\PessoaFisica;
+use Umbrella\YaBoleto\Sacado;
+use Umbrella\YaBoleto\Cedente;
 
-namespace Umbrella\Ya\Boleto\Tests;
-
-/**
- * Description of BoletoTestCase
- *
- * @author italo
- */
 class BoletoTestCase extends \PHPUnit_Framework_TestCase
 {
-
     public static function setUpBeforeClass()
     {
-        date_default_timezone_set("America/Recife");
+        date_default_timezone_set("America/Sao_Paulo");
     }
 
-    protected function pessoaProvider()
+    protected function pessoasProvider()
     {
-        $pf = new \Umbrella\Ya\Boleto\PessoaFisica("Sacado 01", "09007668404");
-        $sacado = new \Umbrella\Ya\Boleto\Sacado($pf);
-        $cedente = new \Umbrella\Ya\Boleto\Cedente("Cendente 01", "92.559.708/0001-03");
+        // sacado...
+        $nomeSacado      = "John Doe";
+        $documentoSacado = "09007668404";
+        $enderecoSacado  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
+        $pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
+        $sacado       = new Sacado($pessoaFisica);
 
-        $pessoa = array(
-            $sacado,
-            $cedente
-        );
+        // cedente...
+        $nomeCedente      = "ACME Corporation Inc.";
+        $documentoCedente = "01.122.241/0001-76";
+        $enderecoCedente  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
+        $cedente = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
 
-        return $pessoa;
+        // atribuir e retornar...
+        $pessoas = array($sacado, $cedente);
+        return $pessoas;
     }
 
 }

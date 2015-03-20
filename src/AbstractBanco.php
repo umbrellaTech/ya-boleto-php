@@ -23,54 +23,94 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\YaBoleto\Bancos\Santander;
+namespace Umbrella\YaBoleto;
 
-use Umbrella\YaBoleto\AbstractBanco;
+use Umbrella\YaBoleto\Type\Number;
 
 /**
- * Classe que representa o Santander.
+ * Classe abstrata que representa um banco.
  * 
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
-class Santander extends AbstractBanco
+abstract class AbstractBanco
 {
-    protected $ios;
+    /** @var integer */
+    protected $codigo;
+    /** @var string */
+    protected $numero;
+    /** @var string */
+    protected $agencia;
+    /** @var string */
+    protected $conta;
+    /** @var string */
+    protected $nome;
 
     /**
      * Inicializa uma nova instância da classe.
      * 
+     * @param string $numero  Número do banco
+     * @param string $nome    Nome do banco
      * @param string $agencia Agência favorecida
      * @param string $conta   Conta favorecida
      */
-    public function __construct($agencia, $conta)
+    public function __construct($numero, $nome, $agencia, $conta)
     {
-        $numero = "033";
-        $nome   = "Santander Banespa";
-        parent::__construct($numero, $nome, $agencia, $conta);
+        $this->numero = $numero;
+        $this->nome = $nome;
+        $this->agencia = $agencia;
+        $this->conta = $conta;
+        $this->codigo = Number::modulo11($this->numero);
     }
 
     /**
-     * Define o ios Santander.
+     * Retorna o numero do banco.
      * 
-     * @param integer $ios
-     * @return \Umbrella\YaBoleto\AbstractBanco $this
-     */
-    public function setIos($ios)
-    {
-        $this->ios = $ios;
-
-        return $this;
-    }
-
-    /**
-     * Recupera o ios Santander.
-     *
      * @return integer
      */
-    public function getIos()
+    public function getNumero()
     {
-        return $this->ios;
+        return $this->numero;
+    }
+
+    /**
+     * Retorna o nome do banco.
+     * 
+     * @return string
+     */
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+    /**
+     * Rotorna o número da agência favorecida.
+     * 
+     * @return string
+     */
+    public function getAgencia()
+    {
+        return $this->agencia;
+    }
+
+    /**
+     * Retorna o número da conta favorecida.
+     * 
+     * @return string
+     */
+    public function getConta()
+    {
+        return $this->conta;
+    }
+
+    /**
+     * Retorna o código do banco.
+     * 
+     * @return string
+     */
+    public function getCodigo()
+    {
+        return $this->codigo;
     }
 
 }

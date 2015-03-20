@@ -1,5 +1,4 @@
 <?php
-
 /*
  * The MIT License
  *
@@ -24,24 +23,40 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Type;
+namespace Umbrella\YaBoleto\Type;
+
+use Carbon\Carbon;
 
 /**
- * Description of Number
+ * Classe para manipulação de números.
  *
- * @author italo
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class Number
 {
-
     /**
-     * @param double $number
+     * Retorna um número formatado.
+     * 
+     * @param  integer $number
+     * @return integer
      */
     public static function format($number)
     {
         return (int)($number * 100);
     }
 
+    /**
+     * Calcula o módulo 11.
+     * 
+     * @param  integer  $number
+     * @param  string   $ifTen
+     * @param  string   $ifZero
+     * @param  boolean  $returnFull
+     * @param  integer  $maxFactor
+     * @param  string   $separator
+     * @return string
+     */
     public static function modulo11($number, $ifTen = '0', $ifZero = '0', $returnFull = false, $maxFactor = 9, $separator = '-')
     {
         $numLen = strlen($number) - 1;
@@ -79,14 +94,10 @@ class Number
     }
 
     /**
-     * Calcula o modulo 10
+     * Calcula o módulo 10.
      *
-     * @author  Caio Ferraz de Lucena
-     *
-     * @since   1.0.0
-     * @param   string
-     * @param string $num
-     * @return  integer
+     * @param  string $num
+     * @return integer
      */
     public static function modulo10($num)
     {
@@ -128,38 +139,16 @@ class Number
     }
 
     /**
-     * @param string $data
+     * Calcula o fator vencimento.
+     * 
+     * @param  Carbon $data
+     * @return integer
      */
-    public static function fatorVencimento($data)
+    public static function fatorVencimento(Carbon $data)
     {
-        $data = explode("/", $data);
-        $ano = $data[2];
-        $mes = $data[1];
-        $dia = $data[0];
+        $dataBase = new Carbon("1997-10-07");
 
-        return (abs((Number::dateToDays("1997", "10", "07")) - (Number::dateToDays($ano, $mes, $dia))));
-    }
-
-    public static function dateToDays($year, $month, $day)
-    {
-        $century = substr($year, 0, 2);
-        $year = substr($year, 2, 2);
-        if ($month > 2) {
-            $month -= 3;
-        } else {
-            $month += 9;
-            if ($year) {
-                $year--;
-            } else {
-                $year = 99;
-                $century--;
-            }
-        }
-
-        return (floor((146097 * $century) / 4) +
-            floor((1461 * $year) / 4) +
-            floor((153 * $month + 2) / 5) +
-            $day + 1721119);
+        return $data->diffInDays($dataBase);
     }
 
 }

@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,31 +23,35 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\YaBoleto;
 
 /**
- * Clase que representa uma pessoa juridica
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Classe que representa uma pessoa física.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class PessoaFisica extends Pessoa
 {
-
+    /** @var string CPF da pessoa física */
     protected $cpf;
 
     /**
-     * Inicializa uma nova instancia da classe PessoaFisica.
-     * @param string $nome
-     * @param string $cpf
+     * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaFisica.
+     * 
+     * @param string $nome             Nome da pessoa física
+     * @param string $cpf              CPF da pessoa física
+     * @param array  $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
-    public function __construct($nome, $cpf)
+    public function __construct($nome, $cpf, array $endereco)
     {
-        parent::__construct($nome);
+        parent::__construct($nome, $endereco);
         $this->setCpf($cpf);
     }
 
     /**
-     * Retorna o cpf da pessoa fisica
+     * Retorna o CPF da pessoa física.
+     * 
      * @return string
      */
     public function getCpf()
@@ -57,14 +60,15 @@ class PessoaFisica extends Pessoa
     }
 
     /**
-     * Define o cpf da pessoa fisica
-     * @param  string                           $cpf
-     * @return \Umbrella\Ya\Boleto\PessoaFisica
+     * Define o CPF da pessoa física.
+     * 
+     * @param string $cpf CPF da pessoa física
+     * @return \Umbrella\YaBoleto\PessoaFisica
      */
     public function setCpf($cpf)
     {
         if (!Validator::cpf($cpf)) {
-            throw new \InvalidArgumentException("O CPF informado e invalido");
+            throw new \InvalidArgumentException("O CPF informado é inválido");
         }
         $this->cpf = $cpf;
 

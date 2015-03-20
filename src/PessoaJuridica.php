@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,31 +23,35 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\YaBoleto;
 
 /**
- * Clase que representa uma pessoa juridica
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Classe que representa uma pessoa jurídica.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class PessoaJuridica extends Pessoa
 {
-
+    /** @var string CNPJ da pessoa jurídica */
     protected $cnpj;
 
     /**
-     * Inicializa uma nova instancia da classe PessoaJuridica.
-     * @param string $nome
-     * @param string $cnpj
+     * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaJuridica.
+     * 
+     * @param string $nome             Nome da Razão Social da pessoa jurídica
+     * @param string $cnpj             CNPJ da pessoa jurídica
+     * @param array  $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
-    public function __construct($nome, $cnpj)
+    public function __construct($nome, $cnpj, array $endereco)
     {
-        parent::__construct($nome);
+        parent::__construct($nome, $endereco);
         $this->setCnpj($cnpj);
     }
 
     /**
-     * Retorna o cnpj da pessoa juridica
+     * Retorna o CNPJ da pessoa jurídica.
+     * 
      * @return string
      */
     public function getCnpj()
@@ -57,15 +60,17 @@ class PessoaJuridica extends Pessoa
     }
 
     /**
-     * Define o cnpj da pessoa juridica
-     * @param  string                             $cnpj
-     * @return \Umbrella\Ya\Boleto\PessoaJuridica
+     * Define o CNPJ da pessoa jurídica.
+     * 
+     * @param string $cnpj CNPJ da pessoa jurídica
+     * @return \Umbrella\YaBoleto\PessoaJuridica
      */
     public function setCnpj($cnpj)
     {
         if (!Validator::cnpj($cnpj)) {
-            throw new \InvalidArgumentException("O CNPJ informado e invalido");
+            throw new \InvalidArgumentException("O CNPJ informado é inválido");
         }
+
         $this->cnpj = $cnpj;
 
         return $this;

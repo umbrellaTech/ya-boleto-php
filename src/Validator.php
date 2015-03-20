@@ -1,5 +1,4 @@
 <?php
-
 /*
  * The MIT License
  *
@@ -24,36 +23,32 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\YaBoleto;
 
 /**
- * Description of Validator
- *
- * @author italo
+ * Classe para validação de campos.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class Validator
 {
-
     /**
      * Valida um CPF verificando seus algarismos e seus dígitos verificadores. 
      * Para fins de validação, cpf() não leva em consideração as presenças de pontos e 
      * traços ao número informado.
      *                       
-     * @param $value CPF a ser verificado
-     * @param string $cpf
+     * @param  string $cpf
      * @return boolean
      */
     public static function cpf($cpf)
-    {   
-        // Canonicalize input
+    {
         $cpf = sprintf('%011s', preg_replace('{\D}', '', $cpf));
 
-        // Validate length and invalid numbers
         if ((strlen($cpf) != 11) || ($cpf == '00000000000') || ($cpf == '99999999999')) {
             return false;
         }
 
-        // Validate check digits using a modulus 11 algorithm
         for ($t = 8; $t < 10;) {
             for ($d = 0, $p = 2, $c = $t; $c >= 0; $c--, $p++) {
                 $d += $cpf[$c] * $p;
@@ -68,23 +63,21 @@ class Validator
     }
 
     /**
-     * Valida um CNPJ.
-     * cnpj() não considera pontos, traços e barras.
-     * 
-     * @param string $cnpj CNPJ a ser verificado
+     * Valida um CNPJ verificando seus algarismos e seus dígitos verificadores. 
+     * Para fins de validação, cnpj() não leva em consideração as presenças de pontos e 
+     * traços ao número informado.
+     *                       
+     * @param  string $cnpj
      * @return boolean
      */
     public static function cnpj($cnpj)
     {
-        // Canonicalize input
         $cnpj = sprintf('%014s', preg_replace('{\D}', '', $cnpj));
 
-        // Validate length and CNPJ order
         if ((strlen($cnpj) != 14) || (intval(substr($cnpj, -4)) == 0)) {
             return false;
         }
 
-        // Validate check digits using a modulus 11 algorithm
         for ($t = 11; $t < 13;) {
             for ($d = 0, $p = 2, $c = $t; $c >= 0; $c--, ($p < 9) ? $p++ : $p = 2) {
                 $d += $cnpj[$c] * $p;

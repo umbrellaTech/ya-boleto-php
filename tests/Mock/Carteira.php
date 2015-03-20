@@ -1,14 +1,7 @@
-<?php
+<?php namespace Umbrella\YaBoleto\Tests\Mock;
 
-namespace Umbrella\Ya\Boleto\Tests\Mock;
+use Umbrella\YaBoleto\CarteiraInterface;
 
-use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
-
-/**
- * Description of Carteira
- *
- * @author mikhail
- */
 class Carteira implements CarteiraInterface
 {
     private $numero;
@@ -18,11 +11,9 @@ class Carteira implements CarteiraInterface
         return $this->numero;
     }
 
-    /**
-     * @param integer|null $numero
-     */
     public function setNumero($numero)
     {
         $this->numero = $numero;
     }
+    
 }

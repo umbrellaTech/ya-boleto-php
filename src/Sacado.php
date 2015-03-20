@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,45 +23,53 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto;
+namespace Umbrella\YaBoleto;
+
+use Umbrella\YaBoleto\Pessoa;
 
 /**
- * Clase que representa um Sacado
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Classe que representa um sacado.
+ * A pessoa que paga um boleto é o sacado.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class Sacado
 {
-
-    /**
-     * @var Pessoa
-     */
+    /** @var \Umbrella\YaBoleto\Pessoa */
     protected $tipo;
 
+    /**
+     * Inicializa uma nova instância da classe \Umbrella\YaBoleto\Sacado.
+     * 
+     * @param \Umbrella\YaBoleto\Pessoa $tipo
+     */
     public function __construct(Pessoa $tipo)
     {
         $this->tipo = $tipo;
     }
 
     /**
-     * Retorna o tipo da pessoa para o sacado
-     * @return Pessoa
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
-     * Define o tipo da pessoa para o sacado
-     * @param  \Umbrella\Ya\Boleto\Pessoa $tipo
-     * @return \Umbrella\Ya\Boleto\Sacado
+     * Define o tipo da pessoa para o sacado.
+     * 
+     * @param  \Umbrella\YaBoleto\Pessoa $tipo
+     * @return \Umbrella\YaBoleto\Sacado $this
      */
     public function setTipo(Pessoa $tipo)
     {
         $this->tipo = $tipo;
 
         return $this;
+    }
+
+    /**
+     * Retorna o tipo da pessoa do sacado.
+     * 
+     * @return \Umbrella\YaBoleto\Pessoa
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
     }
 
 }

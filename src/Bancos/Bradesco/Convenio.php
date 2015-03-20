@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,19 +23,25 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Bancos\Bradesco;
+namespace Umbrella\YaBoleto\Bancos\Bradesco;
 
 use ArrayObject;
-use Umbrella\Ya\Boleto\AbstractConvenio;
+use Umbrella\YaBoleto\AbstractConvenio;
 
 /**
- * Clase abstrata que representa o Convenio
- * @author edmo <edmofarias@gmail.com>
- * @since 1.0.0
+ * Classe que representa o convênio do Bradesco.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class Convenio extends AbstractConvenio
 {
-
+    /**
+     * Gera o campo livre do código de barras.
+     * 
+     * @param  ArrayObject $data
+     * @return $data
+     */
     public function gerarCampoLivre(ArrayObject $data)
     {
         $this->alterarTamanho('Agencia', 4);

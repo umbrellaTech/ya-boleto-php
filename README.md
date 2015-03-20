@@ -1,6 +1,5 @@
 # Yet Another Boleto
 
-
 [![Build Status](https://travis-ci.org/umbrellaTech/ya-boleto-php.png?branch=master)](https://travis-ci.org/umbrellaTech/ya-boleto-php)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/umbrellaTech/ya-boleto-php/?branch=master)
@@ -10,7 +9,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/1f67b9bd-f120-43d5-9f02-f73aa6132d86/small.png)](https://insight.sensiolabs.com/projects/1f67b9bd-f120-43d5-9f02-f73aa6132d86)
 
 O YaBoleto e um novo componete de boleto bancario em PHP, mas qual a diferença dos outros? Simples... Ele foi projetado de forma simples e Orientada a Objetos.
-Seguimos os padrões PSR-0, PSR-1 e PSR-2, utilizamos padrões de projetos onde seria necessário e Voilà. O Ya Boleto vai mudar a forma de como você trabalha com boletos bancários.
+Seguimos os padrões PSR-0, PSR-1 e PSR-2, utilizamos padrões de projetos onde seria necessário e Voilà. O YaBoleto vai mudar a forma de como você trabalha com boletos bancários.
 
 Quer utilizar o YaBoleto? Leia nossa [documentaçao][2] e veja como é simples.
 
@@ -18,7 +17,7 @@ Quer utilizar o YaBoleto? Leia nossa [documentaçao][2] e veja como é simples.
 ### Composer
 Se você já conhece o **Composer** (o que é extremamente recomendado), simplesmente adicione a dependência abaixo à diretiva *"require"* no seu **composer.json**:
 ```
-"umbrella/boleto": "1.4.0"
+"umbrella/boleto": "1.5.*"
 ```
 
 Sim, só isso! Lembre-se de que cada banco possui alguma particularidade, mas em geral são estes parâmetros os obrigatórios. 
@@ -26,20 +25,19 @@ Sim, só isso! Lembre-se de que cada banco possui alguma particularidade, mas em
 O projeto [umbrellaTech/demo][1] possui um exemplo funcional de cada banco, você pode verificar lá quais são os parâmetros necessários para cada banco.
 
 ## Bancos suportados
-Atualmente o YABoleto funciona com os bancos abaixo:
+Atualmente o YaBoleto funciona com os bancos abaixo:
 
 | **Banco**           |  **Carteira/Convenio** | **Implementado** | **Testado** |
 |---------------------|--------------------------|--------------------|---------------|
 | **Banco do Brasil** | 17, 18, 21               | Sim                | Sim           |
-| **Banrisul**        | x                        | Nao                | Nao           |
+| **Banrisul**        | x                        | Não                | Não           |
 | **Bradesco**        | 06, 03                   | Sim                | Sim           |
 | **Caixa Economica** | SR                       | Sim                | Sim           |
-| **HSBC**            | CNR, CSB                 | Nao                | Nao           |
-| **Itau**            | 157                      | Nao                | Nao           |
-| **Itau**            | 175, 174, 178, 104, 109  | Nao                | Nao           |
+| **HSBC**            | CNR, CSB                 | Não                | Nao           |
+| **Itau**            | 157                      | Não                | Não           |
+| **Itau**            | 175, 174, 178, 104, 109  | Não                | Não           |
 | **Real**            | 57                       | Sim                | Sim           |
-| **Santander**       | 102                      | Sim                | Sim           |
-| **Santander**       | 101, 201                 | Sim                | Sim           |
+| **Santander**       | 101, 102, 201            | Sim                | Sim           |
 |                     |                          |                    |               |
 
 Uso
@@ -48,69 +46,108 @@ Uso
 A forma mais simples é utilizar o Builder.
 
 ```php
-use DateTime;
-use Umbrella\Ya\Boleto\Builder\Bancos;
-use Umbrella\Ya\Boleto\Builder\BoletoBuilder;
+use Carbon\Carbon;
+use Umbrella\YaBoleto\Builder\BoletoBuilder;
 
-$builder = new BoletoBuilder(Bancos::BANCO_BRASIL);
+// sacado...
+$nomeSacado      = "John Doe";
+$documentoSacado = "090.076.684-04";
+$enderecoSacado  = array(
+    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "cep"        => "70200-002",
+    "cidade"     => "Brasília",
+    "uf"         => "DF"
+    );
 
-$boleto = $builder
-    ->sacado('Sacado', '61670634787') // também pode ser passado com a máscara 616.706.347-87
-    ->cedente('Cendente', '08365691000139') // também pode ser passado com a máscara 08.365.691/0001-39
-    ->banco(1234, 123456787)
-    ->carteira(18)
-    ->convenio(1234567, 2)
-    ->build(50, 2, new DateTime('2014-09-02'));
+// cedente...
+$nomeCedente      = "ACME Corporation Inc.";
+$documentoCedente = "01.122.241/0001-76";
+$enderecoCedente  = array(
+    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "cep"        => "70200-002",
+    "cidade"     => "Brasília",
+    "uf"         => "DF"
+    );
 
-echo $boleto->getLinhaDigitavel() // 00190.00009 01234.567004 00000.002188 7 61740000005000
+$builder = new BoletoBuilder(BoletoBuilder::BRADESCO);
+
+$boleto  = $builder->sacado(BoletoBuilder::PESSOA_FISICA, $nomeSacado, $documentoSacado, $enderecoSacado)
+                   ->cedente($nomeCedente, $documentoCedente, $enderecoCedente)
+                   ->banco("0564", "0101888")
+                   ->carteira("06")
+                   ->convenio("0101888", "77000009017")
+                   ->build(250, "77000009017", new Carbon("2015-03-24"));
+
+echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
 
 A forma Orientada a Objetos é um pouco mais trabalhossa, mas permite maior flexibilidade.
 
 ```php
-use Umbrella\Ya\Boleto\Bancos\BancoBrasil\BancoBrasil as BancoBrasil2;
-use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Boleto\BancoBrasil;
-use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira\Carteira17;
-use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Carteira\Carteira18;
-use Umbrella\Ya\Boleto\Bancos\BancoBrasil\Convenio;
-use Umbrella\Ya\Boleto\Cedente;
-use Umbrella\Ya\Boleto\PessoaFisica;
-use Umbrella\Ya\Boleto\Sacado;
+use Carbon\Carbon;
 
-$banco  = new BancoBrasil2(1234, 123456787);
-$carteira   = new Carteira18();
+use Umbrella\YaBoleto\Bancos\Bradesco\Convenio;
+use Umbrella\YaBoleto\Bancos\Bradesco\Bradesco;
+use Umbrella\YaBoleto\Bancos\Bradesco\Carteira\Carteira06;
+use Umbrella\YaBoleto\Bancos\Bradesco\Boleto\Bradesco as BoletoBradesco;
 
-$convenio   = new Convenio($banco, $carteira, 1234567, 2);
-$pf         = new PessoaFisica('Sacado', '61670634787');
-$sacado     = new Sacado($pf);
-$cedente    = new Cedente('Cendente', '08365691000139');
+use Umbrella\YaBoleto\PessoaFisica;
+use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Sacado;
 
-$boletoBB = new BancoBrasil($sacado, $cedente, $convenio);
-$boletoBB->setValorDocumento(50)
-        ->setNumeroDocumento(2)
-        ->setDataVencimento($new DateTime('2014-09-02'));
+// sacado...
+$nomeSacado      = "John Doe";
+$documentoSacado = "090.076.684-04";
+$enderecoSacado  = array(
+    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "cep"        => "70200-002",
+    "cidade"     => "Brasília",
+    "uf"         => "DF"
+    );
 
-echo $boleto->getLinhaDigitavel() // 00190.00009 01234.567004 00000.002188 7 61740000005000
+// cedente...
+$nomeCedente      = "ACME Corporation Inc.";
+$documentoCedente = "01.122.241/0001-76";
+$enderecoCedente  = array(
+    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "cep"        => "70200-002",
+    "cidade"     => "Brasília",
+    "uf"         => "DF"
+    );
 
+$banco        = new Bradesco("0564", "0101888");
+$carteira     = new Carteira06();
+
+$convenio     = new Convenio($banco, $carteira, "0101888", "77000009017");
+$pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
+$sacado       = new Sacado($pessoaFisica);
+$cedente      = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
+
+$boleto       = new BoletoBradesco($sacado, $cedente, $convenio);
+
+$boleto->setValorDocumento(50)
+       ->setNumeroDocumento(2)
+       ->setDataVencimento(new Carbon('2014-09-02'));
+
+echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
 
 Contribua
 ----------
 
-Toda contribuição é bem vinda. Se você deseja adaptar o YABoleto a algum outro banco, fique à vontade para explorar o código, 
-veja como é bastante simples integrar qualquer banco à biblioteca. Para instalar clone o projeto dentro da pasta **Umbrella/Ya/Boleto**.
+Toda contribuição é bem vinda. Se você deseja adaptar o YaBoleto a algum outro banco, fique à vontade para explorar o código, veja como é bastante simples integrar qualquer banco à biblioteca. Para instalar clone o projeto dentro da pasta **Umbrella/YaBoleto**.
 ```
-git clone https://github.com/umbrellaTech/ya-boleto-php.git ya-boleto-php/Umbrella/Ya/Boleto
+git clone https://github.com/umbrellaTech/ya-boleto-php.git ya-boleto-php/Umbrella/YaBoleto
 ```
 Ou usando o composer.
 ```
-php composer.phar create-project umbrella/boleto ya-boleto-php/Umbrella/Ya/Boleto dev-master
+php composer.phar create-project umbrella/boleto ya-boleto-php/Umbrella/YaBoleto dev-master
 ```
 Isso se deve por conta do autoloader que segue a [PSR-0][3].
 
 Demo
 ----------
-A aplicação de demonstração está no repositório [Ya Boleto Demo](https://github.com/umbrellaTech/ya-boleto-demo)
+A aplicação de demonstração está no repositório [YaBoleto Demo](https://github.com/umbrellaTech/ya-boleto-demo)
 
 Licença
 ----------
