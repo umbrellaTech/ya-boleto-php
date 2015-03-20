@@ -10,6 +10,7 @@ tmp/*
 .project
 .settings
 composer.lock
+coverage.clover
 /resources/cache
 /resources/cache/*
 resources/cache
