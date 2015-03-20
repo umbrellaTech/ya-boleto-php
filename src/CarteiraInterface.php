@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,17 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\Builder;
+
+namespace Umbrella\YaBoleto;
 
 /**
- * Enum com os bancos disponíveis.
+ * Interface para as funcionalidades básicas para uma carteira bancária.
+ * 
+ * @author  Ian Rodrigues <me@ianrodrigu.es>
+ * @package YaBoleto
  */
-class Bancos
+interface CarteiraInterface
 {
-    const BANCO_BRASIL = 'Banco Brasil';
-    const SANTANDER = 'santander';
-    const BRADESCO = 'bradesco';
-    const CAIXA = 'Caixa Economica';
-    const ITAU = 'itau';
-
+    public function getNumero();
 }

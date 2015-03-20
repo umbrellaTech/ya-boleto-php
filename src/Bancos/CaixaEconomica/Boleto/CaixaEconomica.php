@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,16 +23,17 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Boleto;
+namespace Umbrella\YaBoleto\Bancos\CaixaEconomica\Boleto;
 
-use Umbrella\Ya\Boleto\Boleto;
+use Umbrella\YaBoleto\AbstractBoleto;
 
 /**
- * Clase abstrata que representa o Boleto da Caixa Economica Federal
- * @author edmo <edmofarias@gmail.com>
- * @since 1.0.0
+ * Classe que representa o boleto da Caixa Econômica.
+ * 
+ * @author  Edmo Farias <edmofarias@gmail.com>
+ * @package YaBoleto
  */
-class CaixaEconomica extends Boleto
+class CaixaEconomica extends AbstractBoleto
 {
 
 }

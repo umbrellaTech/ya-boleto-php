@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,34 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\View\Helper;
 
-use InvalidArgumentException;
+namespace Umbrella\YaBoleto\View\Helper;
 
 /**
- * Description of String
+ * Classe para renderização do código de barras.
  *
- * @author italo
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class BarcodeCss implements BarcodeRenderInterface
 {
 
     /**
-     * {@inheritdoc}
+     * Renderiza o html para um código de barras.
+     * 
+     * @param  string $codigoBarras Código de barras do boleto
+     * @return string
      */
     public function render($codigoBarras)
     {
         if (!is_string($codigoBarras)) {
-            throw new InvalidArgumentException('O código de barras deve ser uma string');
+            throw new \InvalidArgumentException("O código de barras deve ser uma string");
         }
 
-        $barcodes = array('00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010');
+        $barcodes = array("00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010");
 
         for ($f1 = 9; $f1 >= 0; $f1--) {
             for ($f2 = 9; $f2 >= 0; $f2--) {
 
                 $f = ($f1 * 10) + $f2;
-                $texto = '';
+                $texto = "";
 
                 for ($i = 1; $i < 6; $i++) {
                     $texto .= substr($barcodes[$f1], ($i - 1), 1) . substr($barcodes[$f2], ($i - 1), 1);
@@ -61,11 +63,11 @@ class BarcodeCss implements BarcodeRenderInterface
         }
 
         // Guarda inicial
-        $retorno = '<div class="barcode">' .
-            '<div class="black thin"></div>' .
-            '<div class="white thin"></div>' .
-            '<div class="black thin"></div>' .
-            '<div class="white thin"></div>';
+        $retorno = "<div class='barcode'>" .
+            "<div class='black thin'></div>" .
+            "<div class='white thin'></div>" .
+            "<div class='black thin'></div>" .
+            "<div class='white thin'></div>";
 
         if (strlen($codigoBarras) % 2 != 0) {
             $codigoBarras = "0" . $codigoBarras;
@@ -81,17 +83,17 @@ class BarcodeCss implements BarcodeRenderInterface
             for ($i = 1; $i < 11; $i += 2) {
 
                 if (substr($f, ($i - 1), 1) == "0") {
-                    $f1 = 'thin';
+                    $f1 = "thin";
                 } else {
-                    $f1 = 'large';
+                    $f1 = "large";
                 }
 
                 $retorno .= "<div class='black {$f1}'></div>";
 
                 if (substr($f, $i, 1) == "0") {
-                    $f2 = 'thin';
+                    $f2 = "thin";
                 } else {
-                    $f2 = 'large';
+                    $f2 = "large";
                 }
 
                 $retorno .= "<div class='white {$f2}'></div>";
@@ -99,14 +101,14 @@ class BarcodeCss implements BarcodeRenderInterface
         }
 
         // Final
-        return $retorno . '<div class="black large"></div>' .
-            '<div class="white thin"></div>' .
-            '<div class="black thin"></div>' .
-            '</div>';
+        return $retorno . "<div class='black thin'></div>" .
+            "<div class='white thin'></div>" .
+            "<div class='black thin'></div>" .
+            "</div>";
     }
 
     /**
-     * Helper para obter os caracteres à esquerda
+     * Helper para obter os caracteres à esquerda.
      *
      * @param  string $string
      * @param  int    $num    Quantidade de caracteres para se obter

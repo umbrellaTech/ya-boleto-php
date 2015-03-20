@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,44 +23,50 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica;
+namespace Umbrella\YaBoleto\Bancos\CaixaEconomica;
 
 use ArrayObject;
-use Umbrella\Ya\Boleto\AbstractConvenio;
-use Umbrella\Ya\Boleto\Type\Number;
-use Umbrella\Ya\Boleto\Type\String;
+use Umbrella\YaBoleto\AbstractConvenio;
+use Umbrella\YaBoleto\Type\Number;
+use Umbrella\YaBoleto\Type\String;
 
 /**
- * Clase abstrata que representa o Convenio
- * @author edmo <edmofarias@gmail.com>
- * @since 1.0.0
+ * Classe que representa o convênio da Caixa Econômica.
+ * 
+ * @author  Edmo Farias <edmofarias@gmail.com>
+ * @package YaBoleto
  */
 class Convenio extends AbstractConvenio
 {
-
+    /**
+     * Gera o campo livre do código de barras.
+     * 
+     * @param  ArrayObject $data
+     * @return $data
+     */
     public function gerarCampoLivre(ArrayObject $data)
     {
         $this->alterarTamanho('NossoNumero', 17);
-        $this->alterarTamanho('CodigoCedente', 7); //6 digitos + DV
-        $this->alterarTamanho('CampoLivre', 18); //17 digitos + DV
+        $this->alterarTamanho('CodigoCedente', 7); // 06 digitos + DV
+        $this->alterarTamanho('CampoLivre', 18);   // 17 digitos + DV
 
         $data['CodigoCedente'] .= Number::modulo11($data['CodigoCedente'], 0, 0, false);
 
         $nossoNumero = String::normalize($data['NossoNumero'], 17);
 
-        $constante1 = '2'; //1ª posição do Nosso Numero:Tipo de Cobrança (1-Registrada / 2-Sem Registro)
-        $constante2 = '4'; //2ª posição do Nosso Número:Identificador da Emissão do Boleto (4-Beneficiário)
+        $constante1 = '2'; // 1ª posição do Nosso Numero: Tipo de Cobrança (1-Registrada / 2-Sem Registro)
+        $constante2 = '4'; // 2ª posição do Nosso Número: Identificador da Emissão do Boleto (4-Beneficiário)
         $sequencia1 = (String) substr($nossoNumero, 2, 3);
         $sequencia2 = (String) substr($nossoNumero, 5, 3);
         $sequencia3 = (String) substr($nossoNumero, 8, 9);
 
         if ($data['Carteira'] == 'RG') {
-            $constante1 = '1'; //1ª posição do Nosso Numero:Tipo de Cobrança (1-Registrada / 2-Sem Registro)
+            $constante1 = '1'; // 1ª posição do Nosso Numero: Tipo de Cobrança (1-Registrada / 2-Sem Registro)
         }
 
         $data['CampoLivre'] = $sequencia1 . $constante1 . $sequencia2 . $constante2 . $sequencia3;
 
-        //Calculando o DV do campo livre
+        // Calculando o DV do campo livre
         $campoLivre = $data['CodigoCedente'] . $data['CampoLivre'];
         $data['CampoLivre'] .= Number::modulo11($campoLivre, 0, 0, false);
 

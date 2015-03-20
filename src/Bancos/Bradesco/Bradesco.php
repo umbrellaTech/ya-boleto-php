@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,27 +23,28 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Bancos\Bradesco;
+namespace Umbrella\YaBoleto\Bancos\Bradesco;
 
-use Umbrella\Ya\Boleto\Banco;
+use Umbrella\YaBoleto\AbstractBanco;
 
 /**
- * Clase abstrata que representa o Boleto. Os dados da classe foram retirados da FEBRABAN
- * @author edmo <edmofarias@gmail.com>
- * @since 1.0.0
+ * Classe que representa o Bradesco.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
-class Bradesco extends Banco
+class Bradesco extends AbstractBanco
 {
-
     /**
-     *
-     * @param string $agencia
-     * @param string $conta
+     * Inicializa uma nova instância da classe.
+     * 
+     * @param string $agencia Agência favorecida
+     * @param string $conta   Conta favorecida
      */
     public function __construct($agencia, $conta)
     {
         $numero = "237";
-        $nome = "Bradesco";
+        $nome   = "Bradesco";
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 

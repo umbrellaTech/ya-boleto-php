@@ -1,45 +1,41 @@
-<?php
+<?php namespace Umbrella\YaBoleto\Tests;
 
-/*
- * The MIT License
- *
- * Copyright 2013 Umbrella Tech.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+use Umbrella\YaBoleto\Cedente;
 
-namespace Umbrella\Ya\Boleto\Tests;
-
-/**
- * Description of CedenteTest
- *
- * @author italo
- */
 class CedenteTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testValidarCpf()
+    public function testShouldThrownInvalidArgumentException()
     {
-        $cedente = new \Umbrella\Ya\Boleto\Cedente("Cendente 01", "2342342343");
+        $nomeCedente      = "ACME Corporation Inc.";
+        $documentoCedente = "12.121.121/1212-12";
+        $enderecoCedente  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
+
+        $cedente = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
+    }
+
+    /**
+     * @see http://www.geradordecpf.org/
+     */
+    public function testShouldNotThrownInvalidArgumentException()
+    {
+        $nomeCedente      = "ACME Corporation Inc.";
+        $documentoCedente = "01.122.241/0001-76";
+        $enderecoCedente  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
+
+        $cedente = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
     }
 
 }

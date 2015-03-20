@@ -12,7 +12,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Suite de Testes do YABoleto">
+        <testsuite name="Suite de Testes do YaBoleto">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
@@ -28,7 +28,7 @@
     </filter>
 
     <logging>
-        <log type="coverage-html" target="build/coverage" title="Ya Boleto Coverage" charset="UTF-8" yui="true" highlight="true" />
+        <log type="coverage-html" target="build/coverage" title="YaBoleto Coverage" charset="UTF-8" yui="true" highlight="true" />
         <log type="coverage-clover" target="build/logs/clover.xml"/>
         <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
     </logging>

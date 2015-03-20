@@ -1,5 +1,4 @@
 <?php
-
 /*
  * The MIT License
  *
@@ -23,21 +22,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\View\Helper;
+
+namespace Umbrella\YaBoleto\View\Helper;
 
 /**
- * Description of String
+ * Classe para renderização do código de barras.
  *
- * @author italo
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class BarcodeFont implements BarcodeRenderInterface
 {
-
     /**
-     * {@inheritdoc}
+     * Renderiza o código de barras.
+     * 
+     * @param  string $codigoBarras Código de barras do boleto
+     * @return string
      */
     public function render($codigoBarras)
     {
         return $codigoBarras;
     }
+
 }

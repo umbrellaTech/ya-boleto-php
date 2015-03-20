@@ -1,7 +1,7 @@
 {
     "name": "umbrella/boleto",
     "type": "library",
-    "description": "Yet another Boleto e uma biblioteca para geração de boletos bancários em PHP ",
+    "description": "YaBoleto é uma biblioteca para geração de boletos bancários de forma simples em PHP.",
     "keywords": [],
     "homepage": "http://umbrellatech.com/boleto",
     "license": "MIT",
@@ -21,22 +21,27 @@
         {
             "name": "Ayrton Ricardo da Silva",
             "email": "ayrton_jampa@hotmail.com"
+        },
+        {
+            "name": "Ian da Silva Rodrigues",
+            "email": "me@ianrodrigu.es"
         }
     ],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.3",
+        "nesbot/carbon": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
         "psr-4": {
-            "Umbrella\\Ya\\Boleto\\": "src/"
+            "Umbrella\\YaBoleto\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Umbrella\\Ya\\Boleto\\Tests\\": "tests/"
+            "Umbrella\\YaBoleto\\Tests\\": "tests/"
         }
     }
 }

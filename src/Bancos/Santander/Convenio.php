@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,30 +22,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\Bancos\Santander;
+
+namespace Umbrella\YaBoleto\Bancos\Santander;
 
 use ArrayObject;
-use Umbrella\Ya\Boleto\AbstractConvenio;
-use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
-use Umbrella\Ya\Boleto\Type\Number;
+use Umbrella\YaBoleto\AbstractConvenio;
+use Umbrella\YaBoleto\CarteiraInterface;
+use Umbrella\YaBoleto\Type\Number;
 
 /**
- * Clase abstrata que representa o Convenio
- * @author italo <italolelis@lellysinformatica.com>
- * @since 1.0.0
+ * Classe que representa o convênio do Santander.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class Convenio extends AbstractConvenio
 {
-
     /**
-     * @param string $convenio
-     * @param string $nossoNumero
+     * Gera o campo livre do código de barras.
+     * 
+     * @param  ArrayObject $data
+     * @return $data
      */
-    public function __construct(Santander $banco, CarteiraInterface $carteira, $convenio, $nossoNumero)
-    {
-        parent::__construct($banco, $carteira, $convenio, $nossoNumero);
-    }
-
     public function gerarCampoLivre(ArrayObject $data)
     {
         $this->alterarTamanho('Fixo', 1);
@@ -55,11 +52,11 @@ class Convenio extends AbstractConvenio
         $this->alterarTamanho('NossoNumero', 13);
 
         $data['Fixo'] = "9";
-        $data['Ios'] = $this->banco->getIos();
+        $data['Ios']  = $this->banco->getIos();
 
-        $nossoNumero = $data['NossoNumero'];
-        $dvNossoNumero = Number::modulo11($nossoNumero);
+        $nossoNumero       = $data['NossoNumero'];
+        $dvNossoNumero     = Number::modulo11($nossoNumero);
         $this->nossoNumero = $nossoNumero . $dvNossoNumero;
-        $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
+        $this->layout      = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     }
 }

@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,26 +22,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\Bancos\CaixaEconomica\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
+namespace Umbrella\YaBoleto\Bancos\CaixaEconomica\Carteira;
+
+use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
- * Representa a carteira Sigcb para a CEF
- * @author Edmo Farias <edmofarias@gmail.com>
- * @since 1.0.0
+ * Classe que representa a carteira Sigcb da Caixa Econômia.
+ * 
+ * @author  Edmo Farias <edmofarias@gmail.com>
+ * @package YaBoleto
  */
 class CarteiraSigcb implements CarteiraInterface
 {
     private $tipo;
 
+    /**
+     * Inicializa uma nova instância da classe.
+     * 
+     * @param string $tipo Tipo da carteira
+     */
     public function __construct($tipo = null)
     {
         $this->tipo = $tipo;
     }
 
     /**
-     * {@inheritdoc}
+     * Retorna o número do convênio.
+     * 
+     * @return string
      */
     public function getNumero()
     {
@@ -50,6 +58,6 @@ class CarteiraSigcb implements CarteiraInterface
             return $this->tipo;
         }
 
-        return '1';
+        return "1";
     }
 }

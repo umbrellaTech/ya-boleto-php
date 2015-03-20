@@ -1,5 +1,4 @@
 <?php
-
 /*
  * The MIT License
  *
@@ -24,21 +23,23 @@
  * THE SOFTWARE.
  */
 
-namespace Umbrella\Ya\Boleto\Type;
+namespace Umbrella\YaBoleto\Type;
 
 /**
- * Description of String
+ * Classe para manipulação de strings.
  *
- * @author italo
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class String
 {
 
     /**
+     * [putAt description]
      * 
-     * @param type $text
-     * @param type $put
-     * @param integer $at
+     * @param  string  $text
+     * @param  string  $put
+     * @param  integer $at
      * @return string
      */
     public static function putAt($text, $put, $at)
@@ -47,9 +48,10 @@ class String
     }
 
     /**
+     * [left description]
      * 
-     * @param type $text
-     * @param type $length
+     * @param  string  $text
+     * @param  integer $length
      * @return string
      */
     public static function left($text, $length)
@@ -58,9 +60,10 @@ class String
     }
 
     /**
+     * [applyMask description]
      * 
-     * @param string $text
-     * @param type $mask
+     * @param  string $text
+     * @param  string $mask
      * @return string
      */
     public static function applyMask($text, $mask)
@@ -87,10 +90,10 @@ class String
     }
 
     /**
-     * Completa com zeros adicionais à esquerda até o valor informado
+     * Completa com zeros adicionais à esquerda até o valor informado.
      * 
-     * @param type $text
-     * @param type $length
+     * @param  string $text
+     * @param  string $length
      * @return string
      */
     public static function zeros($text, $length)
@@ -101,10 +104,10 @@ class String
     /**
      * Completa com zeros adicionais à esquerda até o valor informado,
      * alterando a variável original, e cortando caso o valor tenha
-     * mais caracteres que o permitido
+     * mais caracteres que o permitido.
      * 
-     * @param type $var
-     * @param type $length
+     * @param  string $var
+     * @param  string $length
      * @return string
      */
     public static function normalize(&$var, $length)
@@ -113,10 +116,11 @@ class String
     }
 
     /**
+     * [insert description]
      * 
-     * @param type $string
-     * @param \ArrayObject $data
-     * @return type
+     * @param  string       $string
+     * @param  \ArrayObject $data
+     * @return string
      */
     public static function insert($string, $data)
     {

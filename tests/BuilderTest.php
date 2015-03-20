@@ -1,55 +1,44 @@
-<?php
+<?php namespace Umbrella\YaBoleto\Tests;
 
-/*
- * The MIT License
- *
- * Copyright 2013 Umbrella Tech.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-namespace Umbrella\Ya\Boleto\Tests;
+use Carbon\Carbon;
+use Umbrella\YaBoleto\PessoaFisica;
+use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Builder\BoletoBuilder;
 
-use DateTime;
-use Umbrella\Ya\Boleto\Builder\Bancos;
-use Umbrella\Ya\Boleto\Builder\BoletoBuilder;
-
-/**
- * Description of CedenteTest
- *
- * @author italo
- */
 class BuilderTest extends BoletoTestCase
 {
-
-    public function testValidarBuilder()
+    public function testShouldCreateValidBoletoBradesoWithBuilder()
     {
-        $builder = new BoletoBuilder(Bancos::BANCO_BRASIL);
+        // sacado...
+        $nomeSacado      = "John Doe";
+        $documentoSacado = "090.076.684-04";
+        $enderecoSacado  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
 
-        $boleto = $builder
-            ->sacado('Sacado', '61670634787') // também pode ser passado com a máscara 616.706.347-87
-            ->cedente('Cendente', '08365691000139') // também pode ser passado com a máscara 08.365.691/0001-39
-            ->banco(1234, 123456787)
-            ->carteira(18)
-            ->convenio(1234567, 2)
-            ->build(50, 2, new DateTime('2014-09-02'));
+        // cedente...
+        $nomeCedente      = "ACME Corporation Inc.";
+        $documentoCedente = "01.122.241/0001-76";
+        $enderecoCedente  = array(
+            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "cep"        => "70200-002",
+            "cidade"     => "Brasília",
+            "uf"         => "DF"
+            );
 
-        $this->assertInstanceOf('Umbrella\\Ya\\Boleto\\Boleto', $boleto);
-        $this->assertEquals('00190.00009 01234.567004 00000.002188 7 61740000005000', $boleto->getLinhaDigitavel());
+        $builder = new BoletoBuilder(BoletoBuilder::BRADESCO);
+
+        $boleto  = $builder->sacado(BoletoBuilder::PESSOA_FISICA, $nomeSacado, $documentoSacado, $enderecoSacado)
+                           ->cedente($nomeCedente, $documentoCedente, $enderecoCedente)
+                           ->banco("0564", "0101888")
+                           ->carteira("06")
+                           ->convenio("0101888", "77000009017")
+                           ->build(250, "77000009017", new Carbon("2015-03-24"));
+
+        $this->assertInstanceOf("Umbrella\\YaBoleto\\AbstractBoleto", $boleto);
+        $this->assertEquals("23790.56407 67700.000903 17010.188807 8 63770000025000", $boleto->getLinhaDigitavel());
     }
 }

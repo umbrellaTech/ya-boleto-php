@@ -1,9 +1,8 @@
 <?php
-
 /*
  * The MIT License
  *
- * Copyright 2013 Umbrella Tech.
+ * Copyright 2013 italo.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Umbrella\Ya\Boleto\Bancos\Santander\Carteira;
 
-use Umbrella\Ya\Boleto\Carteira\CarteiraInterface;
+namespace Umbrella\YaBoleto\Bancos\Santander\Carteira;
+
+use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
- * Description of Carteira18
- *
- * @author italo
+ * Classe que representa a carteira 57 do Santander.
+ * 
+ * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @package YaBoleto
  */
 class Carteira57 implements CarteiraInterface
 {
-
+    /**
+     * Retorna o número do convênio.
+     * 
+     * @return string
+     */
     public function getNumero()
     {
         return "57";
     }
+    
 }
