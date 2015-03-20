@@ -25,15 +25,16 @@
 
 namespace Umbrella\YaBoleto\Builder;
 
-use ReflectionClass;
 use Carbon\Carbon;
+use ReflectionClass;
 use Umbrella\YaBoleto\Cedente;
 use Umbrella\YaBoleto\PessoaFisica;
+use Umbrella\YaBoleto\PessoaJuridica;
 use Umbrella\YaBoleto\Sacado;
 
 /**
  * Classe do Builder de Boletos
- * 
+ *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
@@ -56,40 +57,40 @@ class BoletoBuilder
 
     // Lista de Bancos
     const BANCO_BRASIL = 'Banco Brasil';
-    const SANTANDER    = 'Santander';
-    const BRADESCO     = 'Bradesco';
-    const CAIXA        = 'Caixa Economica';
-    const ITAU         = 'Itau';
+    const SANTANDER = 'Santander';
+    const BRADESCO = 'Bradesco';
+    const CAIXA = 'Caixa Economica';
+    const ITAU = 'Itau';
 
     // Tipos de Pessoa do Sacado
-    const PESSOA_FISICA   = 'física';
+    const PESSOA_FISICA = 'física';
     const PESSOA_JURIDICA = 'jurídica';
 
     /**
      * Inicializa uma nova instância da classe.
-     * 
-     * @param string $nome Nome do banco a gerar o boleto
+     *
+     * @param $banco Nome do banco a gerar o boleto
      */
     public function __construct($banco)
     {
-        $this->type      = str_replace(" ", "", ucwords(trim($banco)));
-        $this->namespace = "Umbrella\YaBoleto\Bancos\\" . $this->type;
+        $this->type = str_replace(" ", "", ucwords(trim($banco)));
+        $this->namespace = "Umbrella\\YaBoleto\\Bancos\\" . $this->type;
     }
 
     /**
      * Define o sacado.
      *
-     * @param  string $tipo      Tipo de pessoa do sacado
-     * @param  string $nome      Nome do sacado
+     * @param  string $tipo Tipo de pessoa do sacado
+     * @param  string $nome Nome do sacado
      * @param  string $documento CPF/CNPJ do sacado
-     * @param  array  $endereco  Endereço do sacado
+     * @param  array $endereco Endereço do sacado
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
     public function sacado($tipo, $nome, $documento, $endereco)
     {
         if ($tipo === self::PESSOA_FISICA) {
             $sacado = new PessoaFisica($nome, $documento, $endereco);
-        } else if($tipo === self::PESSOA_JURIDICA) {
+        } else if ($tipo === self::PESSOA_JURIDICA) {
             $sacado = new PessoaJuridica($nome, $documento, $endereco);
         } else {
             throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
@@ -102,9 +103,9 @@ class BoletoBuilder
     /**
      * Define o cedente.
      *
-     * @param  string $nome      Nome do cedente
+     * @param  string $nome Nome do cedente
      * @param  string $documento CNPJ do cedente
-     * @param  array  $endereco  Endereço do cedente
+     * @param  array $endereco Endereço do cedente
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
     public function cedente($nome, $documento, $endereco)
@@ -115,9 +116,9 @@ class BoletoBuilder
 
     /**
      * Define o banco.
-     * 
+     *
      * @param  string $agencia Agência bancária favorecida
-     * @param  string $conta   Conta bancária favorecida
+     * @param  string $conta Conta bancária favorecida
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
     public function banco($agencia, $conta)
@@ -129,7 +130,7 @@ class BoletoBuilder
 
     /**
      * Define a carteira.
-     * 
+     *
      * @param  string $carteira Número da carteira
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
@@ -142,8 +143,8 @@ class BoletoBuilder
 
     /**
      * Define a convênio.
-     * 
-     * @param  string $convenio    Número do convênio
+     *
+     * @param  string $convenio Número do convênio
      * @param  string $nossoNumero Nosso número
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
@@ -156,20 +157,20 @@ class BoletoBuilder
 
     /**
      * Constrói o boleto.
-     * 
-     * @param  float          $valor           Valor do boleto
-     * @param  integer        $numeroDocumento Número do documento
-     * @param  \Carbon\Carbon $vencimento      Data de vencimento
+     *
+     * @param  float $valor Valor do boleto
+     * @param  integer $numeroDocumento Número do documento
+     * @param  Carbon $vencimento Data de vencimento
      * @return \Umbrella\YaBoleto\AbstractBoleto
      */
     public function build($valor, $numeroDocumento, Carbon $vencimento)
     {
         $reflection = new ReflectionClass($this->namespace . '\\Boleto\\' . $this->type);
-        
+
         $boleto = $reflection->newInstanceArgs(array($this->sacado, $this->cedente, $this->convenio));
         $boleto->setValorDocumento($valor)
-               ->setNumeroDocumento($numeroDocumento)
-               ->setDataVencimento($vencimento);
+            ->setNumeroDocumento($numeroDocumento)
+            ->setDataVencimento($vencimento);
 
         return $boleto;
     }

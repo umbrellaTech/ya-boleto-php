@@ -27,12 +27,11 @@ namespace Umbrella\YaBoleto\Bancos\Santander;
 
 use ArrayObject;
 use Umbrella\YaBoleto\AbstractConvenio;
-use Umbrella\YaBoleto\CarteiraInterface;
 use Umbrella\YaBoleto\Type\Number;
 
 /**
  * Classe que representa o convênio do Santander.
- * 
+ *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
@@ -40,9 +39,8 @@ class Convenio extends AbstractConvenio
 {
     /**
      * Gera o campo livre do código de barras.
-     * 
+     *
      * @param  ArrayObject $data
-     * @return $data
      */
     public function gerarCampoLivre(ArrayObject $data)
     {
@@ -52,11 +50,11 @@ class Convenio extends AbstractConvenio
         $this->alterarTamanho('NossoNumero', 13);
 
         $data['Fixo'] = "9";
-        $data['Ios']  = $this->banco->getIos();
+        $data['Ios'] = $this->banco->getIos();
 
-        $nossoNumero       = $data['NossoNumero'];
-        $dvNossoNumero     = Number::modulo11($nossoNumero);
+        $nossoNumero = $data['NossoNumero'];
+        $dvNossoNumero = Number::modulo11($nossoNumero);
         $this->nossoNumero = $nossoNumero . $dvNossoNumero;
-        $this->layout      = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
+        $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     }
 }
