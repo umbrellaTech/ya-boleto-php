@@ -16,8 +16,8 @@ Quer utilizar o YaBoleto? Leia nossa [documentaçao][2] e veja como é simples.
 ## Instalação
 ### Composer
 Se você já conhece o **Composer** (o que é extremamente recomendado), simplesmente adicione a dependência abaixo à diretiva *"require"* no seu **composer.json**:
-```
-"umbrella/boleto": "1.5.*"
+```sh
+$ composer require umbrella/boleto
 ```
 
 Sim, só isso! Lembre-se de que cada banco possui alguma particularidade, mas em geral são estes parâmetros os obrigatórios. 
