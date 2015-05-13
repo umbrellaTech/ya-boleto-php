@@ -25,6 +25,8 @@
 
 namespace Umbrella\YaBoleto;
 
+use Respect\Validation\Validator;
+
 /**
  * Classe que representa uma pessoa física.
  * 
@@ -67,7 +69,7 @@ class PessoaFisica extends Pessoa
      */
     public function setCpf($cpf)
     {
-        if (!Validator::cpf($cpf)) {
+        if (!Validator::cpf()->validate($cpf)) {
             throw new \InvalidArgumentException("O CPF informado é inválido");
         }
         $this->cpf = $cpf;
