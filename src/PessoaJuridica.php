@@ -25,6 +25,8 @@
 
 namespace Umbrella\YaBoleto;
 
+use Respect\Validation\Validator;
+
 /**
  * Classe que representa uma pessoa jurídica.
  * 
@@ -41,7 +43,7 @@ class PessoaJuridica extends Pessoa
      * 
      * @param string $nome             Nome da Razão Social da pessoa jurídica
      * @param string $cnpj             CNPJ da pessoa jurídica
-     * @param array  $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     * @param array  $endereco Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
     public function __construct($nome, $cnpj, array $endereco)
     {
@@ -67,7 +69,7 @@ class PessoaJuridica extends Pessoa
      */
     public function setCnpj($cnpj)
     {
-        if (!Validator::cnpj($cnpj)) {
+        if (!Validator::cnpj()->validate($cnpj)) {
             throw new \InvalidArgumentException("O CNPJ informado é inválido");
         }
 
