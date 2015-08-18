@@ -78,4 +78,33 @@ class Convenio extends AbstractConvenio
 
         return $data;
     }
+
+    /**
+     * Sobrescrevendo o método ajustarNossoNumero contido na classe
+     * AbstractConvenio.
+     *
+     * @param ArrayObject $data
+     * @return ArrayObject
+     */
+    public function ajustarNossoNumero(ArrayObject $data)
+    {
+        $carteira = $this->carteira;
+
+        switch (strlen($this->convenio)) {
+            case 6:
+                if (!$carteira instanceof Carteira21) {
+                    $data['NossoNumero'] = $this->convenio . Number::modulo11($data['NossoNumero'], 0, 0, true);
+                }
+                break;
+            case 4:
+            case 7:
+                $data['NossoNumero'] = $this->convenio . $data['NossoNumero'];
+                break;
+            default:
+                throw new \LogicException('O codigo do convenio precisa ter 4, 6 ou 7 digitos!');
+        }
+
+        return $data;
+    }
+
 }
