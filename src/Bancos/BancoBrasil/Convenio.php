@@ -70,7 +70,7 @@ class Convenio extends AbstractConvenio
                 $this->nossoNumero = $this->convenio . $this->nossoNumero;
                 $this->alterarTamanho("CodigoCedente", 7);
                 $this->alterarTamanho("NossoNumero", 10);
-                $this->layout = ":Banco:Moeda:FatorVencimento:Valor000000:CodigoCedente:NossoNumero:Carteira";
+                $this->layout = ":Banco:Moeda:FatorVencimento:Valor000000:NossoNumero:Carteira";
                 break;
             default:
                 throw new \LogicException("O codigo do convenio precisa ter 4, 6 ou 7 digitos!");
