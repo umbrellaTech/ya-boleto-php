@@ -80,8 +80,7 @@ class Convenio extends AbstractConvenio
     }
 
     /**
-     * Sobrescrevendo o método ajustarNossoNumero contido na classe
-     * AbstractConvenio.
+     * Ajusta o Nosso Numero antes de seta-lo no objeto Convenio.
      *
      * @param ArrayObject $data
      * @return ArrayObject

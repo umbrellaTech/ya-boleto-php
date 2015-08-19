@@ -9,7 +9,6 @@ tmp/*
 .buildpath
 .project
 .settings
-.idea
 composer.lock
 coverage.clover
 /resources/cache

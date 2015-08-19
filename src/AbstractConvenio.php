@@ -86,17 +86,6 @@ abstract class AbstractConvenio implements ConvenioInterface
     abstract public function gerarCampoLivre(ArrayObject $data);
 
     /**
-     * Ajusta o nosso número antes de setar o mesmo.
-     *
-     * @param ArrayObject $data
-     * @return string
-     */
-    public function ajustarNossoNumero(ArrayObject $data)
-    {
-        return $data['NossoNumero'];
-    }
-
-    /**
      * Seta o layout do código de barras.
      *
      * @param string $layout

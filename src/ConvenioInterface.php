@@ -47,4 +47,5 @@ interface ConvenioInterface
     public function getCarteira();
     public function getConvenio();
     public function getTamanhos();
+    public function ajustarNossoNumero(\ArrayObject $data);
 }
