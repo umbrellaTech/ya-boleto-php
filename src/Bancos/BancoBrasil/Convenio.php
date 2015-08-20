@@ -70,7 +70,7 @@ class Convenio extends AbstractConvenio
                 $this->nossoNumero = $this->convenio . $this->nossoNumero;
                 $this->alterarTamanho("CodigoCedente", 7);
                 $this->alterarTamanho("NossoNumero", 10);
-                $this->layout = ":Banco:Moeda:FatorVencimento:Valor000000:CodigoCedente:NossoNumero:Carteira";
+                $this->layout = ":Banco:Moeda:FatorVencimento:Valor000000:NossoNumero:Carteira";
                 break;
             default:
                 throw new \LogicException("O codigo do convenio precisa ter 4, 6 ou 7 digitos!");
@@ -78,4 +78,32 @@ class Convenio extends AbstractConvenio
 
         return $data;
     }
+
+    /**
+     * Ajusta o Nosso Numero antes de seta-lo no objeto Convenio.
+     *
+     * @param ArrayObject $data
+     * @return ArrayObject
+     */
+    public function ajustarNossoNumero(ArrayObject $data)
+    {
+        $carteira = $this->carteira;
+
+        switch (strlen($this->convenio)) {
+            case 6:
+                if (!$carteira instanceof Carteira21) {
+                    $data['NossoNumero'] = $this->convenio . Number::modulo11($data['NossoNumero'], 0, 0, true);
+                }
+                break;
+            case 4:
+            case 7:
+                $data['NossoNumero'] = $this->convenio . $data['NossoNumero'];
+                break;
+            default:
+                throw new \LogicException('O codigo do convenio precisa ter 4, 6 ou 7 digitos!');
+        }
+
+        return $data;
+    }
+
 }

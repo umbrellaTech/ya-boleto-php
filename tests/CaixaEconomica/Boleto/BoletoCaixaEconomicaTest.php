@@ -97,7 +97,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto->setValorDocumento(12.50)
                ->setNumeroDocumento("024588722")
                ->setDataVencimento(new Carbon("2014-02-28"))
-               ->getLinhaDigitavel();
+               ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -112,7 +112,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto->setValorDocumento("315.500,00")
                ->setNumeroDocumento("23456")
                ->setDataVencimento(new Carbon("2013-11-02"))
-               ->getLinhaDigitavel();
+               ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -129,7 +129,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
                ->setDesconto(2.00)
                ->setNumeroDocumento("024588722")
                ->setDataVencimento(new Carbon("2013-11-02"))
-               ->getLinhaDigitavel();
+               ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
