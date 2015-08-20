@@ -57,4 +57,15 @@ class Convenio extends AbstractConvenio
         $this->nossoNumero = $nossoNumero . $dvNossoNumero;
         $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     }
+
+    /**
+     * Ajusta o Nosso Numero antes de seta-lo no objeto Convenio.
+     *
+     * @param ArrayObject $data
+     * @return mixed
+     */
+    public function ajustarNossoNumero(ArrayObject $data)
+    {
+        return $data['NossoNumero'];
+    }
 }

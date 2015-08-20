@@ -517,9 +517,6 @@ abstract class AbstractBoleto
      */
     public function getLinhaDigitavel()
     {
-        $this->codigoBarras = $this->gerarCodigoBarras();
-        $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
-
         return $this->linhaDigitavel;
     }
 
@@ -541,6 +538,19 @@ abstract class AbstractBoleto
     public function getTotal()
     {
         return (float) ($this->valorDocumento + $this->taxa + $this->outrosAcrescimos) - ($this->desconto  + $this->outrasDeducoes);
+    }
+
+    /**
+     * Gera o código de barras e a linha digitavel.
+     *
+     * @return $this
+     */
+    public function gerarCodigoBarraLinhaDigitavel()
+    {
+        $this->codigoBarras = $this->gerarCodigoBarras();
+        $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
+
+        return $this;
     }
 
     /**
@@ -584,6 +594,9 @@ abstract class AbstractBoleto
                 $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
             }
         }
+
+        //Chamada do método que ajusta o NossoNumero
+        $this->getConvenio()->ajustarNossoNumero($data);
 
         $convenio->setNossoNumero($data['NossoNumero']);
 
