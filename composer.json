@@ -1,5 +1,5 @@
 {
-    "name": "umbrella/boleto",
+    "name": "parallax/boleto",
     "type": "library",
     "description": "YaBoleto é uma biblioteca para geração de boletos bancários de forma simples em PHP.",
     "keywords": [],
