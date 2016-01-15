@@ -32,7 +32,7 @@ use Umbrella\YaBoleto\Type\Number;
 
 /**
  * Classe que representa o convênio do Banco do Brasil.
- * 
+ *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
@@ -40,7 +40,7 @@ class Convenio extends AbstractConvenio
 {
     /**
      * Gera o campo livre do código de barras.
-     * 
+     *
      * @param  ArrayObject $data
      * @return $data
      */
@@ -92,7 +92,7 @@ class Convenio extends AbstractConvenio
         switch (strlen($this->convenio)) {
             case 6:
                 if (!$carteira instanceof Carteira21) {
-                    $data['NossoNumero'] = $this->convenio . Number::modulo11($data['NossoNumero'], 0, 0, true);
+                    $data['NossoNumero'] = $this->convenio . $data['NossoNumero'];
                 }
                 break;
             case 4:
