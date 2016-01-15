@@ -29,7 +29,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
     {
         $carteira = new Carteira18();
 
-        return new Convenio($this->bancoProvider(), $carteira, "1643044", "2");
+        return new Convenio($this->bancoProvider(), $carteira, "164304", "2");
     }
 
     protected function convenio184Provider()
@@ -103,9 +103,9 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-               ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2013-11-02"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -118,9 +118,9 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("1.500,00")
-                ->setNumeroDocumento("23456")
-                ->setDataVencimento(new Carbon("2013-11-02"))
-                ->gerarCodigoBarraLinhaDigitavel();
+            ->setNumeroDocumento("23456")
+            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -134,10 +134,10 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-                ->setDesconto(2.00)
-                ->setNumeroDocumento("024588722")
-                ->setDataVencimento(new Carbon("2013-11-02"))
-                ->gerarCodigoBarraLinhaDigitavel();
+            ->setDesconto(2.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -153,6 +153,54 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto->setValorDocumento(null);
         $boleto->validarDadosObrigatorios();
         $this->assertNotEmpty($boleto->getErros());
+    }
+
+    /**
+     * @dataProvider boletoProvider
+     */
+    public function testShouldValiteSizeOurNumberConvenioSizeFour($pessoa)
+    {
+        list($sacado, $cedente) = $pessoa;
+        $convenio = $this->convenio184Provider();
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento(1.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
+
+        $this->assertEquals(11, strlen($boleto->getConvenio()->getNossoNumero()));
+    }
+
+    /**
+     * @dataProvider boletoProvider
+     */
+    public function testShouldValiteSizeOurNumberConvenioSizeSix($pessoa)
+    {
+        list($sacado, $cedente) = $pessoa;
+        $convenio = $this->convenio186Provider();
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento(1.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
+
+        $this->assertEquals(11, strlen($boleto->getConvenio()->getNossoNumero()));
+    }
+
+    /**
+     * @dataProvider boletoProvider
+     */
+    public function testShouldValiteSizeOurNumberConvenioSizeSeven($pessoa)
+    {
+        list($sacado, $cedente) = $pessoa;
+        $convenio = $this->convenio187Provider();
+        $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
+        $boleto->setValorDocumento(1.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
+
+        $this->assertEquals(17, strlen($boleto->getConvenio()->getNossoNumero()));
     }
 
 }
