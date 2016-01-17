@@ -542,4 +542,26 @@ abstract class AbstractBoleto
     {
         return $this->moeda;
     }
+
+    /**
+     * @param CodigoBarras $codigoBarras
+     * @return $this
+     */
+    public function setCodigoBarras($codigoBarras)
+    {
+        $this->codigoBarras = $codigoBarras;
+
+        return $this;
+    }
+
+    /**
+     * @param LinhaDigitavel $linhaDigitavel
+     * @return $this
+     */
+    public function setLinhaDigitavel($linhaDigitavel)
+    {
+        $this->linhaDigitavel = $linhaDigitavel;
+
+        return $this;
+    }
 }
