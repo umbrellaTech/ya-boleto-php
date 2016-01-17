@@ -28,7 +28,7 @@
     }
   ],
   "require": {
-    "php": ">=5.3",
+    "php": ">=5.4",
     "nesbot/carbon": "~1.17",
     "easyframework/collections": "dev-master",
     "respect/validation": "~0.9"
