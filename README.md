@@ -53,22 +53,22 @@ use Umbrella\YaBoleto\Builder\BoletoBuilder;
 // sacado...
 $nomeSacado      = "John Doe";
 $documentoSacado = "090.076.684-04";
-$enderecoSacado  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$enderecoSacado  = new Endereco(
+  "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+  "70200-002",
+  "Brasília",
+  "DF"
+);
 
 // cedente...
 $nomeCedente      = "ACME Corporation Inc.";
 $documentoCedente = "01.122.241/0001-76";
-$enderecoCedente  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$enderecoCedente  = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 $builder = new BoletoBuilder(BoletoBuilder::BRADESCO);
 
@@ -92,29 +92,35 @@ use Umbrella\YaBoleto\Bancos\Bradesco\Bradesco;
 use Umbrella\YaBoleto\Bancos\Bradesco\Carteira\Carteira06;
 use Umbrella\YaBoleto\Bancos\Bradesco\Boleto\Bradesco as BoletoBradesco;
 
+use Umbrella\YaBoleto\Cpf;
+use Umbrella\YaBoleto\Cnpj;
+use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\Cedente;
 use Umbrella\YaBoleto\Sacado;
 
+use Umbrella\YaBoleto\Calculator\CodigoBarrasCalculator;
+use Umbrella\YaBoleto\Calculator\LinhaDigitavelCalulator;
+
 // sacado...
 $nomeSacado      = "John Doe";
-$documentoSacado = "090.076.684-04";
-$enderecoSacado  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$documentoSacado = new Cpf("090.076.684-04");
+$enderecoCedente  = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 // cedente...
 $nomeCedente      = "ACME Corporation Inc.";
-$documentoCedente = "01.122.241/0001-76";
-$enderecoCedente  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$documentoCedente = new Cpnj("01.122.241/0001-76");
+$enderecoCedente  = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 $banco        = new Bradesco("0564", "0101888");
 $carteira     = new Carteira06();
@@ -130,21 +136,23 @@ $boleto->setValorDocumento(50)
        ->setNumeroDocumento(2)
        ->setDataVencimento(new Carbon('2014-09-02'));
 
-echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
+$codigoBarrasCalculator = new CodigoBarrasCalculator();
+$codigoBarras = $codigoBarrasCalculator->calculate($boleto);
+
+$linhaDigitavelCalculator = new LinhaDigitavelCalulator();
+$linhaDigitavel = $linhaDigitavelCalculator->calculate($codigoBarras);
+
+echo $linhaDigitavel // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
 
 Contribua
 ----------
 
 Toda contribuição é bem vinda. Se você deseja adaptar o YaBoleto a algum outro banco, fique à vontade para explorar o código, veja como é bastante simples integrar qualquer banco à biblioteca. Para instalar clone o projeto dentro da pasta **Umbrella/YaBoleto**.
+
+```sh
+$ git clone https://github.com/umbrellaTech/ya-boleto-php.git ya-boleto-php/Umbrella/YaBoleto
 ```
-git clone https://github.com/umbrellaTech/ya-boleto-php.git ya-boleto-php/Umbrella/YaBoleto
-```
-Ou usando o composer.
-```
-php composer.phar create-project umbrella/boleto ya-boleto-php/Umbrella/YaBoleto dev-master
-```
-Isso se deve por conta do autoloader que segue a [PSR-0][3].
 
 Demo
 ----------
@@ -157,4 +165,3 @@ Licença
 
 [1]: https://github.com/umbrellaTech/ya-boleto-demo
 [2]: https://github.com/umbrellaTech/ya-boleto-php/docs
-[3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
