@@ -1,5 +1,5 @@
 before_commands:
-    - "composer install --dev --prefer-source"
+    - "composer install --prefer-dist"
 
 tools:
     external_code_coverage: true
