@@ -29,11 +29,10 @@
   ],
   "require": {
     "php": ">=5.4",
-    "easyframework/collections": "dev-master",
-    "respect/validation": "~0.9"
+    "easyframework/collections": "dev-master"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8"
+    "phpunit/phpunit": "~5.1"
   },
   "autoload": {
     "psr-4": {

@@ -19,7 +19,7 @@ final class Cpf extends Documento
 
     public function validate($value)
     {
-        if (!Validator::cpf()->validate($value)) {
+        if (!Validator::cpf($value)) {
             throw new CpfInvalidoException(sprintf("O CPF %s informado é inválido", $value));
         }
 
