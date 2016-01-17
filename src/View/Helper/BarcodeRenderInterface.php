@@ -25,13 +25,15 @@
 
 namespace Umbrella\YaBoleto\View\Helper;
 
+use Umbrella\YaBoleto\CodigoBarras;
+
 /**
  * Interface para as funcionalidades básicas para um renderizador de código de barras.
- * 
+ *
  * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 interface BarcodeRenderInterface
 {
-    public function render($codigoBarras);
+    public function render(CodigoBarras $codigoBarras);
 }

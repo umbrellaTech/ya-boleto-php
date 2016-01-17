@@ -25,6 +25,8 @@
 
 namespace Umbrella\YaBoleto\View\Helper;
 
+use Umbrella\YaBoleto\CodigoBarras;
+
 /**
  * Classe para renderização do código de barras.
  *
@@ -35,11 +37,11 @@ class BarcodeFont implements BarcodeRenderInterface
 {
     /**
      * Renderiza o código de barras.
-     * 
+     *
      * @param  string $codigoBarras Código de barras do boleto
      * @return string
      */
-    public function render($codigoBarras)
+    public function render(CodigoBarras $codigoBarras)
     {
         return $codigoBarras;
     }

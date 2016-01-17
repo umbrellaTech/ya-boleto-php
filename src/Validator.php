@@ -56,7 +56,7 @@ class Validator
         return true;
     }
 
-    public function cpf($input)
+    public static function cpf($input)
     {
         // Code ported from jsfromhell.com
         $c = preg_replace('/\D/', '', $input);

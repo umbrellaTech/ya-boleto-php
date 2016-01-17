@@ -25,6 +25,8 @@
 
 namespace Umbrella\YaBoleto\View\Helper;
 
+use Umbrella\YaBoleto\CodigoBarras;
+
 /**
  * Classe para renderização do código de barras.
  *
@@ -36,16 +38,12 @@ class BarcodeCss implements BarcodeRenderInterface
 
     /**
      * Renderiza o html para um código de barras.
-     * 
-     * @param  string $codigoBarras Código de barras do boleto
+     *
+     * @param  CodigoBarras $codigoBarras Código de barras do boleto
      * @return string
      */
-    public function render($codigoBarras)
+    public function render(CodigoBarras $codigoBarras)
     {
-        if (!is_string($codigoBarras)) {
-            throw new \InvalidArgumentException("O código de barras deve ser uma string");
-        }
-
         $barcodes = array("00110", "10001", "01001", "11000", "00101", "10100", "01100", "00011", "10010", "01010");
 
         for ($f1 = 9; $f1 >= 0; $f1--) {
@@ -76,7 +74,7 @@ class BarcodeCss implements BarcodeRenderInterface
         // Draw dos dados
         while (strlen($codigoBarras) > 0) {
 
-            $i = (int) round($this->caracteresEsquerda($codigoBarras, 2));
+            $i = (int)round($this->caracteresEsquerda($codigoBarras, 2));
             $codigoBarras = $this->caracteresDireita($codigoBarras, strlen($codigoBarras) - 2);
             $f = $barcodes[$i];
 
@@ -102,16 +100,16 @@ class BarcodeCss implements BarcodeRenderInterface
 
         // Final
         return $retorno . "<div class='black thin'></div>" .
-            "<div class='white thin'></div>" .
-            "<div class='black thin'></div>" .
-            "</div>";
+        "<div class='white thin'></div>" .
+        "<div class='black thin'></div>" .
+        "</div>";
     }
 
     /**
      * Helper para obter os caracteres à esquerda.
      *
      * @param  string $string
-     * @param  int    $num    Quantidade de caracteres para se obter
+     * @param  int $num Quantidade de caracteres para se obter
      * @return string
      */
     protected function caracteresEsquerda($string, $num)
@@ -123,7 +121,7 @@ class BarcodeCss implements BarcodeRenderInterface
      * Helper para se obter os caracteres à direita
      *
      * @param  string $string
-     * @param  int    $num    Quantidade de caracteres para se obter
+     * @param  int $num Quantidade de caracteres para se obter
      * @return string
      */
     protected function caracteresDireita($string, $num)

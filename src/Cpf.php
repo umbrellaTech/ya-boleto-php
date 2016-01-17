@@ -2,7 +2,6 @@
 
 namespace Umbrella\YaBoleto;
 
-use Respect\Validation\Validator;
 use Umbrella\YaBoleto\Exception\CpfInvalidoException;
 
 final class Cpf extends Documento
