@@ -3,7 +3,7 @@
 namespace Umbrella\YaBoleto;
 
 use Respect\Validation\Validator;
-use Umbrella\YaBoleto\Exception\CpfInvalidoException;
+use Umbrella\YaBoleto\Exception\CnpjInvalidoException;
 
 final class Cnpj extends Documento
 {
@@ -20,7 +20,7 @@ final class Cnpj extends Documento
     public function validate($value)
     {
         if (!Validator::cnpj()->validate($value)) {
-            throw new CpfInvalidoException(sprintf("O CPF %s informado é inválido", $value));
+            throw new CnpjInvalidoException(sprintf("O CNPJ %s informado é inválido", $value));
         }
 
         return $this;
