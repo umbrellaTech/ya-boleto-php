@@ -25,7 +25,7 @@
 
 namespace Umbrella\YaBoleto;
 
-use Carbon\Carbon;
+use DateTime;
 
 /**
  * Classe abstrata que representa um boleto.
@@ -43,9 +43,9 @@ abstract class AbstractBoleto
     protected $sacado;
     /** @var float */
     protected $valorDocumento;
-    /** @var \Carbon\Carbon */
+    /** @var DateTime */
     protected $dataVencimento;
-    /** @var \DateTime */
+    /** @var DateTime */
     protected $dataDocumento;
     /** @var float */
     protected $taxa;
@@ -92,7 +92,7 @@ abstract class AbstractBoleto
         $this->sacado = $sacado;
         $this->cedente = $cedente;
         $this->convenio = $convenio;
-        $this->dataDocumento = new \DateTime();
+        $this->dataDocumento = new DateTime();
     }
 
     /**
@@ -136,10 +136,10 @@ abstract class AbstractBoleto
     /**
      * Define a data de venciemnto.
      *
-     * @param  \Carbon\Carbon $dataVencimento
+     * @param DateTime $dataVencimento
      * @return $this
      */
-    public function setDataVencimento(Carbon $dataVencimento)
+    public function setDataVencimento(DateTime $dataVencimento)
     {
         $this->dataVencimento = $dataVencimento;
 
@@ -149,10 +149,10 @@ abstract class AbstractBoleto
     /**
      * Define a data do documento.
      *
-     * @param  \DateTime $dataDocumento
+     * @param  DateTime $dataDocumento
      * @return $this
      */
-    public function setDataDocumento(\DateTime $dataDocumento)
+    public function setDataDocumento(DateTime $dataDocumento)
     {
         $this->dataDocumento = $dataDocumento;
 
@@ -358,7 +358,7 @@ abstract class AbstractBoleto
     /**
      * Retorna a data de vencimento.
      *
-     * @return \Carbon\Carbon
+     * @return DateTime
      */
     public function getDataVencimento()
     {
@@ -368,7 +368,7 @@ abstract class AbstractBoleto
     /**
      * Retorna a data do documento.
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDataDocumento()
     {

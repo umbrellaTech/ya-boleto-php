@@ -1,6 +1,7 @@
-<?php namespace Umbrella\YaBoleto\Tests\Santander\Boleto;
+<?php
 
-use Carbon\Carbon;
+namespace Umbrella\YaBoleto\Tests\Santander\Boleto;
+
 use Umbrella\YaBoleto\AbstractConvenio;
 use Umbrella\YaBoleto\Bancos\Santander\Boleto\Santander as BoletoSantander;
 use Umbrella\YaBoleto\Bancos\Santander\Carteira\Carteira101;
@@ -71,7 +72,7 @@ class BoletoSantanderTest extends BoletoTestCase
         $boleto = new BoletoSantander($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -86,7 +87,7 @@ class BoletoSantanderTest extends BoletoTestCase
         $boleto = new BoletoSantander($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("1.500,00")
             ->setNumeroDocumento("23456")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -103,7 +104,7 @@ class BoletoSantanderTest extends BoletoTestCase
         $boleto->setValorDocumento(1.00)
             ->setDesconto(2.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);

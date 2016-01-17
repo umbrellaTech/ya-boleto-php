@@ -42,7 +42,7 @@ class Convenio extends AbstractConvenio
      * Gera o campo livre do código de barras.
      *
      * @param  ArrayObject $data
-     * @return $data
+     * @return ArrayObject $data
      */
     public function gerarCampoLivre(ArrayObject $data)
     {

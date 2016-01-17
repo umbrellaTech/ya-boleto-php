@@ -1,6 +1,7 @@
-<?php namespace Umbrella\YaBoleto\Tests\BancoBrasil\Boleto;
+<?php
 
-use Carbon\Carbon;
+namespace Umbrella\YaBoleto\Tests\BancoBrasil\Boleto;
+
 use LogicException;
 use Umbrella\YaBoleto\AbstractConvenio;
 use Umbrella\YaBoleto\Bancos\BancoBrasil\BancoBrasil;
@@ -109,7 +110,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -124,7 +125,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("1.500,00")
             ->setNumeroDocumento("23456")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -141,7 +142,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto->setValorDocumento(1.00)
             ->setDesconto(2.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -170,7 +171,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -187,7 +188,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -204,7 +205,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);

@@ -47,7 +47,6 @@ Uso
 A forma mais simples é utilizar o Builder.
 
 ```php
-use Carbon\Carbon;
 use Umbrella\YaBoleto\Builder\BoletoBuilder;
 
 // sacado...
@@ -77,7 +76,7 @@ $boleto  = $builder->sacado(BoletoBuilder::PESSOA_FISICA, $nomeSacado, $document
                    ->banco("0564", "0101888")
                    ->carteira("06")
                    ->convenio("0101888", "77000009017")
-                   ->build(250, "77000009017", new Carbon("2015-03-24"));
+                   ->build(250, "77000009017", new \DateTime("2015-03-24"));
 
 echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
@@ -85,8 +84,6 @@ echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 637
 A forma Orientada a Objetos é um pouco mais trabalhossa, mas permite maior flexibilidade.
 
 ```php
-use Carbon\Carbon;
-
 use Umbrella\YaBoleto\Bancos\Bradesco\Convenio;
 use Umbrella\YaBoleto\Bancos\Bradesco\Bradesco;
 use Umbrella\YaBoleto\Bancos\Bradesco\Carteira\Carteira06;
@@ -134,7 +131,7 @@ $boleto       = new BoletoBradesco($sacado, $cedente, $convenio);
 
 $boleto->setValorDocumento(50)
        ->setNumeroDocumento(2)
-       ->setDataVencimento(new Carbon('2014-09-02'));
+       ->setDataVencimento(new \DateTime('2014-09-02'));
 
 $codigoBarrasCalculator = new CodigoBarrasCalculator();
 $codigoBarras = $codigoBarrasCalculator->calculate($boleto);

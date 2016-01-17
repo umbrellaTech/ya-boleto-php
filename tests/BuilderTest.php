@@ -36,7 +36,7 @@ class BuilderTest extends BoletoTestCase
             ->banco("0564", "0101888")
             ->carteira("06")
             ->convenio("0101888", "77000009017")
-            ->build(250, "77000009017", new Carbon("2015-03-24"));
+            ->build(250, "77000009017", new \DateTime("2015-03-24"));
 
         $this->assertInstanceOf("Umbrella\\YaBoleto\\AbstractBoleto", $boleto);
         $this->assertEquals("23790.56407 67700.000903 17010.188807 8 63770000025000",

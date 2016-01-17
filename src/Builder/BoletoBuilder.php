@@ -25,7 +25,7 @@
 
 namespace Umbrella\YaBoleto\Builder;
 
-use Carbon\Carbon;
+use DateTime;
 use ReflectionClass;
 use Umbrella\YaBoleto\AbstractBoleto;
 use Umbrella\YaBoleto\BancoInterface;
@@ -169,10 +169,10 @@ class BoletoBuilder
      *
      * @param  float $valor Valor do boleto
      * @param  integer $numeroDocumento Número do documento
-     * @param  Carbon $vencimento Data de vencimento
+     * @param  DateTime $vencimento Data de vencimento
      * @return \Umbrella\YaBoleto\AbstractBoleto
      */
-    public function build($valor, $numeroDocumento, Carbon $vencimento)
+    public function build($valor, $numeroDocumento, DateTime $vencimento)
     {
         $reflection = new ReflectionClass($this->namespace . '\\Boleto\\' . $this->type);
 

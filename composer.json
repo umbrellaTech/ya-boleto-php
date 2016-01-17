@@ -3,7 +3,7 @@
   "type": "library",
   "description": "YaBoleto é uma biblioteca para geração de boletos bancários de forma simples em PHP.",
   "keywords": [],
-  "homepage": "http://umbrellatech.com/boleto",
+  "homepage": "https://github.com/umbrellaTech/ya-boleto-php",
   "license": "MIT",
   "authors": [
     {
@@ -29,7 +29,6 @@
   ],
   "require": {
     "php": ">=5.4",
-    "nesbot/carbon": "~1.17",
     "easyframework/collections": "dev-master",
     "respect/validation": "~0.9"
   },

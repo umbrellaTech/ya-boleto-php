@@ -1,6 +1,7 @@
-<?php namespace Umbrella\YaBoleto\Tests\CaixaEconomica\Boleto;
+<?php
 
-use Carbon\Carbon;
+namespace Umbrella\YaBoleto\Tests\CaixaEconomica\Boleto;
+
 use Umbrella\YaBoleto\AbstractConvenio;
 use Umbrella\YaBoleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica as BoletoCaixaEconomica;
 use Umbrella\YaBoleto\Bancos\CaixaEconomica\CaixaEconomica;
@@ -101,7 +102,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(12.50)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2014-02-28"));
+            ->setDataVencimento(new \DateTime("2014-02-28"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -116,7 +117,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("315.500,00")
             ->setNumeroDocumento("23456")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
@@ -133,7 +134,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto->setValorDocumento(1.00)
             ->setDesconto(2.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"));
+            ->setDataVencimento(new \DateTime("2013-11-02"));
 
         $linhaDigitavel = $this->getLinhaDigitavel($boleto);
         $this->assertNotEmpty($linhaDigitavel);
