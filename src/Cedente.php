@@ -28,8 +28,8 @@ namespace Umbrella\YaBoleto;
 /**
  * Classe que representa um cedente.
  * A pessoa que emite um boleto é o cedente.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Cedente extends PessoaJuridica

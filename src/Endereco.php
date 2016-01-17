@@ -25,45 +25,62 @@
 
 namespace Umbrella\YaBoleto;
 
-/**
- * Interface para as funcionalidades básicas para um convênio bancário.
- *
- * @author  Italo Lelis de Vietro <italolelis@gmail.com>
- * @package YaBoleto
- */
-interface ConvenioInterface
+class Endereco
 {
-    public function setNossoNumero($nossoNumero);
-
-    public function setDvNossoNumero($carteira, $nossoNumero, $ifTen, $ifZero);
-
-    public function setConvenio($convenio);
-
-    public function alterarTamanho($index, $tamanho);
-
-    public function getLayout();
-
-    public function getNossoNumero();
-
-    public function getDvNossoNumero();
-
-    /** @return BancoInterface */
-    public function getBanco();
-
-    /** @return CarteiraInterface */
-    public function getCarteira();
-
-    public function getConvenio();
-
-    public function getTamanhos();
-
-    public function ajustarNossoNumero(\ArrayObject $data);
+    /** @var string Logradouro da pessoa - ex.: 'Rua das Oliveiras, 10 - Sala 301' */
+    protected $logradouro;
+    /** @var string CEP do endereço da pessoa */
+    protected $cep;
+    /** @var string Cidade da pessoa */
+    protected $cidade;
+    /** @var string Estado da pessoa */
+    protected $uf;
 
     /**
-     * Gera o campo livre do código de barras.
-     *
-     * @param  \ArrayObject $data
-     * @return $data
+     * Endereco constructor.
+     * @param string $logradouro
+     * @param string $cep
+     * @param string $cidade
+     * @param string $uf
      */
-    public function gerarCampoLivre(\ArrayObject $data);
+    public function __construct($logradouro, $cep, $cidade, $uf)
+    {
+        $this->logradouro = $logradouro;
+        $this->cep = $cep;
+        $this->cidade = $cidade;
+        $this->uf = $uf;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogradouro()
+    {
+        return $this->logradouro;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCep()
+    {
+        return $this->cep;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUf()
+    {
+        return $this->uf;
+    }
 }
+

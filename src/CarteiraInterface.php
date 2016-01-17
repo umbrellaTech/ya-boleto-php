@@ -27,11 +27,15 @@ namespace Umbrella\YaBoleto;
 
 /**
  * Interface para as funcionalidades básicas para uma carteira bancária.
- * 
- * @author  Ian Rodrigues <me@ianrodrigu.es>
+ *
  * @package YaBoleto
  */
 interface CarteiraInterface
 {
+    /**
+     * Retorna o número do convênio.
+     *
+     * @return int
+     */
     public function getNumero();
 }
