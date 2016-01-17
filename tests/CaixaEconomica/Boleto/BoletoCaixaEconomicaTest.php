@@ -1,20 +1,19 @@
 <?php namespace Umbrella\YaBoleto\Tests\CaixaEconomica\Boleto;
 
 use Carbon\Carbon;
-
-use Umbrella\YaBoleto\Bancos\CaixaEconomica\Convenio;
-use Umbrella\YaBoleto\Bancos\CaixaEconomica\CaixaEconomica;
-use Umbrella\YaBoleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb;
-use Umbrella\YaBoleto\Bancos\CaixaEconomica\Carteira\CarteiraSicob;
-use Umbrella\YaBoleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica as BoletoCaixaEconomica;
-
 use Umbrella\YaBoleto\AbstractConvenio;
-
+use Umbrella\YaBoleto\Bancos\CaixaEconomica\Boleto\CaixaEconomica as BoletoCaixaEconomica;
+use Umbrella\YaBoleto\Bancos\CaixaEconomica\CaixaEconomica;
+use Umbrella\YaBoleto\Bancos\CaixaEconomica\Carteira\CarteiraSicob;
+use Umbrella\YaBoleto\Bancos\CaixaEconomica\Carteira\CarteiraSigcb;
+use Umbrella\YaBoleto\Bancos\CaixaEconomica\Convenio;
 use Umbrella\YaBoleto\Tests\BoletoTestCase;
+use Umbrella\YaBoleto\Tests\LinhaDigitavelTrait;
 use Umbrella\YaBoleto\Tests\Mock\Carteira as CarteiraMock;
 
 class BoletoCaixaEconomicaTest extends BoletoTestCase
 {
+    use LinhaDigitavelTrait;
 
     protected function bancoProvider()
     {
@@ -24,12 +23,14 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
     protected function convenioSigcbProvider()
     {
         $carteira = new CarteiraSigcb();
+
         return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
     }
 
     protected function convenioSigobProvider()
     {
         $carteira = new CarteiraSicob();
+
         return new Convenio($this->bancoProvider(), $carteira, "256945", "2");
     }
 
@@ -45,6 +46,7 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
     {
         $getMensagemException = function (array $nomesDosCampos) {
             $dadosFaltantes = implode("', '", $nomesDosCampos);
+
             return "Faltam dados a serem fornecidos ao boleto. ('{$dadosFaltantes}')";
         };
 
@@ -59,9 +61,12 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $bancoAngenciaContaNull = new CaixaEconomica(null, null);
 
         $convenioNormal = new Convenio($bancoNormal, $carteiraNormal, "convenioTantoFaz", "nossoNumeroTantoFaz");
-        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, "convenioTantoFaz", "nossoNumeroTantoFaz");
-        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, "convenioTantoFaz", "nossoNumeroTantoFaz");
-        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull, "convenioTantoFaz", "nossoNumeroTantoFaz");
+        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, "convenioTantoFaz",
+            "nossoNumeroTantoFaz");
+        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, "convenioTantoFaz",
+            "nossoNumeroTantoFaz");
+        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull,
+            "convenioTantoFaz", "nossoNumeroTantoFaz");
 
         return array(
             array(
@@ -95,11 +100,11 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(12.50)
-               ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2014-02-28"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2014-02-28"));
 
-        $this->assertNotEmpty($boleto);
+        $linhaDigitavel = $this->getLinhaDigitavel($boleto);
+        $this->assertNotEmpty($linhaDigitavel);
     }
 
     /**
@@ -110,15 +115,15 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("315.500,00")
-               ->setNumeroDocumento("23456")
-               ->setDataVencimento(new Carbon("2013-11-02"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setNumeroDocumento("23456")
+            ->setDataVencimento(new Carbon("2013-11-02"));
 
-        $this->assertNotEmpty($boleto);
+        $linhaDigitavel = $this->getLinhaDigitavel($boleto);
+        $this->assertNotEmpty($linhaDigitavel);
     }
 
     /**
-     * @expectedException \LogicException 
+     * @expectedException \LogicException
      * @dataProvider boletoProvider
      */
     public function testShoudlNotCreateBoletoWithNegativeValue($pessoa, AbstractConvenio $convenio)
@@ -126,12 +131,12 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoCaixaEconomica($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-               ->setDesconto(2.00)
-               ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2013-11-02"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setDesconto(2.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new Carbon("2013-11-02"));
 
-        $this->assertNotEmpty($boleto);
+        $linhaDigitavel = $this->getLinhaDigitavel($boleto);
+        $this->assertNotEmpty($linhaDigitavel);
     }
 
     /**
@@ -146,5 +151,4 @@ class BoletoCaixaEconomicaTest extends BoletoTestCase
         $boleto->validarDadosObrigatorios();
         $this->assertNotEmpty($boleto->getErros());
     }
-
 }
