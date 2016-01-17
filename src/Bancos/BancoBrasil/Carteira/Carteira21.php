@@ -29,20 +29,17 @@ use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
  * Classe que representa a carteira 21 do Banco do Brasil.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira21 implements CarteiraInterface
 {
     /**
-     * Retorna o número do convênio.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getNumero()
     {
-        return "21";
+        return 21;
     }
-
 }

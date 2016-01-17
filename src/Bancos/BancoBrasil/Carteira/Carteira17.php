@@ -29,20 +29,17 @@ use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
  * Classe que representa a carteira 17 do Banco do Brasil.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira17 implements CarteiraInterface
 {
     /**
-     * Retorna o número do convênio.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getNumero()
     {
-        return "17";
+        return 17;
     }
-
 }

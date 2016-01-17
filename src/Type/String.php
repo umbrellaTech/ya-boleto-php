@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto\Type;
 /**
  * Classe para manipulação de strings.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class String
@@ -36,9 +36,9 @@ class String
 
     /**
      * [putAt description]
-     * 
-     * @param  string  $text
-     * @param  string  $put
+     *
+     * @param  string $text
+     * @param  string $put
      * @param  integer $at
      * @return string
      */
@@ -49,8 +49,8 @@ class String
 
     /**
      * [left description]
-     * 
-     * @param  string  $text
+     *
+     * @param  string $text
      * @param  integer $length
      * @return string
      */
@@ -61,7 +61,7 @@ class String
 
     /**
      * [applyMask description]
-     * 
+     *
      * @param  string $text
      * @param  string $mask
      * @return string
@@ -91,7 +91,7 @@ class String
 
     /**
      * Completa com zeros adicionais à esquerda até o valor informado.
-     * 
+     *
      * @param  string $text
      * @param  string $length
      * @return string
@@ -105,7 +105,7 @@ class String
      * Completa com zeros adicionais à esquerda até o valor informado,
      * alterando a variável original, e cortando caso o valor tenha
      * mais caracteres que o permitido.
-     * 
+     *
      * @param  string $var
      * @param  string $length
      * @return string
@@ -117,8 +117,8 @@ class String
 
     /**
      * [insert description]
-     * 
-     * @param  string       $string
+     *
+     * @param  string $string
      * @param  \ArrayObject $data
      * @return string
      */
@@ -128,6 +128,7 @@ class String
             $regex = '%(:' . $key . ')%';
             $string = preg_replace($regex, $value, $string);
         endforeach;
+
         return $string;
     }
 

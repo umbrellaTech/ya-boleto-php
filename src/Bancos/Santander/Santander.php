@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\AbstractBanco;
 /**
  * Classe que representa o Santander.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Santander extends AbstractBanco

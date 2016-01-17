@@ -25,20 +25,19 @@
 
 namespace Umbrella\YaBoleto;
 
-use ArrayObject;
 use Umbrella\YaBoleto\Type\Number;
 
 /**
  * Classe abstrata que representa o convênio.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 abstract class AbstractConvenio implements ConvenioInterface
 {
-    /** @var \Umbrella\YaBoleto\AbstractBanco */
+    /** @var BancoInterface */
     protected $banco;
-    /** @var \Umbrella\YaBoleto\CarteiraInterface */
+    /** @var CarteiraInterface */
     protected $carteira;
     /** @var string Número do convênio */
     protected $convenio;
@@ -48,54 +47,33 @@ abstract class AbstractConvenio implements ConvenioInterface
     protected $dvNossoNumero;
     /** @var string Layout do código de barras */
     protected $layout;
-    
+
     /** @var array Tamanho de alguns campos do código de barras */
     public $tamanhos = array(
-        'Banco'           => 3,
-        'Moeda'           => 1,
-        'DV'              => 1,
+        'Banco' => 3,
+        'Moeda' => 1,
+        'DV' => 1,
         'FatorVencimento' => 4,
-        'Valor'           => 10,
-        'Agencia'         => 4,
-        'Conta'           => 8,
-        'Carteira'        => 2
+        'Valor' => 10,
+        'Agencia' => 4,
+        'Conta' => 8,
+        'Carteira' => 2
     );
 
     /**
      * Inicializa uma nova instância da classe.
      *
-     * @param \Umbrella\YaBoleto\AbstractAbstractBanco $banco        Banco emissor
-     * @param \Umbrella\YaBoleto\CarteiraInterface $carteira Carteira do boleto
-     * @param sting  $convenio                               Número do convênio
-     * @param string $nossoNumero                            Nosso número do boleto
+     * @param BancoInterface $banco Banco emissor
+     * @param CarteiraInterface $carteira Carteira do boleto
+     * @param string $convenio Número do convênio
+     * @param string $nossoNumero Nosso número do boleto
      */
-    public function __construct(AbstractBanco $banco, CarteiraInterface $carteira, $convenio, $nossoNumero)
+    public function __construct(BancoInterface $banco, CarteiraInterface $carteira, $convenio, $nossoNumero)
     {
-        $this->banco       = $banco;
-        $this->carteira    = $carteira;
-        $this->convenio    = $convenio;
+        $this->banco = $banco;
+        $this->carteira = $carteira;
+        $this->convenio = $convenio;
         $this->nossoNumero = $nossoNumero;
-    }
-
-    /**
-     * Gera o campo livre do código de barras.
-     * 
-     * @param  ArrayObject $data
-     * @return $data
-     */
-    abstract public function gerarCampoLivre(ArrayObject $data);
-
-    /**
-     * Seta o layout do código de barras.
-     *
-     * @param string $layout
-     * @return \Umbrella\YaBoleto\AbstractConvenio $this
-     */
-    public function setLayout($layout)
-    {
-        $this->layout = $layout;
-
-        return $this;
     }
 
     /**
@@ -125,14 +103,14 @@ abstract class AbstractConvenio implements ConvenioInterface
      */
     public function setDvNossoNumero($carteira, $nossoNumero, $ifTen = 'P', $ifZero = '0')
     {
-        $this->dvNossoNumero = Number::modulo11($carteira.$nossoNumero, $ifTen, $ifZero, false, 7);
+        $this->dvNossoNumero = Number::modulo11($carteira . $nossoNumero, $ifTen, $ifZero, false, 7);
 
         return $this;
     }
 
     /**
      * Define o número do convênio.
-     * 
+     *
      * @param  string $convenio
      * @return \Umbrella\YaBoleto\AbstractConvenio $this
      */
@@ -145,7 +123,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Altera o tamanho de um campo do código de barras.
-     * 
+     *
      * @param  string $index
      * @param  integer $tamanho
      */
@@ -156,7 +134,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna o layout do código de barras
-     * 
+     *
      * @return string
      */
     public function getLayout()
@@ -166,7 +144,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna o nosso número
-     * 
+     *
      * @return string
      */
     public function getNossoNumero()
@@ -176,7 +154,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna o dígito verificador do nosso número
-     * 
+     *
      * @return string
      */
     public function getDvNossoNumero()
@@ -186,7 +164,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna o banco do convênio.
-     * 
+     *
      * @return \Umbrella\YaBoleto\AbstractBanco
      */
     public function getBanco()
@@ -196,7 +174,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna a carteira do convênio.
-     * 
+     *
      * @return \Umbrella\YaBoleto\CarteiraInterface
      */
     public function getCarteira()
@@ -206,7 +184,7 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna o número do convênio.
-     * 
+     *
      * @return string
      */
     public function getConvenio()
@@ -216,12 +194,11 @@ abstract class AbstractConvenio implements ConvenioInterface
 
     /**
      * Retorna os tamanhos dos campos do código de barras.
-     * 
+     *
      * @return array
      */
     public function getTamanhos()
     {
         return $this->tamanhos;
     }
-
 }

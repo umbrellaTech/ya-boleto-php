@@ -30,17 +30,17 @@ use Umbrella\YaBoleto\AbstractConvenio;
 
 /**
  * Classe que representa o convênio do Bradesco.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Convenio extends AbstractConvenio
 {
     /**
      * Gera o campo livre do código de barras.
-     * 
-     * @param  ArrayObject $data
-     * @return $data
+     *
+     * @param ArrayObject $data
+     * @return ArrayObject $data
      */
     public function gerarCampoLivre(ArrayObject $data)
     {
@@ -50,6 +50,7 @@ class Convenio extends AbstractConvenio
         $this->alterarTamanho('CodigoCedente', 7);
 
         $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Carteira:NossoNumero:CodigoCedente0';
+
         return $data;
     }
 

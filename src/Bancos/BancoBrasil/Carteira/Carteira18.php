@@ -29,20 +29,18 @@ use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
  * Classe que representa a carteira 18 do Banco do Brasil.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira18 implements CarteiraInterface
 {
     /**
-     * Retorna o número do convênio.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getNumero()
     {
-        return "18";
+        return 18;
     }
 
 }

@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\AbstractBoleto;
 /**
  * Classe que representa o boleto do Banco do Brasil.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class BancoBrasil extends AbstractBoleto

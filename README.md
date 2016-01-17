@@ -16,6 +16,7 @@ Quer utilizar o YaBoleto? Leia nossa [documentaçao][2] e veja como é simples.
 ## Instalação
 ### Composer
 Se você já conhece o **Composer** (o que é extremamente recomendado), simplesmente adicione a dependência abaixo à diretiva *"require"* no seu **composer.json**:
+
 ```sh
 $ composer require umbrella/boleto
 ```

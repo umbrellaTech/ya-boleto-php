@@ -29,20 +29,17 @@ use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
  * Classe que representa a carteira 09 do Bradesco.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira09 implements CarteiraInterface
 {
     /**
-     * Retorna o número do convênio.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getNumero()
     {
         return "09";
     }
-
 }

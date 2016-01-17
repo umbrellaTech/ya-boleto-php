@@ -32,7 +32,7 @@ use Umbrella\YaBoleto\Type\Number;
 /**
  * Classe que representa o convênio do Santander.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Convenio extends AbstractConvenio

@@ -25,30 +25,27 @@
 
 namespace Umbrella\YaBoleto;
 
-use ArrayObject;
 use Carbon\Carbon;
-use Umbrella\YaBoleto\Type\Number;
-use Umbrella\YaBoleto\Type\String;
 
 /**
  * Classe abstrata que representa um boleto.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 abstract class AbstractBoleto
 {
-    /** @var \Umbrella\YaBoleto\AbstractConvenio */
+    /** @var ConvenioInterface */
     protected $convenio;
-    /** @var \Umbrella\YaBoleto\Cedente */
+    /** @var Cedente */
     protected $cedente;
-    /** @var \Umbrella\YaBoleto\Sacado */
+    /** @var Sacado */
     protected $sacado;
     /** @var float */
     protected $valorDocumento;
     /** @var \Carbon\Carbon */
     protected $dataVencimento;
-    /** @var \Carbon\Carbon */
+    /** @var \DateTime */
     protected $dataDocumento;
     /** @var float */
     protected $taxa;
@@ -74,12 +71,10 @@ abstract class AbstractBoleto
     protected $especie;
     /** @var string */
     protected $localPagamento;
-    /** @var string */
+    /** @var CodigoBarras */
     protected $codigoBarras;
-    /** @var string */
+    /** @var LinhaDigitavel */
     protected $linhaDigitavel;
-    /** @var string */
-    protected $mascara = "00000.00000 00000.000000 00000.000000 0 00000000000000";
     /** @var array */
     protected $erros = array();
     /** @var integer */
@@ -87,22 +82,22 @@ abstract class AbstractBoleto
 
     /**
      * Inicializa uma nova instância da classe.
-     * 
-     * @param \Umbrella\YaBoleto\Sacado           $sacado
-     * @param \Umbrella\YaBoleto\Cedente          $cedente
-     * @param \Umbrella\YaBoleto\AbstractConvenio $convenio
+     *
+     * @param Sacado $sacado
+     * @param Cedente $cedente
+     * @param ConvenioInterface $convenio
      */
-    public function __construct(Sacado $sacado, Cedente $cedente, AbstractConvenio $convenio)
+    public function __construct(Sacado $sacado, Cedente $cedente, ConvenioInterface $convenio)
     {
-        $this->sacado        = $sacado;
-        $this->cedente       = $cedente;
-        $this->convenio      = $convenio;
-        $this->dataDocumento = new Carbon;
+        $this->sacado = $sacado;
+        $this->cedente = $cedente;
+        $this->convenio = $convenio;
+        $this->dataDocumento = new \DateTime();
     }
 
     /**
      * Valida todos os dados que são obrigatórios para a geraçao de qualquer boleto.
-     * 
+     *
      * @throws \InvalidArgumentException
      */
     public function validarDadosObrigatorios()
@@ -127,9 +122,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o valor do documento.
-     * 
+     *
      * @param  float $valorDocumento
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     * @return $this
      */
     public function setValorDocumento($valorDocumento)
     {
@@ -140,9 +135,9 @@ abstract class AbstractBoleto
 
     /**
      * Define a data de venciemnto.
-     * 
+     *
      * @param  \Carbon\Carbon $dataVencimento
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     * @return $this
      */
     public function setDataVencimento(Carbon $dataVencimento)
     {
@@ -153,11 +148,11 @@ abstract class AbstractBoleto
 
     /**
      * Define a data do documento.
-     * 
-     * @param  \Carbon\Carbon $dataDocumento
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param  \DateTime $dataDocumento
+     * @return $this
      */
-    public function setDataDocumento($dataDocumento)
+    public function setDataDocumento(\DateTime $dataDocumento)
     {
         $this->dataDocumento = $dataDocumento;
 
@@ -166,9 +161,9 @@ abstract class AbstractBoleto
 
     /**
      * Define a taxa do boleto.
-     * 
-     * @param  float  $taxa
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param float $taxa
+     * @return $this
      */
     public function setTaxa($taxa)
     {
@@ -179,9 +174,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o desconto do boleto.
-     * 
-     * @param  double $desconto
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param double $desconto
+     * @return $this
      */
     public function setDesconto($desconto)
     {
@@ -192,9 +187,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o valor de outras deduções.
-     * 
-     * @param  float $outrasDeducoes
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param float $outrasDeducoes
+     * @return $this
      */
     public function setOutrasDeducoes($outrasDeducoes)
     {
@@ -205,9 +200,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o valor de multa.
-     * 
-     * @param  float $multa
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param float $multa
+     * @return $this
      */
     public function setMulta($multa)
     {
@@ -218,9 +213,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o valor de outros acréscimos.
-     * 
-     * @param  float $outrosAcrescimos
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param float $outrosAcrescimos
+     * @return $this
      */
     public function setOutrosAcrescimos($outrosAcrescimos)
     {
@@ -231,9 +226,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o número do documento.
-     * 
-     * @param  integer    $numeroDocumento
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param int $numeroDocumento
+     * @return $this
      */
     public function setNumeroDocumento($numeroDocumento)
     {
@@ -244,9 +239,9 @@ abstract class AbstractBoleto
 
     /**
      * Define as instruções do documento.
-     * 
-     * @param  array $instrucoes
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param array $instrucoes
+     * @return $this
      */
     public function setInstrucoes(array $instrucoes)
     {
@@ -257,9 +252,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o demonstrativo do documento.
-     * 
-     * @param  array $demonstrativo
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param array $demonstrativo
+     * @return $this
      */
     public function setDemonstrativo(array $demonstrativo)
     {
@@ -270,9 +265,9 @@ abstract class AbstractBoleto
 
     /**
      * Define a quantidade.
-     * 
-     * @param  integer $quantidade
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param int $quantidade
+     * @return $this
      */
     public function setQuantidade($quantidade)
     {
@@ -283,9 +278,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o aceite.
-     * 
-     * @param  string $aceite
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param string $aceite
+     * @return $this
      */
     public function setAceite($aceite)
     {
@@ -296,9 +291,9 @@ abstract class AbstractBoleto
 
     /**
      * Define a espécie.
-     * 
-     * @param  string $especie
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param string $especie
+     * @return $this
      */
     public function setEspecie($especie)
     {
@@ -309,9 +304,9 @@ abstract class AbstractBoleto
 
     /**
      * Define o local de pagamento.
-     * 
-     * @param  string $localPagamento
-     * @return \Umbrella\YaBoleto\AbstractBoleto $this
+     *
+     * @param string $localPagamento
+     * @return $this
      */
     public function setLocalPagamento($localPagamento)
     {
@@ -322,8 +317,8 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o convênio do boleto.
-     * 
-     * @return \Umbrella\YaBoleto\AbstractConvenio
+     *
+     * @return ConvenioInterface
      */
     public function getConvenio()
     {
@@ -332,8 +327,8 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o cedente.
-     * 
-     * @return \Umbrella\YaBoleto\Pessoa
+     *
+     * @return Cedente
      */
     public function getCedente()
     {
@@ -342,8 +337,8 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o sacado.
-     * 
-     * @return \Umbrella\YaBoleto\Pessoa
+     *
+     * @return Sacado
      */
     public function getSacado()
     {
@@ -352,7 +347,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o valor do documento.
-     * 
+     *
      * @return float
      */
     public function getValorDocumento()
@@ -362,7 +357,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna a data de vencimento.
-     * 
+     *
      * @return \Carbon\Carbon
      */
     public function getDataVencimento()
@@ -372,8 +367,8 @@ abstract class AbstractBoleto
 
     /**
      * Retorna a data do documento.
-     * 
-     * @return \Carbon\Carbon
+     *
+     * @return \DateTime
      */
     public function getDataDocumento()
     {
@@ -382,7 +377,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o valor da taxa do boleto.
-     * 
+     *
      * @return float
      */
     public function getTaxa()
@@ -392,7 +387,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o valor do desconto.
-     * 
+     *
      * @return float
      */
     public function getDesconto()
@@ -402,7 +397,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o valor de outras deduções.
-     * 
+     *
      * @return float
      */
     public function getOutrasDeducoes()
@@ -412,7 +407,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o valor de multa.
-     * 
+     *
      * @return float
      */
     public function getMulta()
@@ -422,7 +417,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o valor de outros acréscimos.
-     * 
+     *
      * @return float
      */
     public function getOutrosAcrescimos()
@@ -432,7 +427,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o número do documento.
-     * 
+     *
      * @return integer
      */
     public function getNumeroDocumento()
@@ -442,7 +437,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna as instruções do documento.
-     * 
+     *
      * @return array
      */
     public function getInstrucoes()
@@ -452,7 +447,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o demonstrativo do documento.
-     * 
+     *
      * @return array
      */
     public function getDemonstrativo()
@@ -462,7 +457,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna a quantidade.
-     * 
+     *
      * @return integer
      */
     public function getQuantidade()
@@ -472,7 +467,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o aceite.
-     * 
+     *
      * @return string
      */
     public function getAceite()
@@ -482,7 +477,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna a espécia.
-     * 
+     *
      * @return string
      */
     public function getEspecie()
@@ -492,7 +487,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o local de pagamento.
-     * 
+     *
      * @return string
      */
     public function getLocalPagamento()
@@ -502,8 +497,8 @@ abstract class AbstractBoleto
 
     /**
      * Retorna o código de barras.
-     * 
-     * @return string
+     *
+     * @return CodigoBarras
      */
     public function getCodigoBarras()
     {
@@ -512,8 +507,8 @@ abstract class AbstractBoleto
 
     /**
      * Retorna a linha digitável.
-     * 
-     * @return string
+     *
+     * @return LinhaDigitavel
      */
     public function getLinhaDigitavel()
     {
@@ -522,7 +517,7 @@ abstract class AbstractBoleto
 
     /**
      * Retorna as mensagens de errors depois da validação.
-     * 
+     *
      * @return array
      */
     public function getErros()
@@ -532,110 +527,19 @@ abstract class AbstractBoleto
 
     /**
      * Retorna a valor total do boleto.
-     * 
+     *
      * @return float
      */
     public function getTotal()
     {
-        return (float) ($this->valorDocumento + $this->taxa + $this->outrosAcrescimos) - ($this->desconto  + $this->outrasDeducoes);
+        return (float)($this->valorDocumento + $this->taxa + $this->outrosAcrescimos) - ($this->desconto + $this->outrasDeducoes);
     }
 
     /**
-     * Gera o código de barras e a linha digitavel.
-     *
-     * @return $this
+     * @return int
      */
-    public function gerarCodigoBarraLinhaDigitavel()
+    public function getMoeda()
     {
-        $this->codigoBarras = $this->gerarCodigoBarras();
-        $this->linhaDigitavel = $this->gerarLinhaDigitavel($this->codigoBarras);
-
-        return $this;
+        return $this->moeda;
     }
-
-    /**
-     * Gera o código de barras, baseado nas informações do banco.
-     *
-     * @return string
-     */
-    protected function gerarCodigoBarras()
-    {
-        $banco    = $this->convenio->getBanco();
-        $convenio = $this->convenio;
-        $total    = $this->getTotal();
-
-        if ($total < 0) {
-            throw new \LogicException("Valor total do boleto não pode ser negativo");
-        }
-
-        $valor   = Number::format($total);
-        $agencia = substr($banco->getAgencia(), 0, 4);
-        $conta   = substr($banco->getConta(), 0, 4);
-
-        $data = new ArrayObject(array(
-            'Banco'           => $banco->getNumero(),
-            'Moeda'           => $this->moeda,
-            'Valor'           => $valor,
-            'Agencia'         => $agencia,
-            'Carteira'        => $convenio->getCarteira()->getNumero(),
-            'Conta'           => $conta,
-            'NossoNumero'     => $convenio->getNossoNumero(),
-            'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()),
-            'CodigoCedente'   => $convenio->getConvenio()
-        ));
-        $data->setFlags(ArrayObject::ARRAY_AS_PROPS);
-
-        $this->getConvenio()->gerarCampoLivre($data);
-
-        $tamanhos = $convenio->getTamanhos();
-
-        foreach ($data as $var => $value) {
-            if (array_key_exists($var, $tamanhos)) {
-                $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
-            }
-        }
-
-        //Chamada do método que ajusta o NossoNumero
-        $this->getConvenio()->ajustarNossoNumero($data);
-
-        $convenio->setNossoNumero($data['NossoNumero']);
-
-        $cod = String::insert($convenio->getLayout(), $data);
-
-        $dv = Number::modulo11($cod, 1, 1);
-
-        $codigoBarras = String::putAt($cod, $dv, 4);
-        return $codigoBarras;
-    }
-
-    /**
-     * Gera a linha digitável baseado em um código de barras.
-     * 
-     * @param  string $codigoBarras
-     * @return string
-     */
-    protected function gerarLinhaDigitavel($codigoBarras)
-    {
-                          // Campo1 - Posições de 1-4 e 20-24
-        $linhaDigitavel = substr($codigoBarras, 0, 4) . substr($codigoBarras, 19, 5)
-                          // Campo2 - Posições 25-34
-                          . substr($codigoBarras, 24, 10)
-                          // Campo3 - Posições 35-44
-                          . substr($codigoBarras, 34, 10)
-                          // Campo4 - Posição 5
-                          . substr($codigoBarras, 4, 1)
-                          // Campo5 - Posições 6-19
-                          . substr($codigoBarras, 5, 14);
-
-        $dv1 = Number::modulo10(substr($linhaDigitavel, 0, 9));
-        $dv2 = Number::modulo10(substr($linhaDigitavel, 9, 10));
-        $dv3 = Number::modulo10(substr($linhaDigitavel, 19, 10));
-
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv3, 29);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv2, 19);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
-
-        return String::applyMask($linhaDigitavel, $this->mascara);
-    }
-
 }

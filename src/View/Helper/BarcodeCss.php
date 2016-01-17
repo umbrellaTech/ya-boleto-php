@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto\View\Helper;
 /**
  * Classe para renderização do código de barras.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class BarcodeCss implements BarcodeRenderInterface

@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\CarteiraInterface;
 /**
  * Classe que representa a carteira 102 do Santander.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira102 implements CarteiraInterface

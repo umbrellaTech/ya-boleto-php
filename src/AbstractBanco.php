@@ -29,15 +29,15 @@ use Umbrella\YaBoleto\Type\Number;
 
 /**
  * Classe abstrata que representa um banco.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
-abstract class AbstractBanco
+abstract class AbstractBanco implements BancoInterface
 {
-    /** @var integer */
+    /** @var int */
     protected $codigo;
-    /** @var string */
+    /** @var int */
     protected $numero;
     /** @var string */
     protected $agencia;
@@ -48,11 +48,11 @@ abstract class AbstractBanco
 
     /**
      * Inicializa uma nova instância da classe.
-     * 
-     * @param string $numero  Número do banco
-     * @param string $nome    Nome do banco
+     *
+     * @param int $numero Número do banco
+     * @param string $nome Nome do banco
      * @param string $agencia Agência favorecida
-     * @param string $conta   Conta favorecida
+     * @param string $conta Conta favorecida
      */
     public function __construct($numero, $nome, $agencia, $conta)
     {
@@ -64,9 +64,7 @@ abstract class AbstractBanco
     }
 
     /**
-     * Retorna o numero do banco.
-     * 
-     * @return integer
+     * @inheritdoc
      */
     public function getNumero()
     {
@@ -74,9 +72,7 @@ abstract class AbstractBanco
     }
 
     /**
-     * Retorna o nome do banco.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getNome()
     {
@@ -84,9 +80,7 @@ abstract class AbstractBanco
     }
 
     /**
-     * Rotorna o número da agência favorecida.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getAgencia()
     {
@@ -94,9 +88,7 @@ abstract class AbstractBanco
     }
 
     /**
-     * Retorna o número da conta favorecida.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getConta()
     {
@@ -104,13 +96,10 @@ abstract class AbstractBanco
     }
 
     /**
-     * Retorna o código do banco.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getCodigo()
     {
         return $this->codigo;
     }
-
 }

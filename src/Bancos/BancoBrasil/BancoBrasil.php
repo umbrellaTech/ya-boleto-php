@@ -29,22 +29,22 @@ use Umbrella\YaBoleto\AbstractBanco;
 
 /**
  * Classe que representa o Banco do Brasil.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class BancoBrasil extends AbstractBanco
 {
     /**
      * Inicializa uma nova instância da classe.
-     * 
+     *
      * @param string $agencia Agência favorecida
-     * @param string $conta   Conta favorecida
+     * @param string $conta Conta favorecida
      */
     public function __construct($agencia, $conta)
     {
         $numero = "001";
-        $nome   = "Banco do Brasil";
+        $nome = "Banco do Brasil";
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 }

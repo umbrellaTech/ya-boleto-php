@@ -29,20 +29,17 @@ use Umbrella\YaBoleto\CarteiraInterface;
 
 /**
  * Classe que representa a carteira 06 do Bradesco.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira06 implements CarteiraInterface
 {
     /**
-     * Retorna o número do convênio.
-     * 
-     * @return string
+     * @inheritdoc
      */
     public function getNumero()
     {
-        return "06";
+        return 06;
     }
-
 }

@@ -29,23 +29,22 @@ use Umbrella\YaBoleto\AbstractBanco;
 
 /**
  * Classe que representa o Bradesco.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Bradesco extends AbstractBanco
 {
     /**
      * Inicializa uma nova instância da classe.
-     * 
+     *
      * @param string $agencia Agência favorecida
-     * @param string $conta   Conta favorecida
+     * @param string $conta Conta favorecida
      */
     public function __construct($agencia, $conta)
     {
-        $numero = "237";
-        $nome   = "Bradesco";
+        $numero = 237;
+        $nome = "Bradesco";
         parent::__construct($numero, $nome, $agencia, $conta);
     }
-
 }

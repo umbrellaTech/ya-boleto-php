@@ -30,7 +30,7 @@ use Carbon\Carbon;
 /**
  * Classe para manipulação de números.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Number
