@@ -25,12 +25,12 @@
 
 namespace Umbrella\YaBoleto;
 
-use Respect\Validation\Validator;
+use Umbrella\YaBoleto\Exception\CnpjInvalidoException;
 
 /**
  * Classe que representa uma pessoa jurídica.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class PessoaJuridica extends Pessoa
@@ -40,12 +40,12 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaJuridica.
-     * 
-     * @param string $nome             Nome da Razão Social da pessoa jurídica
-     * @param string $cnpj             CNPJ da pessoa jurídica
-     * @param array  $endereco Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     *
+     * @param string $nome Nome da Razão Social da pessoa jurídica
+     * @param Cnpj $cnpj CNPJ da pessoa jurídica
+     * @param Endereco $endereco
      */
-    public function __construct($nome, $cnpj, array $endereco)
+    public function __construct($nome, Cnpj $cnpj, Endereco $endereco)
     {
         parent::__construct($nome, $endereco);
         $this->setCnpj($cnpj);
@@ -53,8 +53,8 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Retorna o CNPJ da pessoa jurídica.
-     * 
-     * @return string
+     *
+     * @return Cnpj
      */
     public function getCnpj()
     {
@@ -63,16 +63,13 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Define o CNPJ da pessoa jurídica.
-     * 
-     * @param string $cnpj CNPJ da pessoa jurídica
-     * @return \Umbrella\YaBoleto\PessoaJuridica
+     *
+     * @param Cnpj $cnpj CNPJ da pessoa jurídica
+     * @return PessoaJuridica
+     * @throws CnpjInvalidoException
      */
-    public function setCnpj($cnpj)
+    public function setCnpj(Cnpj $cnpj)
     {
-        if (!Validator::cnpj()->validate($cnpj)) {
-            throw new \InvalidArgumentException("O CNPJ informado é inválido");
-        }
-
         $this->cnpj = $cnpj;
 
         return $this;

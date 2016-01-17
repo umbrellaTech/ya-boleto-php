@@ -25,13 +25,11 @@
 
 namespace Umbrella\YaBoleto;
 
-use Umbrella\YaBoleto\Pessoa;
-
 /**
  * Classe que representa um sacado.
  * A pessoa que paga um boleto é o sacado.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Sacado
@@ -41,7 +39,7 @@ class Sacado
 
     /**
      * Inicializa uma nova instância da classe \Umbrella\YaBoleto\Sacado.
-     * 
+     *
      * @param \Umbrella\YaBoleto\Pessoa $tipo
      */
     public function __construct(Pessoa $tipo)
@@ -51,7 +49,7 @@ class Sacado
 
     /**
      * Define o tipo da pessoa para o sacado.
-     * 
+     *
      * @param  \Umbrella\YaBoleto\Pessoa $tipo
      * @return \Umbrella\YaBoleto\Sacado $this
      */
@@ -64,12 +62,11 @@ class Sacado
 
     /**
      * Retorna o tipo da pessoa do sacado.
-     * 
+     *
      * @return \Umbrella\YaBoleto\Pessoa
      */
     public function getTipo()
     {
         return $this->tipo;
     }
-
 }

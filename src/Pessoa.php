@@ -27,7 +27,7 @@ namespace Umbrella\YaBoleto;
 
 /**
  * Classe abstrata que representa uma pessoa, física ou jurídica.
- * 
+ *
  * @author  Ian Rodrigues <me@ianrodrigu.es>
  * @package YaBoleto
  */
@@ -35,32 +35,24 @@ abstract class Pessoa
 {
     /** @var string Nome/Razão Social da pessoa */
     protected $nome;
-    /** @var string Logradouro da pessoa - ex.: 'Rua das Oliveiras, 10 - Sala 301' */
-    protected $logradouro;
-    /** @var string CEP do endereço da pessoa */
-    protected $cep;
-    /** @var string Cidade da pessoa */
-    protected $cidade;
-    /** @var string Estado da pessoa */
-    protected $uf;
+    /** @var  Endereco */
+    protected $endereco;
 
     /**
      * Inicializa uma nova instância da classe.
-     * 
-     * @param string $nome             Nome da Nome/Razão Social da pessoa
-     * @param array  $enderecoCompleto Endereço da pessoa - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     *
+     * @param string $nome Nome da Nome/Razão Social da pessoa
+     * @param Endereco $endereco
      */
-    public function __construct($nome, array $enderecoCompleto)
+    public function __construct($nome, Endereco $endereco)
     {
         $this->nome = $nome;
-        foreach ($enderecoCompleto as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->endereco = $endereco;
     }
 
     /**
      * Retorna o nome da pessoa.
-     * 
+     *
      * @return string
      */
     public function getNome()
@@ -69,45 +61,10 @@ abstract class Pessoa
     }
 
     /**
-     * Define o nome da pessoa.
-     * 
-     * @param  string   $nome
-     * @return \Umbrella\YaBoleto\Pessoa
-     */
-    public function setNome($nome)
-    {
-        $this->nome = $nome;
-
-        return $this;
-    }
-
-    /**
-     * Retorna o endereço formatado da pessoa.
-     * 
-     * @return string
+     * @return Endereco
      */
     public function getEndereco()
     {
-        return sprintf('%s - %s - %s/%s', $this->logradouro, $this->cep, $this->cidade, $this->uf);
+        return $this->endereco;
     }
-
-    /**
-     * Define o endereço completo da pessoa.
-     * 
-     * @param string $logradouro Logradouro da pessoa - ex.: 'Rua das Oliveiras, 10 - Sala 301'
-     * @param string $cep        CEP do endereço da pessoa
-     * @param string $cidade     Cidade da pessoa
-     * @param string $uf         UF da pessoa
-     * @return \Umbrella\YaBoleto\Pessoa
-     */
-    public function setEndereco($logradouro, $cep, $cidade, $uf)
-    {
-        $this->logradouro = $logradouro;
-        $this->cep        = $cep;
-        $this->cidade     = $cidade;
-        $this->uf         = $uf;
-
-        return $this;
-    }
-
 }

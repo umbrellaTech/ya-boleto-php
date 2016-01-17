@@ -25,12 +25,12 @@
 
 namespace Umbrella\YaBoleto;
 
-use Respect\Validation\Validator;
+use Umbrella\YaBoleto\Exception\CpfInvalidoException;
 
 /**
  * Classe que representa uma pessoa física.
- * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ *
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class PessoaFisica extends Pessoa
@@ -40,12 +40,12 @@ class PessoaFisica extends Pessoa
 
     /**
      * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaFisica.
-     * 
-     * @param string $nome             Nome da pessoa física
-     * @param string $cpf              CPF da pessoa física
-     * @param array  $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     *
+     * @param string $nome Nome da pessoa física
+     * @param Cpf $cpf CPF da pessoa física
+     * @param Endereco $endereco @internal param array $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
-    public function __construct($nome, $cpf, array $endereco)
+    public function __construct($nome, Cpf $cpf, Endereco $endereco)
     {
         parent::__construct($nome, $endereco);
         $this->setCpf($cpf);
@@ -53,8 +53,8 @@ class PessoaFisica extends Pessoa
 
     /**
      * Retorna o CPF da pessoa física.
-     * 
-     * @return string
+     *
+     * @return Cpf
      */
     public function getCpf()
     {
@@ -63,18 +63,15 @@ class PessoaFisica extends Pessoa
 
     /**
      * Define o CPF da pessoa física.
-     * 
-     * @param string $cpf CPF da pessoa física
-     * @return \Umbrella\YaBoleto\PessoaFisica
+     *
+     * @param Cpf $cpf CPF da pessoa física
+     * @return $this
+     * @throws CpfInvalidoException
      */
-    public function setCpf($cpf)
+    public function setCpf(Cpf $cpf)
     {
-        if (!Validator::cpf()->validate($cpf)) {
-            throw new \InvalidArgumentException("O CPF informado é inválido");
-        }
         $this->cpf = $cpf;
 
         return $this;
     }
-
 }
