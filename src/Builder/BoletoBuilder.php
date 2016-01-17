@@ -27,7 +27,10 @@ namespace Umbrella\YaBoleto\Builder;
 
 use Carbon\Carbon;
 use ReflectionClass;
+use Umbrella\YaBoleto\AbstractBoleto;
 use Umbrella\YaBoleto\BancoInterface;
+use Umbrella\YaBoleto\Calculator\CodigoBarrasCalculator;
+use Umbrella\YaBoleto\Calculator\LinhaDigitavelCalulator;
 use Umbrella\YaBoleto\CarteiraInterface;
 use Umbrella\YaBoleto\Cedente;
 use Umbrella\YaBoleto\Cnpj;
@@ -173,10 +176,20 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\Boleto\\' . $this->type);
 
+        /** @var AbstractBoleto $boleto */
         $boleto = $reflection->newInstanceArgs(array($this->sacado, $this->cedente, $this->convenio));
         $boleto->setValorDocumento($valor)
             ->setNumeroDocumento($numeroDocumento)
             ->setDataVencimento($vencimento);
+
+        $codigoBarrasCalculator = new CodigoBarrasCalculator();
+        $codigoBarras = $codigoBarrasCalculator->calculate($boleto);
+
+        $linhaDigitavelCalculator = new LinhaDigitavelCalulator();
+        $linhaDigitavel = $linhaDigitavelCalculator->calculate($codigoBarras);
+
+        $boleto->setCodigoBarras($codigoBarras)
+            ->setLinhaDigitavel($linhaDigitavel);
 
         return $boleto;
     }
