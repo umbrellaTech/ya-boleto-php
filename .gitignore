@@ -16,3 +16,4 @@ coverage.clover
 resources/cache
 resources/cache/*
 /build/
+/bin
