@@ -27,7 +27,13 @@ namespace Umbrella\YaBoleto\Builder;
 
 use Carbon\Carbon;
 use ReflectionClass;
+use Umbrella\YaBoleto\BancoInterface;
+use Umbrella\YaBoleto\CarteiraInterface;
 use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Cnpj;
+use Umbrella\YaBoleto\ConvenioInterface;
+use Umbrella\YaBoleto\Cpf;
+use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\PessoaJuridica;
 use Umbrella\YaBoleto\Sacado;
@@ -35,7 +41,7 @@ use Umbrella\YaBoleto\Sacado;
 /**
  * Classe do Builder de Boletos
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis de Vietro <italolelis@gmail.com>
  * @package YaBoleto
  */
 class BoletoBuilder
@@ -44,23 +50,16 @@ class BoletoBuilder
     protected $type;
     /** @var string */
     protected $namespace;
-    /** @var \Umbrella\YaBoleto\Sacado */
+    /** @var Sacado */
     protected $sacado;
-    /** @var \Umbrella\YaBoleto\Cedente */
+    /** @var Cedente */
     protected $cedente;
-    /** @var \Umbrella\YaBoleto\AbstractBanco */
+    /** @var BancoInterface */
     protected $banco;
-    /** @var \Umbrella\YaBoleto\CarteiraInterface */
+    /** @var CarteiraInterface */
     protected $carteira;
-    /** @var \Umbrella\YaBoleto\ConvenioInterface */
+    /** @var ConvenioInterface */
     protected $convenio;
-
-    // Lista de Bancos
-    const BANCO_BRASIL = 'Banco Brasil';
-    const SANTANDER = 'Santander';
-    const BRADESCO = 'Bradesco';
-    const CAIXA = 'Caixa Economica';
-    const ITAU = 'Itau';
 
     // Tipos de Pessoa do Sacado
     const PESSOA_FISICA = 'física';
@@ -69,7 +68,7 @@ class BoletoBuilder
     /**
      * Inicializa uma nova instância da classe.
      *
-     * @param $banco Nome do banco a gerar o boleto
+     * @param string $banco Nome do banco a gerar o boleto
      */
     public function __construct($banco)
     {
@@ -83,20 +82,23 @@ class BoletoBuilder
      * @param  string $tipo Tipo de pessoa do sacado
      * @param  string $nome Nome do sacado
      * @param  string $documento CPF/CNPJ do sacado
-     * @param  array $endereco Endereço do sacado
+     * @param  Endereco $endereco Endereço do sacado
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
-    public function sacado($tipo, $nome, $documento, $endereco)
+    public function sacado($tipo, $nome, $documento, Endereco $endereco)
     {
         if ($tipo === self::PESSOA_FISICA) {
-            $sacado = new PessoaFisica($nome, $documento, $endereco);
-        } else if ($tipo === self::PESSOA_JURIDICA) {
-            $sacado = new PessoaJuridica($nome, $documento, $endereco);
+            $sacado = new PessoaFisica($nome, new Cpf($documento), $endereco);
         } else {
-            throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
+            if ($tipo === self::PESSOA_JURIDICA) {
+                $sacado = new PessoaJuridica($nome, new Cnpj($documento), $endereco);
+            } else {
+                throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
+            }
         }
 
         $this->sacado = new Sacado($sacado);
+
         return $this;
     }
 
@@ -105,12 +107,13 @@ class BoletoBuilder
      *
      * @param  string $nome Nome do cedente
      * @param  string $documento CNPJ do cedente
-     * @param  array $endereco Endereço do cedente
+     * @param  Endereco $endereco Endereço do cedente
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
-    public function cedente($nome, $documento, $endereco)
+    public function cedente($nome, $documento, Endereco $endereco)
     {
-        $this->cedente = new Cedente($nome, $documento, $endereco);
+        $this->cedente = new Cedente($nome, new Cnpj($documento), $endereco);
+
         return $this;
     }
 
@@ -125,6 +128,7 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\' . $this->type);
         $this->banco = $reflection->newInstanceArgs(array($agencia, $conta));
+
         return $this;
     }
 
@@ -138,6 +142,7 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\Carteira\\Carteira' . $carteira);
         $this->carteira = $reflection->newInstanceArgs();
+
         return $this;
     }
 
@@ -152,6 +157,7 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\Convenio');
         $this->convenio = $reflection->newInstanceArgs(array($this->banco, $this->carteira, $convenio, $nossoNumero));
+
         return $this;
     }
 
