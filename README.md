@@ -28,7 +28,7 @@ O projeto [umbrellaTech/demo][1] possui um exemplo funcional de cada banco, voc�
 ## Bancos suportados
 Atualmente o YaBoleto funciona com os bancos abaixo:
 
-| **Banco**           |  **Carteira/Convenio** | **Implementado** | **Testado** |
+| **Banco**           |  **Carteira/Convenio**   | **Implementado**   | **Testado**   |
 |---------------------|--------------------------|--------------------|---------------|
 | **Banco do Brasil** | 17, 18, 21               | Sim                | Sim           |
 | **Banrisul**        | x                        | Não                | Não           |
@@ -39,7 +39,6 @@ Atualmente o YaBoleto funciona com os bancos abaixo:
 | **Itau**            | 175, 174, 178, 104, 109  | Não                | Não           |
 | **Real**            | 57                       | Sim                | Sim           |
 | **Santander**       | 101, 102, 201            | Sim                | Sim           |
-|                     |                          |                    |               |
 
 Uso
 ----------

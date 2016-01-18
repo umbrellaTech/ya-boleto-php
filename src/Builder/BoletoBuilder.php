@@ -158,6 +158,14 @@ class BoletoBuilder
      */
     public function convenio($convenio, $nossoNumero)
     {
+        if (!$this->banco) {
+            throw new \InvalidArgumentException('Você deve construir o banco primeiro');
+        }
+
+        if (!$this->carteira) {
+            throw new \InvalidArgumentException('Você deve construir a carteira primeiro');
+        }
+
         $reflection = new ReflectionClass($this->namespace . '\\Convenio');
         $this->convenio = $reflection->newInstanceArgs(array($this->banco, $this->carteira, $convenio, $nossoNumero));
 
@@ -174,6 +182,18 @@ class BoletoBuilder
      */
     public function build($valor, $numeroDocumento, DateTime $vencimento)
     {
+        if (!$this->sacado) {
+            throw new \InvalidArgumentException('Você deve construir o sacado primeiro');
+        }
+
+        if (!$this->cedente) {
+            throw new \InvalidArgumentException('Você deve construir o sacado primeiro');
+        }
+
+        if (!$this->convenio) {
+            throw new \InvalidArgumentException('Você deve construir o convenio primeiro');
+        }
+
         $reflection = new ReflectionClass($this->namespace . '\\Boleto\\' . $this->type);
 
         /** @var AbstractBoleto $boleto */
