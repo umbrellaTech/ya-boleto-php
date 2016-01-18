@@ -47,6 +47,7 @@ A forma mais simples é utilizar o Builder.
 
 ```php
 use Umbrella\YaBoleto\Builder\BoletoBuilder;
+use Umbrella\YaBoleto\Bancos;
 
 // sacado...
 $nomeSacado      = "John Doe";
@@ -68,7 +69,7 @@ $enderecoCedente  = new Endereco(
     "DF"
 );
 
-$builder = new BoletoBuilder(BoletoBuilder::BRADESCO);
+$builder = new BoletoBuilder(Bancos::BRADESCO);
 
 $boleto  = $builder->sacado(BoletoBuilder::PESSOA_FISICA, $nomeSacado, $documentoSacado, $enderecoSacado)
                    ->cedente($nomeCedente, $documentoCedente, $enderecoCedente)
