@@ -1,5 +1,6 @@
 <?php namespace Umbrella\YaBoleto\Tests;
 
+use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\Sacado;
 
@@ -7,36 +8,41 @@ class SacadoTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \InvalidArgumentException
+     * @dataProvider sacadoProvider
+     * @param $nome
+     * @param $documento
+     * @param Endereco $endereco
      */
-    public function testShouldThrownInvalidArgumentException()
+    public function testShouldThrownInvalidArgumentException($nome, $documento, Endereco $endereco)
     {
-        $nomeSacado      = "John Doe";
-        $documentoSacado = "12112112112";
-        $enderecoSacado  = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep"        => "70200-002",
-            "cidade"     => "Brasília",
-            "uf"         => "DF"
-            );
-        $pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
-        $sacado       = new Sacado($pessoaFisica);
+        $documento = "12112112112";
+        $pessoaFisica = new PessoaFisica($nome, $documento, $endereco);
+        $sacado = new Sacado($pessoaFisica);
     }
 
     /**
-     * @see http://www.geradordecpf.org/
+     * @dataProvider sacadoProvider
+     * @param $nome
+     * @param $documento
+     * @param Endereco $endereco
      */
-    public function testShouldNotThrownInvalidArgumentException()
+    public function testShouldNotThrownInvalidArgumentException($nome, $documento, Endereco $endereco)
     {
-        $nomeSacado      = "John Doe";
-        $documentoSacado = "66837381229";
-        $enderecoSacado  = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep"        => "70200-002",
-            "cidade"     => "Brasília",
-            "uf"         => "DF"
-            );
-        $pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
-        $sacado       = new Sacado($pessoaFisica);
+        $pessoaFisica = new PessoaFisica($nome, $documento, $endereco);
+        $sacado = new Sacado($pessoaFisica);
     }
 
+    public function sacadoProvider()
+    {
+        $endereco = new Endereco(
+            "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "70200-002",
+            "Brasília",
+            "DF"
+        );
+
+        return [
+            ["John Doe", "66837381229", $endereco]
+        ];
+    }
 }

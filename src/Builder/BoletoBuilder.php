@@ -27,6 +27,7 @@ namespace Umbrella\YaBoleto\Builder;
 
 use ReflectionClass;
 use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\PessoaJuridica;
 use Umbrella\YaBoleto\Sacado;
@@ -82,10 +83,10 @@ class BoletoBuilder
      * @param  string $tipo Tipo de pessoa do sacado
      * @param  string $nome Nome do sacado
      * @param  string $documento CPF/CNPJ do sacado
-     * @param  array $endereco Endereço do sacado
+     * @param  Endereco $endereco Endereço do sacado
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
-    public function sacado($tipo, $nome, $documento, $endereco)
+    public function sacado($tipo, $nome, $documento, Endereco $endereco)
     {
         if ($tipo === self::PESSOA_FISICA) {
             $sacado = new PessoaFisica($nome, $documento, $endereco);
@@ -107,10 +108,10 @@ class BoletoBuilder
      *
      * @param  string $nome Nome do cedente
      * @param  string $documento CNPJ do cedente
-     * @param  array $endereco Endereço do cedente
+     * @param  Endereco $endereco Endereço do cedente
      * @return \Umbrella\YaBoleto\Builder\BoletoBuilder
      */
-    public function cedente($nome, $documento, $endereco)
+    public function cedente($nome, $documento, Endereco $endereco)
     {
         $this->cedente = new Cedente($nome, $documento, $endereco);
 

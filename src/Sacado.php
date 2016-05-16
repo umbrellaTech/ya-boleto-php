@@ -48,19 +48,6 @@ class Sacado
     }
 
     /**
-     * Define o tipo da pessoa para o sacado.
-     *
-     * @param  \Umbrella\YaBoleto\Pessoa $tipo
-     * @return \Umbrella\YaBoleto\Sacado $this
-     */
-    public function setTipo(Pessoa $tipo)
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    /**
      * Retorna o tipo da pessoa do sacado.
      *
      * @return \Umbrella\YaBoleto\Pessoa

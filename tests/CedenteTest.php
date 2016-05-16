@@ -1,41 +1,45 @@
 <?php namespace Umbrella\YaBoleto\Tests;
 
 use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Endereco;
 
 class CedenteTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @dataProvider cedenteProvider
      * @expectedException \InvalidArgumentException
+     * @param $nome
+     * @param $documento
+     * @param Endereco $endereco
      */
-    public function testShouldThrownInvalidArgumentException()
+    public function testShouldThrownInvalidArgumentException($nome, $documento, Endereco $endereco)
     {
-        $nomeCedente      = "ACME Corporation Inc.";
-        $documentoCedente = "12.121.121/1212-12";
-        $enderecoCedente  = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep"        => "70200-002",
-            "cidade"     => "Brasília",
-            "uf"         => "DF"
-            );
-
-        $cedente = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
+        $documento = "12.121.121/1212-12";
+        $cedente = new Cedente($nome, $documento, $endereco);
     }
 
     /**
-     * @see http://www.geradordecpf.org/
+     * @dataProvider cedenteProvider
+     * @param $nome
+     * @param $documento
+     * @param Endereco $endereco
      */
-    public function testShouldNotThrownInvalidArgumentException()
+    public function testShouldNotThrownInvalidArgumentException($nome, $documento, Endereco $endereco)
     {
-        $nomeCedente      = "ACME Corporation Inc.";
-        $documentoCedente = "01.122.241/0001-76";
-        $enderecoCedente  = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep"        => "70200-002",
-            "cidade"     => "Brasília",
-            "uf"         => "DF"
-            );
-
-        $cedente = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
+        $cedente = new Cedente($nome, $documento, $endereco);
     }
 
+    public function cedenteProvider()
+    {
+        $endereco = new Endereco(
+            "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "70200-002",
+            "Brasília",
+            "DF"
+        );
+
+        return [
+            ["ACME Corporation Inc.", "01.122.241/0001-76", $endereco]
+        ];
+    }
 }

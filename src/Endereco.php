@@ -25,56 +25,83 @@
 
 namespace Umbrella\YaBoleto;
 
-use Respect\Validation\Validator;
-
 /**
- * Classe que representa uma pessoa jurídica.
+ * Classe que representa um endereco.
  *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
-class PessoaJuridica extends Pessoa
+final class Endereco
 {
-    /** @var string CNPJ da pessoa jurídica */
-    protected $cnpj;
+    /**
+     * @var string
+     */
+    private $logradouro;
 
     /**
-     * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaJuridica.
-     *
-     * @param string $nome Nome da Razão Social da pessoa jurídica
-     * @param string $cnpj CNPJ da pessoa jurídica
-     * @param Endereco $endereco
+     * @var string
      */
-    public function __construct($nome, $cnpj, Endereco $endereco)
+    private $cep;
+
+    /**
+     * @var string
+     */
+    private $cidade;
+
+    /**
+     * @var string
+     */
+    private $uf;
+
+    /**
+     * Endereco constructor.
+     * @param string $logradouro
+     * @param string $cep
+     * @param string $cidade
+     * @param string $uf
+     */
+    public function __construct($logradouro, $cep, $cidade, $uf)
     {
-        parent::__construct($nome, $endereco);
-        $this->setCnpj($cnpj);
+        $this->logradouro = $logradouro;
+        $this->cep = $cep;
+        $this->cidade = $cidade;
+        $this->uf = $uf;
     }
 
     /**
-     * Retorna o CNPJ da pessoa jurídica.
-     *
      * @return string
      */
-    public function getCnpj()
+    public function getLogradouro()
     {
-        return $this->cnpj;
+        return $this->logradouro;
     }
 
     /**
-     * Define o CNPJ da pessoa jurídica.
-     *
-     * @param string $cnpj CNPJ da pessoa jurídica
-     * @return \Umbrella\YaBoleto\PessoaJuridica
+     * @return string
      */
-    public function setCnpj($cnpj)
+    public function getCep()
     {
-        if (!Validator::cnpj()->validate($cnpj)) {
-            throw new \InvalidArgumentException("O CNPJ informado é inválido");
-        }
+        return $this->cep;
+    }
 
-        $this->cnpj = $cnpj;
+    /**
+     * @return string
+     */
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
 
-        return $this;
+    /**
+     * @return string
+     */
+    public function getUf()
+    {
+        return $this->uf;
+    }
+
+    public function __toString()
+    {
+        return sprintf('%s - %s - %s/%s', $this->logradouro, $this->cep, $this->cidade, $this->uf);
     }
 }

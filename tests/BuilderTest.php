@@ -3,6 +3,7 @@
 namespace Umbrella\YaBoleto\Tests;
 
 use Umbrella\YaBoleto\Builder\BoletoBuilder;
+use Umbrella\YaBoleto\Endereco;
 
 class BuilderTest extends BoletoTestCase
 {
@@ -11,21 +12,21 @@ class BuilderTest extends BoletoTestCase
         // sacado...
         $nomeSacado = "John Doe";
         $documentoSacado = "090.076.684-04";
-        $enderecoSacado = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep" => "70200-002",
-            "cidade" => "Brasília",
-            "uf" => "DF"
+        $enderecoSacado = new Endereco(
+            "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "70200-002",
+            "Brasília",
+            "DF"
         );
 
         // cedente...
         $nomeCedente = "ACME Corporation Inc.";
         $documentoCedente = "01.122.241/0001-76";
-        $enderecoCedente = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep" => "70200-002",
-            "cidade" => "Brasília",
-            "uf" => "DF"
+        $enderecoCedente = new Endereco(
+            "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "70200-002",
+            "Brasília",
+            "DF"
         );
 
         $builder = new BoletoBuilder(BoletoBuilder::BRADESCO);

@@ -1,8 +1,9 @@
 <?php namespace Umbrella\YaBoleto\Tests;
 
+use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\Sacado;
-use Umbrella\YaBoleto\Cedente;
 
 class BoletoTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -14,30 +15,32 @@ class BoletoTestCase extends \PHPUnit_Framework_TestCase
     protected function pessoasProvider()
     {
         // sacado...
-        $nomeSacado      = "John Doe";
+        $nomeSacado = "John Doe";
         $documentoSacado = "09007668404";
-        $enderecoSacado  = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep"        => "70200-002",
-            "cidade"     => "Brasília",
-            "uf"         => "DF"
-            );
+        $enderecoSacado = new Endereco(
+            "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "70200-002",
+            "Brasília",
+            "DF"
+        );
+
         $pessoaFisica = new PessoaFisica($nomeSacado, $documentoSacado, $enderecoSacado);
-        $sacado       = new Sacado($pessoaFisica);
+        $sacado = new Sacado($pessoaFisica);
 
         // cedente...
-        $nomeCedente      = "ACME Corporation Inc.";
+        $nomeCedente = "ACME Corporation Inc.";
         $documentoCedente = "01.122.241/0001-76";
-        $enderecoCedente  = array(
-            "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-            "cep"        => "70200-002",
-            "cidade"     => "Brasília",
-            "uf"         => "DF"
-            );
+        $enderecoCedente = new Endereco(
+            "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+            "70200-002",
+            "Brasília",
+            "DF"
+        );
         $cedente = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
 
         // atribuir e retornar...
         $pessoas = array($sacado, $cedente);
+
         return $pessoas;
     }
 

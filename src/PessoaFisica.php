@@ -43,9 +43,9 @@ class PessoaFisica extends Pessoa
      *
      * @param string $nome Nome da pessoa física
      * @param string $cpf CPF da pessoa física
-     * @param array $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     * @param Endereco $endereco
      */
-    public function __construct($nome, $cpf, array $endereco)
+    public function __construct($nome, $cpf, Endereco $endereco)
     {
         parent::__construct($nome, $endereco);
         $this->setCpf($cpf);
