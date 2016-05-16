@@ -48,13 +48,11 @@ class Convenio extends AbstractConvenio
         $this->alterarTamanho('Ios', 1);
         $this->alterarTamanho('CodigoCedente', 7);
         $this->alterarTamanho('NossoNumero', 13);
+		$this->alterarTamanho('Carteira', 3);
 
         $data['Fixo'] = "9";
         $data['Ios'] = $this->banco->getIos();
 
-        $nossoNumero = $data['NossoNumero'];
-        $dvNossoNumero = Number::modulo11($nossoNumero);
-        $this->nossoNumero = $nossoNumero . $dvNossoNumero;
         $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Fixo:CodigoCedente:NossoNumero:Ios:Carteira';
     }
 
@@ -66,6 +64,9 @@ class Convenio extends AbstractConvenio
      */
     public function ajustarNossoNumero(ArrayObject $data)
     {
+        $nossoNumero = $data['NossoNumero'];
+        $dvNossoNumero = Number::modulo11($nossoNumero);
+        $data['NossoNumero'] = $nossoNumero . $dvNossoNumero;
         return $data['NossoNumero'];
     }
 }
