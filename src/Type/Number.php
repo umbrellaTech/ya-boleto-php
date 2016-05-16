@@ -25,8 +25,6 @@
 
 namespace Umbrella\YaBoleto\Type;
 
-use Carbon\Carbon;
-
 /**
  * Classe para manipulação de números.
  *
@@ -37,7 +35,7 @@ class Number
 {
     /**
      * Retorna um número formatado.
-     * 
+     *
      * @param  integer $number
      * @return integer
      */
@@ -48,17 +46,23 @@ class Number
 
     /**
      * Calcula o módulo 11.
-     * 
-     * @param  integer  $number
-     * @param  string   $ifTen
-     * @param  string   $ifZero
-     * @param  boolean  $returnFull
-     * @param  integer  $maxFactor
-     * @param  string   $separator
+     *
+     * @param  integer $number
+     * @param  string $ifTen
+     * @param  string $ifZero
+     * @param  boolean $returnFull
+     * @param  integer $maxFactor
+     * @param  string $separator
      * @return string
      */
-    public static function modulo11($number, $ifTen = '0', $ifZero = '0', $returnFull = false, $maxFactor = 9, $separator = '-')
-    {
+    public static function modulo11(
+        $number,
+        $ifTen = '0',
+        $ifZero = '0',
+        $returnFull = false,
+        $maxFactor = 9,
+        $separator = '-'
+    ) {
         $numLen = strlen($number) - 1;
         $sum = 0;
         $factor = 2;
@@ -140,15 +144,15 @@ class Number
 
     /**
      * Calcula o fator vencimento.
-     * 
-     * @param  Carbon $data
+     *
+     * @param  \DateTime $data
      * @return integer
      */
-    public static function fatorVencimento(Carbon $data)
+    public static function fatorVencimento(\DateTime $data)
     {
-        $dataBase = new Carbon("1997-10-07");
+        $dataBase = new \DateTime("1997-10-07");
 
-        return $data->diffInDays($dataBase);
+        return (int)$data->diff($dataBase, true)->format('%r%a');
     }
 
 }

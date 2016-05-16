@@ -1,6 +1,6 @@
-<?php namespace Umbrella\YaBoleto\Tests\Bradesco\Boleto;
+<?php
 
-use Carbon\Carbon;
+namespace Umbrella\YaBoleto\Tests\Bradesco\Boleto;
 
 use Umbrella\YaBoleto\Bancos\Bradesco\Convenio;
 use Umbrella\YaBoleto\Bancos\Bradesco\Bradesco;
@@ -97,7 +97,7 @@ class BoletoBradescoTest extends BoletoTestCase
         $boleto = new BoletoBradesco($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
                ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2013-11-02"))
+               ->setDataVencimento(new \DateTime("2013-11-02"))
                ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -112,7 +112,7 @@ class BoletoBradescoTest extends BoletoTestCase
         $boleto = new BoletoBradesco($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("315.500,00")
                ->setNumeroDocumento("23456")
-               ->setDataVencimento(new Carbon("2013-11-02"))
+               ->setDataVencimento(new \DateTime("2013-11-02"))
                ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -129,7 +129,7 @@ class BoletoBradescoTest extends BoletoTestCase
         $boleto->setValorDocumento(1.00)
                ->setDesconto(2.00)
                ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2013-11-02"))
+               ->setDataVencimento(new \DateTime("2013-11-02"))
                ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);

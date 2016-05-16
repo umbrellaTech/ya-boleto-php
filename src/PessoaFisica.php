@@ -29,7 +29,7 @@ use Respect\Validation\Validator;
 
 /**
  * Classe que representa uma pessoa física.
- * 
+ *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
@@ -40,10 +40,10 @@ class PessoaFisica extends Pessoa
 
     /**
      * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaFisica.
-     * 
-     * @param string $nome             Nome da pessoa física
-     * @param string $cpf              CPF da pessoa física
-     * @param array  $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     *
+     * @param string $nome Nome da pessoa física
+     * @param string $cpf CPF da pessoa física
+     * @param array $enderecoCompleto Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
     public function __construct($nome, $cpf, array $endereco)
     {
@@ -53,7 +53,7 @@ class PessoaFisica extends Pessoa
 
     /**
      * Retorna o CPF da pessoa física.
-     * 
+     *
      * @return string
      */
     public function getCpf()
@@ -63,7 +63,7 @@ class PessoaFisica extends Pessoa
 
     /**
      * Define o CPF da pessoa física.
-     * 
+     *
      * @param string $cpf CPF da pessoa física
      * @return \Umbrella\YaBoleto\PessoaFisica
      */
@@ -76,5 +76,4 @@ class PessoaFisica extends Pessoa
 
         return $this;
     }
-
 }

@@ -1,48 +1,50 @@
 {
-    "name": "umbrella/boleto",
-    "type": "library",
-    "description": "YaBoleto é uma biblioteca para geração de boletos bancários de forma simples em PHP.",
-    "keywords": [],
-    "homepage": "http://umbrellatech.com/boleto",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Italo Lelis de Vietro",
-            "email": "italolelis@lellysinforamtica.com"
-        },
-        {
-            "name": "Mikhail Leite Cavalcanti",
-            "email": "mikhailcavalcanti@gmail.com"
-        },
-        {
-            "name": "Genison Ribeiro de Paiva Junior",
-            "email": "genison@gmail.com"
-        },
-        {
-            "name": "Ayrton Ricardo da Silva",
-            "email": "ayrtonricardo@hotmail.com"
-        },
-        {
-            "name": "Ian da Silva Rodrigues",
-            "email": "me@ianrodrigu.es"
-        }
-    ],
-    "require": {
-        "php": ">=5.3",
-        "nesbot/carbon": "~1.17",
-        "respect/validation": "~0.9.0"
+  "name": "umbrella/boleto",
+  "type": "library",
+  "description": "YaBoleto é uma biblioteca para geração de boletos bancários de forma simples em PHP.",
+  "keywords": [],
+  "homepage": "http://umbrellatech.com/boleto",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Italo Lelis de Vietro",
+      "email": "italolelis@lellysinforamtica.com"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~4.5"
+    {
+      "name": "Mikhail Leite Cavalcanti",
+      "email": "mikhailcavalcanti@gmail.com"
     },
-    "autoload": {
-        "psr-4": {
-            "Umbrella\\YaBoleto\\": "src/"
-        }
+    {
+      "name": "Genison Ribeiro de Paiva Junior",
+      "email": "genison@gmail.com"
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Umbrella\\YaBoleto\\Tests\\": "tests/"
-        }
+    {
+      "name": "Ayrton Ricardo da Silva",
+      "email": "ayrtonricardo@hotmail.com"
+    },
+    {
+      "name": "Ian da Silva Rodrigues",
+      "email": "me@ianrodrigu.es"
     }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "respect/validation": "~0.9.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Umbrella\\YaBoleto\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Umbrella\\YaBoleto\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
 }

@@ -25,7 +25,6 @@
 
 namespace Umbrella\YaBoleto\Builder;
 
-use Carbon\Carbon;
 use ReflectionClass;
 use Umbrella\YaBoleto\Cedente;
 use Umbrella\YaBoleto\PessoaFisica;
@@ -69,7 +68,7 @@ class BoletoBuilder
     /**
      * Inicializa uma nova instância da classe.
      *
-     * @param $banco Nome do banco a gerar o boleto
+     * @param string $banco Nome do banco a gerar o boleto
      */
     public function __construct($banco)
     {
@@ -90,13 +89,16 @@ class BoletoBuilder
     {
         if ($tipo === self::PESSOA_FISICA) {
             $sacado = new PessoaFisica($nome, $documento, $endereco);
-        } else if ($tipo === self::PESSOA_JURIDICA) {
-            $sacado = new PessoaJuridica($nome, $documento, $endereco);
         } else {
-            throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
+            if ($tipo === self::PESSOA_JURIDICA) {
+                $sacado = new PessoaJuridica($nome, $documento, $endereco);
+            } else {
+                throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
+            }
         }
 
         $this->sacado = new Sacado($sacado);
+
         return $this;
     }
 
@@ -111,6 +113,7 @@ class BoletoBuilder
     public function cedente($nome, $documento, $endereco)
     {
         $this->cedente = new Cedente($nome, $documento, $endereco);
+
         return $this;
     }
 
@@ -125,6 +128,7 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\' . $this->type);
         $this->banco = $reflection->newInstanceArgs(array($agencia, $conta));
+
         return $this;
     }
 
@@ -138,6 +142,7 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\Carteira\\Carteira' . $carteira);
         $this->carteira = $reflection->newInstanceArgs();
+
         return $this;
     }
 
@@ -152,6 +157,7 @@ class BoletoBuilder
     {
         $reflection = new ReflectionClass($this->namespace . '\\Convenio');
         $this->convenio = $reflection->newInstanceArgs(array($this->banco, $this->carteira, $convenio, $nossoNumero));
+
         return $this;
     }
 
@@ -160,10 +166,10 @@ class BoletoBuilder
      *
      * @param  float $valor Valor do boleto
      * @param  integer $numeroDocumento Número do documento
-     * @param  Carbon $vencimento Data de vencimento
+     * @param  \DateTime $vencimento Data de vencimento
      * @return \Umbrella\YaBoleto\AbstractBoleto
      */
-    public function build($valor, $numeroDocumento, Carbon $vencimento)
+    public function build($valor, $numeroDocumento, \DateTime $vencimento)
     {
         $reflection = new ReflectionClass($this->namespace . '\\Boleto\\' . $this->type);
 

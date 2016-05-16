@@ -1,13 +1,12 @@
 <?php namespace Umbrella\YaBoleto\Tests\BancoBrasil\Boleto;
 
 use LogicException;
-use Carbon\Carbon;
 use Umbrella\YaBoleto\AbstractConvenio;
+use Umbrella\YaBoleto\Bancos\BancoBrasil\BancoBrasil;
+use Umbrella\YaBoleto\Bancos\BancoBrasil\Boleto\BancoBrasil as BoletoBancoBrasil;
 use Umbrella\YaBoleto\Bancos\BancoBrasil\Carteira\Carteira18;
 use Umbrella\YaBoleto\Bancos\BancoBrasil\Convenio;
 use Umbrella\YaBoleto\Tests\BoletoTestCase;
-use Umbrella\YaBoleto\Bancos\BancoBrasil\Boleto\BancoBrasil as BoletoBancoBrasil;
-use Umbrella\YaBoleto\Bancos\BancoBrasil\BancoBrasil;
 use Umbrella\YaBoleto\Tests\Mock\Carteira as CarteiraMock;
 
 class BoletoBancoBrasilTest extends BoletoTestCase
@@ -67,9 +66,12 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $bancoAngenciaContaNull = new BancoBrasil(null, null);
 
         $convenioNormal = new Convenio($bancoNormal, $carteiraNormal, "convenioTantoFaz", "nossoNumeroTantoFaz");
-        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, "convenioTantoFaz", "nossoNumeroTantoFaz");
-        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, "convenioTantoFaz", "nossoNumeroTantoFaz");
-        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull, "convenioTantoFaz", "nossoNumeroTantoFaz");
+        $convenioAgenciaNull = new Convenio($bancoAngenciaNull, $carteiraNormal, "convenioTantoFaz",
+            "nossoNumeroTantoFaz");
+        $convenioAgenciaContaNull = new Convenio($bancoAngenciaContaNull, $carteiraNormal, "convenioTantoFaz",
+            "nossoNumeroTantoFaz");
+        $convenioAgenciaContaCarteiraNull = new Convenio($bancoAngenciaContaNull, $carteiraNumeroNull,
+            "convenioTantoFaz", "nossoNumeroTantoFaz");
 
         return array(
             array(
@@ -104,7 +106,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->setDataVencimento(new \DateTime("2013-11-02"))
             ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -119,7 +121,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("1.500,00")
             ->setNumeroDocumento("23456")
-            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->setDataVencimento(new \DateTime("2013-11-02"))
             ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -136,7 +138,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto->setValorDocumento(1.00)
             ->setDesconto(2.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->setDataVencimento(new \DateTime("2013-11-02"))
             ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
@@ -165,7 +167,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->setDataVencimento(new \DateTime("2013-11-02"))
             ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertEquals(11, strlen($boleto->getConvenio()->getNossoNumero()));
@@ -181,7 +183,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->setDataVencimento(new \DateTime("2013-11-02"))
             ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertEquals(11, strlen($boleto->getConvenio()->getNossoNumero()));
@@ -197,7 +199,7 @@ class BoletoBancoBrasilTest extends BoletoTestCase
         $boleto = new BoletoBancoBrasil($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
             ->setNumeroDocumento("024588722")
-            ->setDataVencimento(new Carbon("2013-11-02"))
+            ->setDataVencimento(new \DateTime("2013-11-02"))
             ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertEquals(17, strlen($boleto->getConvenio()->getNossoNumero()));

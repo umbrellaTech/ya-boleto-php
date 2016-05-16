@@ -1,19 +1,16 @@
-<?php namespace Umbrella\YaBoleto\Tests\Santander\Boleto;
+<?php
 
-use Carbon\Carbon;
+namespace Umbrella\YaBoleto\Tests\Santander\Boleto;
 
-use Umbrella\YaBoleto\Bancos\Santander\Convenio;
-use Umbrella\YaBoleto\Bancos\Santander\Santander;
+use Umbrella\YaBoleto\AbstractConvenio;
+use Umbrella\YaBoleto\Bancos\Santander\Boleto\Santander as BoletoSantander;
 use Umbrella\YaBoleto\Bancos\Santander\Carteira\Carteira101;
 use Umbrella\YaBoleto\Bancos\Santander\Carteira\Carteira102;
 use Umbrella\YaBoleto\Bancos\Santander\Carteira\Carteira201;
 use Umbrella\YaBoleto\Bancos\Santander\Carteira\Carteira57;
-use Umbrella\YaBoleto\Bancos\Santander\Boleto\Santander as BoletoSantander;
-
-use Umbrella\YaBoleto\AbstractConvenio;
-
+use Umbrella\YaBoleto\Bancos\Santander\Convenio;
+use Umbrella\YaBoleto\Bancos\Santander\Santander;
 use Umbrella\YaBoleto\Tests\BoletoTestCase;
-use Umbrella\YaBoleto\Tests\Mock\Carteira as CarteiraMock;
 
 class BoletoSantanderTest extends BoletoTestCase
 {
@@ -60,7 +57,7 @@ class BoletoSantanderTest extends BoletoTestCase
             array($this->pessoasProvider(), $this->convenio201Provider()),
             array($this->pessoasProvider(), $this->convenio102Provider()),
             array($this->pessoasProvider(), $this->convenio101Provider())
-            );
+        );
     }
 
     /**
@@ -71,9 +68,9 @@ class BoletoSantanderTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoSantander($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-               ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2013-11-02"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new \DateTime("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
@@ -86,15 +83,15 @@ class BoletoSantanderTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoSantander($sacado, $cedente, $convenio);
         $boleto->setValorDocumento("1.500,00")
-               ->setNumeroDocumento("23456")
-               ->setDataVencimento(new Carbon("2013-11-02"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setNumeroDocumento("23456")
+            ->setDataVencimento(new \DateTime("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }
 
     /**
-     * @expectedException \LogicException 
+     * @expectedException \LogicException
      * @dataProvider boletoProvider
      */
     public function testShoudlNotCreateBoletoWithNegativeValue($pessoa, AbstractConvenio $convenio)
@@ -102,10 +99,10 @@ class BoletoSantanderTest extends BoletoTestCase
         list($sacado, $cedente) = $pessoa;
         $boleto = new BoletoSantander($sacado, $cedente, $convenio);
         $boleto->setValorDocumento(1.00)
-               ->setDesconto(2.00)
-               ->setNumeroDocumento("024588722")
-               ->setDataVencimento(new Carbon("2013-11-02"))
-               ->gerarCodigoBarraLinhaDigitavel();
+            ->setDesconto(2.00)
+            ->setNumeroDocumento("024588722")
+            ->setDataVencimento(new \DateTime("2013-11-02"))
+            ->gerarCodigoBarraLinhaDigitavel();
 
         $this->assertNotEmpty($boleto);
     }

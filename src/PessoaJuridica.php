@@ -29,7 +29,7 @@ use Respect\Validation\Validator;
 
 /**
  * Classe que representa uma pessoa jurídica.
- * 
+ *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
@@ -40,10 +40,10 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaJuridica.
-     * 
-     * @param string $nome             Nome da Razão Social da pessoa jurídica
-     * @param string $cnpj             CNPJ da pessoa jurídica
-     * @param array  $endereco Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
+     *
+     * @param string $nome Nome da Razão Social da pessoa jurídica
+     * @param string $cnpj CNPJ da pessoa jurídica
+     * @param array $endereco Endereço da pessoa jurídica - array('logradouro' => '', 'cep' => '', 'cidade' => '', 'uf' => '')
      */
     public function __construct($nome, $cnpj, array $endereco)
     {
@@ -53,7 +53,7 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Retorna o CNPJ da pessoa jurídica.
-     * 
+     *
      * @return string
      */
     public function getCnpj()
@@ -63,7 +63,7 @@ class PessoaJuridica extends Pessoa
 
     /**
      * Define o CNPJ da pessoa jurídica.
-     * 
+     *
      * @param string $cnpj CNPJ da pessoa jurídica
      * @return \Umbrella\YaBoleto\PessoaJuridica
      */
@@ -77,5 +77,4 @@ class PessoaJuridica extends Pessoa
 
         return $this;
     }
-
 }
