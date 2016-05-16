@@ -44,28 +44,28 @@ Uso
 A forma mais simples é utilizar o Builder.
 
 ```php
-use Carbon\Carbon;
 use Umbrella\YaBoleto\Builder\BoletoBuilder;
+use Umbrella\YaBoleto\Endereco;
 
 // sacado...
 $nomeSacado      = "John Doe";
 $documentoSacado = "090.076.684-04";
-$enderecoSacado  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$enderecoSacado = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 // cedente...
 $nomeCedente      = "ACME Corporation Inc.";
 $documentoCedente = "01.122.241/0001-76";
-$enderecoCedente  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$enderecoCedente = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 $builder = new BoletoBuilder(BoletoBuilder::BRADESCO);
 
@@ -74,7 +74,7 @@ $boleto  = $builder->sacado(BoletoBuilder::PESSOA_FISICA, $nomeSacado, $document
                    ->banco("0564", "0101888")
                    ->carteira("06")
                    ->convenio("0101888", "77000009017")
-                   ->build(250, "77000009017", new Carbon("2015-03-24"));
+                   ->build(250, "77000009017", new \DateTime("2015-03-24"));
 
 echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
@@ -96,22 +96,22 @@ use Umbrella\YaBoleto\Sacado;
 // sacado...
 $nomeSacado      = "John Doe";
 $documentoSacado = "090.076.684-04";
-$enderecoSacado  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$enderecoSacado = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 // cedente...
 $nomeCedente      = "ACME Corporation Inc.";
 $documentoCedente = "01.122.241/0001-76";
-$enderecoCedente  = array(
-    "logradouro" => "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
-    "cep"        => "70200-002",
-    "cidade"     => "Brasília",
-    "uf"         => "DF"
-    );
+$enderecoCedente = new Endereco(
+    "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
+    "70200-002",
+    "Brasília",
+    "DF"
+);
 
 $banco        = new Bradesco("0564", "0101888");
 $carteira     = new Carteira06();
@@ -125,7 +125,7 @@ $boleto       = new BoletoBradesco($sacado, $cedente, $convenio);
 
 $boleto->setValorDocumento(50)
        ->setNumeroDocumento(2)
-       ->setDataVencimento(new Carbon('2014-09-02'));
+       ->setDataVencimento(new \DateTime('2014-09-02'));
 
 echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
