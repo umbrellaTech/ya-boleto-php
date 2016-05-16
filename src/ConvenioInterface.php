@@ -27,25 +27,35 @@ namespace Umbrella\YaBoleto;
 
 /**
  * Interface para as funcionalidades básicas para um convênio bancário.
- * 
+ *
  * @author  Italo Lelis <italolelis@lellysinformatica.com>
  * @package YaBoleto
  */
 interface ConvenioInterface
 {
     public function setLayout($layout);
+
     public function setNossoNumero($nossoNumero);
+
     public function setDvNossoNumero($carteira, $nossoNumero, $ifTen, $ifZero);
+
     public function setConvenio($convenio);
-    
+
     public function alterarTamanho($index, $tamanho);
 
     public function getLayout();
+
     public function getNossoNumero();
+
     public function getDvNossoNumero();
+
     public function getBanco();
+
     public function getCarteira();
+
     public function getConvenio();
+
     public function getTamanhos();
+
     public function ajustarNossoNumero(\ArrayObject $data);
 }

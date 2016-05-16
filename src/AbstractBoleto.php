@@ -27,7 +27,7 @@ namespace Umbrella\YaBoleto;
 
 use ArrayObject;
 use Umbrella\YaBoleto\Type\Number;
-use Umbrella\YaBoleto\Type\String;
+use Umbrella\YaBoleto\Type\StringBuilder;
 
 /**
  * Classe abstrata que representa um boleto.
@@ -590,7 +590,7 @@ abstract class AbstractBoleto
 
         foreach ($data as $var => $value) {
             if (array_key_exists($var, $tamanhos)) {
-                $data[$var] = String::normalize($data[$var], $tamanhos[$var]);
+                $data[$var] = StringBuilder::normalize($data[$var], $tamanhos[$var]);
             }
         }
 
@@ -599,11 +599,11 @@ abstract class AbstractBoleto
 
         $convenio->setNossoNumero($data['NossoNumero']);
 
-        $cod = String::insert($convenio->getLayout(), $data);
+        $cod = StringBuilder::insert($convenio->getLayout(), $data);
 
         $dv = Number::modulo11($cod, 1, 1);
 
-        $codigoBarras = String::putAt($cod, $dv, 4);
+        $codigoBarras = StringBuilder::putAt($cod, $dv, 4);
 
         return $codigoBarras;
     }
@@ -631,11 +631,11 @@ abstract class AbstractBoleto
         $dv2 = Number::modulo10(substr($linhaDigitavel, 9, 10));
         $dv3 = Number::modulo10(substr($linhaDigitavel, 19, 10));
 
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv3, 29);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv2, 19);
-        $linhaDigitavel = String::putAt($linhaDigitavel, $dv1, 9);
+        $linhaDigitavel = StringBuilder::putAt($linhaDigitavel, $dv3, 29);
+        $linhaDigitavel = StringBuilder::putAt($linhaDigitavel, $dv2, 19);
+        $linhaDigitavel = StringBuilder::putAt($linhaDigitavel, $dv1, 9);
 
-        return String::applyMask($linhaDigitavel, $this->mascara);
+        return StringBuilder::applyMask($linhaDigitavel, $this->mascara);
     }
 
 }

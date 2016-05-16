@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto\Bancos\CaixaEconomica;
 use ArrayObject;
 use Umbrella\YaBoleto\AbstractConvenio;
 use Umbrella\YaBoleto\Type\Number;
-use Umbrella\YaBoleto\Type\String;
+use Umbrella\YaBoleto\Type\StringBuilder;
 
 /**
  * Classe que representa o convênio da Caixa Econômica.
@@ -52,7 +52,7 @@ class Convenio extends AbstractConvenio
 
         $data['CodigoCedente'] .= Number::modulo11($data['CodigoCedente'], 0, 0, false);
 
-        $nossoNumero = String::normalize($data['NossoNumero'], 17);
+        $nossoNumero = StringBuilder::normalize($data['NossoNumero'], 17);
 
         $constante1 = '2'; // 1ª posição do Nosso Numero: Tipo de Cobrança (1-Registrada / 2-Sem Registro)
         $constante2 = '4'; // 2ª posição do Nosso Número: Identificador da Emissão do Boleto (4-Beneficiário)
