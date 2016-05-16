@@ -5,13 +5,13 @@ php:
   - 5.4
   - 5.5
   - 5.6
+  - 7.0
 
 before_install:
-  - composer install --dev
+  - composer install
 
 script:
- - phpunit --coverage-clover=coverage.clover --configuration ./phpunit.xml.dist ./tests
+ - phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
- - wget https://scrutinizer-ci.com/ocular.phar
- - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+ - php bin/codacycoverage clover build/logs/clover.xml
