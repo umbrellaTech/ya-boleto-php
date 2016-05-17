@@ -25,15 +25,13 @@
 
 namespace Umbrella\YaBoleto;
 
-use Respect\Validation\Validator;
-
 /**
- * Classe que representa um CPF.
+ * Classe que representa um documento.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
-final class Cpf
+abstract class AbstractDocumento
 {
     /**
      * @var string
@@ -41,7 +39,7 @@ final class Cpf
     private $value;
 
     /**
-     * Cpf constructor.
+     * AbstractDocumento constructor.
      * @param string $value
      */
     public function __construct($value)
@@ -51,12 +49,25 @@ final class Cpf
         $this->value = $value;
     }
 
+    /**
+     * Validates a document
+     * @param $value
+     * @return bool
+     */
+    protected abstract function validate($value);
+
+    /**
+     * Creates a document from a string
+     * @param $value
+     * @return static
+     */
     public static function fromString($value)
     {
         return new static($value);
     }
 
     /**
+     * Gets the document value
      * @return string
      */
     public function getValue()
@@ -70,17 +81,5 @@ final class Cpf
     public function __toString()
     {
         return $this->value;
-    }
-
-    /**
-     * Validates a CPF
-     */
-    private function validate($value)
-    {
-        if (!Validator::cpf()->validate($value)) {
-            throw new \InvalidArgumentException("O CPF informado é inválido");
-        }
-
-        return true;
     }
 }

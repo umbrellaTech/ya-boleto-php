@@ -1,6 +1,8 @@
 <?php namespace Umbrella\YaBoleto\Tests;
 
 use Umbrella\YaBoleto\Cedente;
+use Umbrella\YaBoleto\Cnpj;
+use Umbrella\YaBoleto\Cpf;
 use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\Sacado;
@@ -16,7 +18,7 @@ class BoletoTestCase extends \PHPUnit_Framework_TestCase
     {
         // sacado...
         $nomeSacado = "John Doe";
-        $documentoSacado = "09007668404";
+        $documentoSacado = new Cpf("09007668404");
         $enderecoSacado = new Endereco(
             "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
             "70200-002",
@@ -29,7 +31,7 @@ class BoletoTestCase extends \PHPUnit_Framework_TestCase
 
         // cedente...
         $nomeCedente = "ACME Corporation Inc.";
-        $documentoCedente = "01.122.241/0001-76";
+        $documentoCedente = new Cnpj("01.122.241/0001-76");
         $enderecoCedente = new Endereco(
             "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
             "70200-002",

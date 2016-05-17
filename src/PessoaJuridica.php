@@ -25,56 +25,39 @@
 
 namespace Umbrella\YaBoleto;
 
-use Respect\Validation\Validator;
-
 /**
  * Classe que representa uma pessoa jurídica.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class PessoaJuridica extends Pessoa
 {
-    /** @var string CNPJ da pessoa jurídica */
+    /**
+     * @var Cnpj CNPJ da pessoa jurídica
+     */
     protected $cnpj;
 
     /**
      * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaJuridica.
      *
      * @param string $nome Nome da Razão Social da pessoa jurídica
-     * @param string $cnpj CNPJ da pessoa jurídica
+     * @param Cnpj $cnpj CNPJ da pessoa jurídica
      * @param Endereco $endereco
      */
-    public function __construct($nome, $cnpj, Endereco $endereco)
+    public function __construct($nome, Cnpj $cnpj, Endereco $endereco)
     {
         parent::__construct($nome, $endereco);
-        $this->setCnpj($cnpj);
+        $this->cnpj = $cnpj;
     }
 
     /**
      * Retorna o CNPJ da pessoa jurídica.
      *
-     * @return string
+     * @return Cnpj
      */
     public function getCnpj()
     {
         return $this->cnpj;
-    }
-
-    /**
-     * Define o CNPJ da pessoa jurídica.
-     *
-     * @param string $cnpj CNPJ da pessoa jurídica
-     * @return \Umbrella\YaBoleto\PessoaJuridica
-     */
-    public function setCnpj($cnpj)
-    {
-        if (!Validator::cnpj()->validate($cnpj)) {
-            throw new \InvalidArgumentException("O CNPJ informado é inválido");
-        }
-
-        $this->cnpj = $cnpj;
-
-        return $this;
     }
 }

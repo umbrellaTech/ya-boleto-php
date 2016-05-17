@@ -31,7 +31,7 @@ use Umbrella\YaBoleto\AbstractConvenio;
 /**
  * Classe que representa o convênio do Bradesco.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Convenio extends AbstractConvenio

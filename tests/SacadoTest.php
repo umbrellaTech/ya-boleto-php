@@ -1,5 +1,6 @@
 <?php namespace Umbrella\YaBoleto\Tests;
 
+use Umbrella\YaBoleto\Cpf;
 use Umbrella\YaBoleto\Endereco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\Sacado;
@@ -13,9 +14,9 @@ class SacadoTest extends \PHPUnit_Framework_TestCase
      * @param $documento
      * @param Endereco $endereco
      */
-    public function testShouldThrownInvalidArgumentException($nome, $documento, Endereco $endereco)
+    public function testShouldThrownInvalidArgumentException($nome, Cpf $documento, Endereco $endereco)
     {
-        $documento = "12112112112";
+        $documento = new Cpf("12112112112");
         $pessoaFisica = new PessoaFisica($nome, $documento, $endereco);
         $sacado = new Sacado($pessoaFisica);
     }
@@ -26,7 +27,7 @@ class SacadoTest extends \PHPUnit_Framework_TestCase
      * @param $documento
      * @param Endereco $endereco
      */
-    public function testShouldNotThrownInvalidArgumentException($nome, $documento, Endereco $endereco)
+    public function testShouldNotThrownInvalidArgumentException($nome, Cpf $documento, Endereco $endereco)
     {
         $pessoaFisica = new PessoaFisica($nome, $documento, $endereco);
         $sacado = new Sacado($pessoaFisica);
@@ -42,7 +43,7 @@ class SacadoTest extends \PHPUnit_Framework_TestCase
         );
 
         return [
-            ["John Doe", "66837381229", $endereco]
+            ["John Doe", new Cpf("66837381229"), $endereco]
         ];
     }
 }

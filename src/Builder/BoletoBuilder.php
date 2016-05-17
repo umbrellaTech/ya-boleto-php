@@ -35,7 +35,7 @@ use Umbrella\YaBoleto\Sacado;
 /**
  * Classe do Builder de Boletos
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class BoletoBuilder

@@ -28,52 +28,22 @@ namespace Umbrella\YaBoleto;
 use Respect\Validation\Validator;
 
 /**
- * Classe que representa uma pessoa física.
+ * Classe que representa um CPF.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
-class PessoaFisica extends Pessoa
+final class Cpf extends AbstractDocumento
 {
-    /** @var string CPF da pessoa física */
-    protected $cpf;
-
     /**
-     * Inicializa uma nova instância da classe \Umbrella\YaBoleto\PessoaFisica.
-     *
-     * @param string $nome Nome da pessoa física
-     * @param string $cpf CPF da pessoa física
-     * @param Endereco $endereco
+     * @inheritdoc
      */
-    public function __construct($nome, $cpf, Endereco $endereco)
+    protected function validate($value)
     {
-        parent::__construct($nome, $endereco);
-        $this->setCpf($cpf);
-    }
-
-    /**
-     * Retorna o CPF da pessoa física.
-     *
-     * @return string
-     */
-    public function getCpf()
-    {
-        return $this->cpf;
-    }
-
-    /**
-     * Define o CPF da pessoa física.
-     *
-     * @param string $cpf CPF da pessoa física
-     * @return \Umbrella\YaBoleto\PessoaFisica
-     */
-    public function setCpf($cpf)
-    {
-        if (!Validator::cpf()->validate($cpf)) {
+        if (!Validator::cpf()->validate($value)) {
             throw new \InvalidArgumentException("O CPF informado é inválido");
         }
-        $this->cpf = $cpf;
 
-        return $this;
+        return true;
     }
 }

@@ -32,7 +32,7 @@ use Umbrella\YaBoleto\Type\StringBuilder;
 /**
  * Classe abstrata que representa um boleto.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 abstract class AbstractBoleto

@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\CarteiraInterface;
 /**
  * Classe que representa a carteira 06 do Bradesco.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira06 implements CarteiraInterface

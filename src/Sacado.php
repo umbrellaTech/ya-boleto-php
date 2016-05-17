@@ -29,7 +29,7 @@ namespace Umbrella\YaBoleto;
  * Classe que representa um sacado.
  * A pessoa que paga um boleto é o sacado.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Sacado

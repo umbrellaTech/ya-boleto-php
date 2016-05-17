@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\CarteiraInterface;
 /**
  * Classe que representa a carteira 17 do Banco do Brasil.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Carteira17 implements CarteiraInterface

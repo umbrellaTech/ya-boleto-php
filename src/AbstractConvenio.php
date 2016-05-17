@@ -31,7 +31,7 @@ use Umbrella\YaBoleto\Type\Number;
 /**
  * Classe abstrata que representa o convênio.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 abstract class AbstractConvenio implements ConvenioInterface

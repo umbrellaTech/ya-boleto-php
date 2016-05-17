@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\AbstractBanco;
 /**
  * Classe que representa o Banco do Brasil.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class BancoBrasil extends AbstractBanco

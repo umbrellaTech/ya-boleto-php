@@ -82,8 +82,6 @@ echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 637
 A forma Orientada a Objetos é um pouco mais trabalhossa, mas permite maior flexibilidade.
 
 ```php
-use Carbon\Carbon;
-
 use Umbrella\YaBoleto\Bancos\Bradesco\Convenio;
 use Umbrella\YaBoleto\Bancos\Bradesco\Bradesco;
 use Umbrella\YaBoleto\Bancos\Bradesco\Carteira\Carteira06;
@@ -141,7 +139,7 @@ Ou usando o composer.
 ```
 php composer.phar create-project umbrella/boleto ya-boleto-php/Umbrella/YaBoleto dev-master
 ```
-Isso se deve por conta do autoloader que segue a [PSR-0][3].
+Isso se deve por conta do autoloader que segue a [PSR-4][3].
 
 Demo
 ----------
@@ -154,4 +152,4 @@ Licença
 
 [1]: https://github.com/umbrellaTech/ya-boleto-demo
 [2]: https://github.com/umbrellaTech/ya-boleto-php/docs
-[3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+[3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4.md

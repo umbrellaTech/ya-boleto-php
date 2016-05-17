@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\AbstractBanco;
 /**
  * Classe que representa o Bradesco.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Bradesco extends AbstractBanco

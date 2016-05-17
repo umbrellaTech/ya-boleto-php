@@ -30,7 +30,7 @@ use Umbrella\YaBoleto\AbstractBoleto;
 /**
  * Classe que representa o boleto do Bradesco.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Bradesco extends AbstractBoleto

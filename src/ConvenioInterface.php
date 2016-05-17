@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto;
 /**
  * Interface para as funcionalidades básicas para um convênio bancário.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 interface ConvenioInterface

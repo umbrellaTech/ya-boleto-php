@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto\Type;
 /**
  * Classe para manipulação de números.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Number

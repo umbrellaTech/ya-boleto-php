@@ -30,18 +30,18 @@ use Respect\Validation\Validator;
 /**
  * Classe que representa um CPF.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
-final class Cpf extends AbstractDocumento
+final class Cnpj extends AbstractDocumento
 {
     /**
-     * Validates a CPF
+     * @inheritdoc
      */
     protected function validate($value)
     {
-        if (!Validator::cpf()->validate($value)) {
-            throw new \InvalidArgumentException("O CPF informado é inválido");
+        if (!Validator::cnpj()->validate($value)) {
+            throw new \InvalidArgumentException("O CNPJ informado é inválido");
         }
 
         return true;

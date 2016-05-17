@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto\View\Helper;
 /**
  * Interface para as funcionalidades básicas para um renderizador de código de barras.
  * 
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 interface BarcodeRenderInterface

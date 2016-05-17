@@ -28,7 +28,7 @@ namespace Umbrella\YaBoleto;
 /**
  * Classe que representa um endereco.
  *
- * @author  Italo Lelis <italolelis@lellysinformatica.com>
+ * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 final class Endereco
