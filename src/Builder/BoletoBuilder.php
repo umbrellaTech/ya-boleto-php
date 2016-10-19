@@ -61,6 +61,7 @@ class BoletoBuilder
     const BRADESCO = 'Bradesco';
     const CAIXA = 'Caixa Economica';
     const ITAU = 'Itau';
+    const BANESE = 'Banco do Estado de Sergipe';
 
     // Tipos de Pessoa do Sacado
     const PESSOA_FISICA = 'física';

@@ -155,4 +155,120 @@ class Number
         return (int)$data->diff($dataBase, true)->format('%r%a');
     }
 
+    /**
+     * Calcula o dígito verificador
+     *
+     * @author Victor Felix <victor.dreed@gmail.com>
+     * @param $nossoNumero
+     * @return float
+     */
+    public static function dvNossoNumeroBanese($nossoNumero)
+    {
+        $produto = 2;
+        $soma = 0;
+
+        //Separação dos números
+        for ($i = 0; $i < strlen($nossoNumero); $i++) {
+            //Isolando cada número
+            $digito = substr(strrev($nossoNumero), $i, 1);
+
+            //Efetuando a multiplicação do dígito isolado pelo produto
+            $soma += (int) $digito * $produto;
+            $produto++;
+            //Se o valor do produto for maior que 9
+            //O produto tem seu valor resetado, ou seja, volta para 2
+            $produto = $produto > 9 ? 2 : $produto;
+        }
+
+        //Retorna o valor arredondado do resto da soma dividida por 11
+        $resto = round(($soma % 11));
+        $dv = 0 == $resto || 1 == $resto ? $resto : round(11 - $resto);
+
+        return $dv;
+    }
+
+    /**
+     * Calcula o primeiro dígito verificador da chave asbace
+     *
+     * @author Victor Felix <victor.dreed@gmail.com>
+     * @param $chaveAsbace
+     * @return int
+     */
+    public static function primeiroDvAsbace($chaveAsbace)
+    {
+        $peso = 1;
+        $soma = 0;
+
+        //Separação dos números
+        for ($i = 0; $i < strlen($chaveAsbace); $i++) {
+            //Isolando cada dígito
+            $digito = substr($chaveAsbace, $i, 1);
+
+            if (2 == $peso) {
+                $peso--;
+            } else {
+                $peso++;
+            }
+
+            //Efetua multiplicação do dígito pelo peso
+            $produto = (int) $digito * $peso;
+
+            //Se o resultado da multiplicação for maior que 9
+            //o produto recebe o da subtração dele mesmo menos 9.
+            //Caso contrário, o produto continua com o valor
+            //do resultado da multiplicação.
+            $produto = 9 < $produto ? $produto - 9 : $produto;
+
+            //Realiza a soma de todos os produtos
+            $soma += $produto;
+        }
+
+        //Recupera o resto da divisão do resultado da soma por 10
+        $resto = $soma % 10;
+
+        return $resto == 0 ? 0 : 10 - $resto;
+    }
+
+    /**
+     * Calcula o segundo dígito verificador da chave asbace
+     *
+     * @author Victor Felix <victor.dreed@gmail.com>
+     * @param $chaveAsbace
+     * @param $primeiroDv
+     * @return int
+     */
+    public static function segundoDvAsbace($chaveAsbace, $primeiroDv)
+    {
+        $peso = 8;
+        $soma = 0;
+        $chaveComPrimeiroDv = $chaveAsbace . $primeiroDv;
+
+        //Separação dos números
+        for ($i = 0; $i < strlen($chaveComPrimeiroDv); $i++) {
+            //Isolando cada dígito
+            $digito = substr($chaveComPrimeiroDv, $i, 1);
+
+            if (2 == $peso) {
+                $peso = 7;
+            } else {
+                $peso--;
+            }
+
+            //Efetua multiplicação do dígito pelo peso e soma os resultados
+            $soma += (int) $digito * $peso;
+        }
+
+        //Recupera o resto da divisão do resultado da soma por 11
+        $resto = $soma % 11;
+
+        if (0 == $resto) {
+            return 0;
+        } elseif (1 == $resto) {
+            return 9 > $primeiroDv
+                ? self::segundoDvAsbace($chaveAsbace, $primeiroDv + 1)
+                : self::segundoDvAsbace($chaveAsbace, 0);
+        }
+
+        return 11 - $resto;
+    }
 }
