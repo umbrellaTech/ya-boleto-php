@@ -3,4 +3,3 @@ bin
 build
 composer.lock
 coverage.clover
-.idea

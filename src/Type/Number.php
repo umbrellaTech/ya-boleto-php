@@ -156,38 +156,6 @@ class Number
     }
 
     /**
-     * Calcula o dígito verificador
-     *
-     * @author Victor Felix <victor.dreed@gmail.com>
-     * @param $nossoNumero
-     * @return float
-     */
-    public static function dvNossoNumeroBanese($nossoNumero)
-    {
-        $produto = 2;
-        $soma = 0;
-
-        //Separação dos números
-        for ($i = 0; $i < strlen($nossoNumero); $i++) {
-            //Isolando cada número
-            $digito = substr(strrev($nossoNumero), $i, 1);
-
-            //Efetuando a multiplicação do dígito isolado pelo produto
-            $soma += (int) $digito * $produto;
-            $produto++;
-            //Se o valor do produto for maior que 9
-            //O produto tem seu valor resetado, ou seja, volta para 2
-            $produto = $produto > 9 ? 2 : $produto;
-        }
-
-        //Retorna o valor arredondado do resto da soma dividida por 11
-        $resto = round(($soma % 11));
-        $dv = 0 == $resto || 1 == $resto ? $resto : round(11 - $resto);
-
-        return $dv;
-    }
-
-    /**
      * Calcula o primeiro dígito verificador da chave asbace
      *
      * @author Victor Felix <victor.dreed@gmail.com>

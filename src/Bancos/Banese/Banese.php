@@ -5,7 +5,7 @@ namespace Umbrella\YaBoleto\Bancos\Banese;
 use Umbrella\YaBoleto\AbstractBanco;
 
 /**
- * Classe do Banco do Estado de Sergipe - BANESE
+ * Classe que representa o Banco do Estado de Sergipe - BANESE
  *
  * @author Victor Félix <victor.dreed@gmail.com>
  * @package Umbrella\YaBoleto\Bancos\Banese
