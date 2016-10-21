@@ -36,7 +36,7 @@ Atualmente o YaBoleto funciona com os bancos abaixo:
 | **Itau**            | 175, 174, 178, 104, 109  | Não                | Não           |
 | **Real**            | 57                       | Sim                | Sim           |
 | **Santander**       | 101, 102, 201            | Sim                | Sim           |
-|                     |                          |                    |               |
+| **BANESE**          | CE                       | Sim                | Sim           |
 
 Uso
 ----------

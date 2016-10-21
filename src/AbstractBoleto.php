@@ -553,40 +553,100 @@ abstract class AbstractBoleto
     }
 
     /**
+     * Retorna o valor formatado
+     *
+     * @return int
+     */
+    protected function getValorFormatado()
+    {
+        if ($this->getTotal() < 0) {
+            throw new \LogicException("Valor total do boleto não pode ser negativo");
+        }
+
+        return Number::format($this->getTotal());
+    }
+
+    /**
+     * Retorna a agencia formatada
+     *
+     * @return string
+     */
+    protected function getAgenciaFormatada()
+    {
+        return substr($this->convenio->getBanco()->getAgencia(), 0, 4);
+    }
+
+    /**
+     * Retorna a conta formatada
+     *
+     * @return string
+     */
+    protected function getContaFormatada()
+    {
+        return substr($this->convenio->getBanco()->getConta(), 0, 4);
+    }
+
+    /**
+     * Retorna os dados do boleto
+     *
+     * @return ArrayObject
+     */
+    protected function setDadosBoleto()
+    {
+        $data = new ArrayObject(array(
+            'Banco' => $this->convenio->getBanco()->getNumero(),
+            'Moeda' => $this->moeda,
+            'Valor' => $this->getValorFormatado(),
+            'Agencia' => $this->getAgenciaFormatada(),
+            'Carteira' => $this->convenio->getCarteira()->getNumero(),
+            'Conta' => $this->getContaFormatada(),
+            'NossoNumero' => $this->convenio->getNossoNumero(),
+            'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()),
+            'CodigoCedente' => $this->convenio->getConvenio()
+        ));
+
+        $data->setFlags(ArrayObject::ARRAY_AS_PROPS);
+
+        return $data;
+    }
+
+    /**
+     * Insere um dígito verificador no código de barras
+     *
+     * @param $codigoBarras
+     * @param $digito
+     * @param $posicao
+     * @return string
+     */
+    protected function inserirDigitoVerificador($codigoBarras, $digito, $posicao)
+    {
+        return StringBuilder::putAt($codigoBarras, $digito, $posicao);
+    }
+
+    /**
+     * Insere os dados do boleto no layout do convênio
+     *
+     * @param $layout
+     * @param $dados
+     * @return string
+     */
+    protected function aplicarDadosAoLayout($layout, $dados)
+    {
+        return StringBuilder::insert($layout, $dados);
+    }
+
+    /**
      * Gera o código de barras, baseado nas informações do banco.
      *
      * @return string
      */
     protected function gerarCodigoBarras()
     {
-        $banco = $this->convenio->getBanco();
-        $convenio = $this->convenio;
-        $total = $this->getTotal();
-
-        if ($total < 0) {
-            throw new \LogicException("Valor total do boleto não pode ser negativo");
-        }
-
-        $valor = Number::format($total);
-        $agencia = substr($banco->getAgencia(), 0, 4);
-        $conta = substr($banco->getConta(), 0, 4);
-
-        $data = new ArrayObject(array(
-            'Banco' => $banco->getNumero(),
-            'Moeda' => $this->moeda,
-            'Valor' => $valor,
-            'Agencia' => $agencia,
-            'Carteira' => $convenio->getCarteira()->getNumero(),
-            'Conta' => $conta,
-            'NossoNumero' => $convenio->getNossoNumero(),
-            'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()),
-            'CodigoCedente' => $convenio->getConvenio()
-        ));
-        $data->setFlags(ArrayObject::ARRAY_AS_PROPS);
+        $data = $this->setDadosBoleto();
 
         $this->getConvenio()->gerarCampoLivre($data);
 
-        $tamanhos = $convenio->getTamanhos();
+        $tamanhos = $this->convenio->getTamanhos();
 
         foreach ($data as $var => $value) {
             if (array_key_exists($var, $tamanhos)) {
@@ -597,13 +657,13 @@ abstract class AbstractBoleto
         //Chamada do método que ajusta o NossoNumero
         $this->getConvenio()->ajustarNossoNumero($data);
 
-        $convenio->setNossoNumero($data['NossoNumero']);
+        $this->convenio->setNossoNumero($data['NossoNumero']);
 
-        $cod = StringBuilder::insert($convenio->getLayout(), $data);
+        $cod = $this->aplicarDadosAoLayout($this->convenio->getLayout(), $data);
 
         $dv = Number::modulo11($cod, 1, 1);
 
-        $codigoBarras = StringBuilder::putAt($cod, $dv, 4);
+        $codigoBarras = $this->inserirDigitoVerificador($cod, $dv, 4);
 
         return $codigoBarras;
     }
