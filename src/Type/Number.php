@@ -47,6 +47,25 @@ class Number
     /**
      * Calcula o módulo 11.
      *
+     * O modulo 11, de um número é calculado multiplicando cada algarismo, pela seqüência de multiplicadores 2,3,4,5,6,7,8,9,2,3, ... posicionados da direita para a esquerda.
+     * A soma dos algarismos do produto é dividida por 11 e o DV (dígito verificador) será a diferença entre o divisor ( 11 ) e o resto da divisão:
+     * DV = 11 - (resto da divisão)
+     * Observação: quando o resto da divisão for 0 (zero) ou 10 (dez), o DV calculado é o 0 (zero).
+     *
+     * EXEMPLO
+     * calcular o DV módulo 11 da seguinte seqüência de números: 018 520 0005
+     * A fórmula do cálculo é:
+     * 1. Multiplicação pela seqüência 2,3,4,5,6,7,8,9,2,3, ... da direita para a esquerda.
+     * 2. Soma dos dígitos do produto
+     * 0 + 2 + 72 + 40 + 14 + 0 + 0 + 0 + 0 + 10 = 138
+     *
+     * Observação:
+     * Neste caso os resultados deverão ser somados integralmente.
+     *
+     * 3. Divisão do resultado da soma acima por 11
+     * 138 : 11 = 12 e o resto da divisão = 6
+     * DV = 11 - (resto da divisão), portando 11 - 6 = 5
+     *
      * @param  integer $number
      * @param  string $ifTen
      * @param  string $ifZero
@@ -63,32 +82,20 @@ class Number
         $maxFactor = 9,
         $separator = '-'
     ) {
-        $numLen = strlen($number) - 1;
+        $numRev = strrev($number);
         $sum = 0;
         $factor = 2;
+        $i  = 0;
 
-        for ($i = $numLen; $i >= 0; $i--) {
-            $sum += substr($number, $i, 1) * $factor;
-            $factor = $factor >= $maxFactor ? 2 : $factor + 1;
+        while($i <= strlen($numRev)-1){
+            $sum += ($numRev{$i} * $factor);
+            $factor = $factor >= $maxFactor? 2:($factor+1);
+            $i++;
         }
+
         #Resto da divisão
-        $rest = ($sum * 10) % 11;
-        #ifTen
-        $rest = $rest == 10 ? $ifTen : $rest;
-        #ifZero
-        $rest = $rest === 0 ? $ifZero : $rest;
-        #Verificando se é 0, 10
-        switch ($rest) {
-            case 10:
-                $ifTen;
-                break;
-            case 0:
-                $ifZero;
-                break;
-            default:
-                $rest;
-                break;
-        }
+        $rest = in_array(($sum % 11), ['0','10'])?'0':11 - ($sum % 11);
+
 
         if ($returnFull === false) {
             return $rest;
