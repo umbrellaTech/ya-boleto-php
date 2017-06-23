@@ -29,11 +29,55 @@ use Umbrella\YaBoleto\AbstractBoleto;
 
 /**
  * Classe que representa o boleto do Bradesco.
- * 
+ *
  * @author  Italo Lelis <italolelis@gmail.com>
  * @package YaBoleto
  */
 class Bradesco extends AbstractBoleto
 {
+
+    /**
+     * Retorna a conta formatada
+     *
+     * @return string
+     */
+    protected function getContaFormatada()
+    {
+        return substr($this->convenio->getBanco()->getConta(), 0, 5);
+    }
+
+    /**
+     * Gera a linha digitável baseado em um código de barras.
+     *
+     * @param  string $codigoBarras
+     * @return string
+     */
+    protected function gerarLinhaDigitavel($codigoBarras)
+    {
+        if ($this->getConvenio()->getCarteira() instanceof Carteira09) {
+            return parent::gerarLinhaDigitavel($codigoBarras);
+        }
+
+        // Campo1 - Posições de 1-5
+        $linhaDigitavel = substr($codigoBarras, 0, 4) . substr($codigoBarras, 19, 5)
+            // Campo2 - Posições 26-35
+            . substr($codigoBarras, 25, 10)
+            // Campo3 - Posições 36-44
+            . substr($codigoBarras, 35, 9)
+            // Campo4 - Posição 5
+            . substr($codigoBarras, 4, 1)
+            // Campo5 - Posições 6-19
+            . substr($codigoBarras, 5, 14);
+
+        $dv1 = Number::modulo10(substr($linhaDigitavel, 0, 9));
+        $dv2 = Number::modulo10(substr($linhaDigitavel, 9, 10));
+        $dv3 = Number::modulo10(substr($linhaDigitavel, 19, 10));
+
+        $linhaDigitavel = StringBuilder::putAt($linhaDigitavel, $dv3, 31);
+        $linhaDigitavel = StringBuilder::putAt($linhaDigitavel, $dv2, 20);
+        $linhaDigitavel = StringBuilder::putAt($linhaDigitavel, $dv1, 9);
+
+        return StringBuilder::applyMask($linhaDigitavel, $this->mascara);
+    }
 
 }
