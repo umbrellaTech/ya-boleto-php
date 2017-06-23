@@ -54,7 +54,7 @@ class Bradesco extends AbstractBoleto
      */
     protected function gerarLinhaDigitavel($codigoBarras)
     {
-        if ($this->getConvenio()->getCarteira() instanceof Carteira09) {
+        if (!$this->getConvenio()->getCarteira() instanceof Carteira09) {
             return parent::gerarLinhaDigitavel($codigoBarras);
         }
 
