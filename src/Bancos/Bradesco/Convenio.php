@@ -27,6 +27,7 @@ namespace Umbrella\YaBoleto\Bancos\Bradesco;
 
 use ArrayObject;
 use Umbrella\YaBoleto\AbstractConvenio;
+use Umbrella\YaBoleto\Bancos\Bradesco\Carteira\Carteira09;
 
 /**
  * Classe que representa o convênio do Bradesco.
@@ -44,12 +45,27 @@ class Convenio extends AbstractConvenio
      */
     public function gerarCampoLivre(ArrayObject $data)
     {
+        if ($this->carteira instanceof Carteira09) {
+            $this->alterarTamanho('Conta', 7);
+            $this->alterarTamanho('Agencia', 4);
+            $this->alterarTamanho('Carteira', 2);
+            $this->alterarTamanho('FatorVencimento', 4);
+            $this->alterarTamanho('NossoNumero', 11);
+            $this->alterarTamanho('CodigoCedente', 7);
+            $this->alterarTamanho('Valor', 10);
+
+            $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Carteira:NossoNumero:Conta0';
+
+            return $data;
+        }
+
         $this->alterarTamanho('Agencia', 4);
         $this->alterarTamanho('Carteira', 2);
         $this->alterarTamanho('NossoNumero', 11);
         $this->alterarTamanho('CodigoCedente', 7);
 
         $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Carteira:NossoNumero:CodigoCedente0';
+
         return $data;
     }
 
