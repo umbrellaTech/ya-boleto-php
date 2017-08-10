@@ -43,6 +43,6 @@ class BuilderTest extends BoletoTestCase
 
 
         $this->assertInstanceOf("Umbrella\\YaBoleto\\AbstractBoleto", $boleto);
-        $this->assertEquals("23790.56407 67700.000903 17010.188807 8 63770000025000", $boleto->getLinhaDigitavel());
+        $this->assertEquals("23790.56407 67700.000906 17010.188807 8 63770000025000", $boleto->getLinhaDigitavel());
     }
 }
