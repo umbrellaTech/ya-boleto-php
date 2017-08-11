@@ -111,7 +111,7 @@ class Number
         $parcial10 = array();
 
         // Separacao dos numeros
-        for ($i = 1; $i <= strlen($num); $i++) {
+        for ($i = strlen($num); $i > 0; $i--) {
             // pega cada numero isoladamente
             $numeros[$i] = substr($num, $i - 1, 1);
             // Efetua multiplicacao do numero pelo (falor 10)
