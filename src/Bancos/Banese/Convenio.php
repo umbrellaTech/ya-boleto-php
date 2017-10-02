@@ -68,7 +68,7 @@ class Convenio extends AbstractConvenio
 
         //Retorna o valor arredondado do resto da soma dividida por 11
         $resto = round(($soma % 11));
-        $dv = 0 == $resto || 1 == $resto ? $resto : round(11 - $resto);
+        $dv = 0 == $resto || 1 == $resto ? 0 : round(11 - $resto);
 
         return $dv;
     }
