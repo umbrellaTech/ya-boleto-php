@@ -207,6 +207,29 @@ class Number
      */
     public static function segundoDvAsbace($chaveAsbace, $primeiroDv)
     {
+        $resto = self::restoSegundoDvAsbace($chaveAsbace, $primeiroDv);
+
+        if (0 == $resto) {
+            return 0;
+        } elseif (1 == $resto) {
+            return 9 > $primeiroDv
+                ? self::segundoDvAsbace($chaveAsbace, $primeiroDv + 1)
+                : self::segundoDvAsbace($chaveAsbace, 0);
+        }
+
+        return 11 - $resto;
+    }
+
+    /**
+     * Recupera o resto do cálculo do segundo dígito verificador.
+     *
+     * @author Victor Felix <victor.dreed@gmail.com>
+     * @param $chaveAsbace
+     * @param $primeiroDv
+     * @return int
+     */
+    public static function restoSegundoDvAsbace($chaveAsbace, $primeiroDv)
+    {
         $peso = 8;
         $soma = 0;
         $chaveComPrimeiroDv = $chaveAsbace . $primeiroDv;
@@ -226,17 +249,33 @@ class Number
             $soma += (int) $digito * $peso;
         }
 
-        //Recupera o resto da divisão do resultado da soma por 11
-        $resto = $soma % 11;
+        //Retorna o resto da divisão do resultado da soma por 11
+        return $soma % 11;
+    }
 
-        if (0 == $resto) {
-            return 0;
-        } elseif (1 == $resto) {
-            return 9 > $primeiroDv
-                ? self::segundoDvAsbace($chaveAsbace, $primeiroDv + 1)
-                : self::segundoDvAsbace($chaveAsbace, 0);
+    /**
+     * Se o resto do cálculo do segundo dígito verificador for 1
+     * atribui mais 1 ao primeiro dígito verificador se este foi menor que 9
+     * ou atribui 0 ao primeiro dígito quando este for igual a 9.
+     *
+     * @author Victor Felix <victor.dreed@gmail.com>
+     * @param $chaveAsbace
+     * @param $primeiroDv
+     * @return int
+     */
+    public static function aplicarRegraPrimeiroDvAsbace($chaveAsbace, $primeiroDv)
+    {
+        //Recupera o resto do cálculo do segundo dígito verificador
+        $resto = self::restoSegundoDvAsbace($chaveAsbace, $primeiroDv);
+
+        if (1 == $resto) {
+            if (9 > $primeiroDv) {
+                $primeiroDv++;
+            } elseif (9 == $primeiroDv) {
+                $primeiroDv = 0;
+            }
         }
 
-        return 11 - $resto;
+        return $primeiroDv;
     }
 }

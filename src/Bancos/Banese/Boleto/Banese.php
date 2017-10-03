@@ -44,8 +44,11 @@ class Banese extends AbstractBoleto
     protected function aplicarDadosAoLayout($layout, $dados)
     {
         $chaveAsbace = $dados['Agencia'] . $dados['Conta'] . $dados['NossoNumero'] . $dados['Banco'];
+
         $primeiroDvAsbace = Number::primeiroDvAsbace($chaveAsbace);
         $segundoDvAsbace = Number::segundoDvAsbace($chaveAsbace, $primeiroDvAsbace);
+        $primeiroDvAsbace = Number::aplicarRegraPrimeiroDvAsbace($chaveAsbace, $primeiroDvAsbace);
+
         $codigoBarras = StringBuilder::insert($layout, $dados);
         $codigoBarras = $this->inserirDigitoVerificador($codigoBarras, $primeiroDvAsbace, 41);
         $codigoBarras = $this->inserirDigitoVerificador($codigoBarras, $segundoDvAsbace, 42);
