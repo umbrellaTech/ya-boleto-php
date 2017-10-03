@@ -43,8 +43,8 @@ class CaixaEconomica extends AbstractBanco
      */
     public function __construct($agencia, $conta)
     {
-        $numero = "104";
-        $nome   = "Caixa Ecônomica Federal";
+        $numero = '104';
+        $nome   = 'Caixa Ecônomica Federal';
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 

@@ -53,27 +53,27 @@ class Convenio extends AbstractConvenio
                 $this->nossoNumero = $this->convenio . $this->getNossoNumero();
                 $this->alterarTamanho("CodigoCedente", 4);
                 $this->alterarTamanho("NossoNumero", 7);
-                $this->layout = ":Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira";
+                $this->layout = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira';
                 break;
             case 6:
                 if ($carteira instanceof Carteira21) {
                     $this->alterarTamanho("NossoNumero", 17);
-                    $this->layout = ":Banco:Moeda:FatorVencimento:Valor:NossoNumero:Agencia:Conta:Carteira";
+                    $this->layout = ':Banco:Moeda:FatorVencimento:Valor:NossoNumero:Agencia:Conta:Carteira';
                 } else {
                     $this->nossoNumero = $this->convenio . Number::modulo11($this->getNossoNumero(), 0, 0, true);
-                    $this->alterarTamanho("CodigoCedente", 6);
-                    $this->alterarTamanho("NossoNumero", 5);
-                    $this->layout = ":Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira";
+                    $this->alterarTamanho('CodigoCedente', 6);
+                    $this->alterarTamanho('NossoNumero', 5);
+                    $this->layout = ':Banco:Moeda:FatorVencimento:Valor:CodigoCedente:NossoNumero:Agencia:Conta:Carteira';
                 }
                 break;
             case 7:
                 $this->nossoNumero = $this->convenio . $this->nossoNumero;
-                $this->alterarTamanho("CodigoCedente", 7);
-                $this->alterarTamanho("NossoNumero", 10);
-                $this->layout = ":Banco:Moeda:FatorVencimento:Valor000000:NossoNumero:Carteira";
+                $this->alterarTamanho('CodigoCedente', 7);
+                $this->alterarTamanho('NossoNumero', 10);
+                $this->layout = ':Banco:Moeda:FatorVencimento:Valor000000:NossoNumero:Carteira';
                 break;
             default:
-                throw new \LogicException("O codigo do convenio precisa ter 4, 6 ou 7 digitos!");
+                throw new \LogicException('O codigo do convenio precisa ter 4, 6 ou 7 digitos!');
         }
 
         return $data;
@@ -105,5 +105,4 @@ class Convenio extends AbstractConvenio
 
         return $data;
     }
-
 }

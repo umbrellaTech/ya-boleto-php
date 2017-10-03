@@ -24,7 +24,7 @@ class Convenio extends AbstractConvenio
     {
         $this->alterarTamanho('Conta', 9);
         $this->alterarTamanho('Agencia', 2);
-        $this->layout = ":Banco:Moeda:FatorVencimento:Valor:Agencia:Conta:NossoNumero:Banco";
+        $this->layout = ':Banco:Moeda:FatorVencimento:Valor:Agencia:Conta:NossoNumero:Banco';
     }
 
     /**
@@ -36,7 +36,7 @@ class Convenio extends AbstractConvenio
      */
     public function ajustarNossoNumero(\ArrayObject $data)
     {
-        $nossoNumero = "0" . $data['Agencia'] . $data['NossoNumero'];
+        $nossoNumero = '0' . $data['Agencia'] . $data['NossoNumero'];
         $data['NossoNumero'] = substr($nossoNumero, 3, 9) . $this->calcularDvNossoNumero($nossoNumero);
         return $data;
     }

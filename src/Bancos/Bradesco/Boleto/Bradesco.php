@@ -79,5 +79,4 @@ class Bradesco extends AbstractBoleto
 
         return StringBuilder::applyMask($linhaDigitavel, $this->mascara);
     }
-
 }

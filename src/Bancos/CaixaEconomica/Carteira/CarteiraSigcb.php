@@ -58,6 +58,6 @@ class CarteiraSigcb implements CarteiraInterface
             return $this->tipo;
         }
 
-        return "1";
+        return '1';
     }
 }

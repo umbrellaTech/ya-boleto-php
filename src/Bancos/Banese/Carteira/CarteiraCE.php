@@ -13,6 +13,6 @@ class CarteiraCE implements CarteiraInterface
 {
     public function getNumero()
     {
-        return "1";
+        return '1';
     }
 }
