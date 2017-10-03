@@ -42,7 +42,6 @@ class Carteira18 implements CarteiraInterface
      */
     public function getNumero()
     {
-        return "18";
+        return '18';
     }
-
 }

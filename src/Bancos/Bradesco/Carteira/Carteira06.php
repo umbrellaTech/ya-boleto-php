@@ -42,7 +42,7 @@ class Carteira06 implements CarteiraInterface
      */
     public function getNumero()
     {
-        return "06";
+        return '06';
     }
 
 }

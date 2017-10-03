@@ -43,8 +43,8 @@ class BancoBrasil extends AbstractBanco
      */
     public function __construct($agencia, $conta)
     {
-        $numero = "001";
-        $nome   = "Banco do Brasil";
+        $numero = '001';
+        $nome   = 'Banco do Brasil';
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 }

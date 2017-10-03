@@ -45,8 +45,8 @@ class Santander extends AbstractBanco
      */
     public function __construct($agencia, $conta)
     {
-        $numero = "033";
-        $nome   = "Santander Banespa";
+        $numero = '033';
+        $nome   = 'Santander Banespa';
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 

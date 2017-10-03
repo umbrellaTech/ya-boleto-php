@@ -42,7 +42,7 @@ class Carteira09 implements CarteiraInterface
      */
     public function getNumero()
     {
-        return "09";
+        return '09';
     }
 
 }

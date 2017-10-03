@@ -43,8 +43,8 @@ class Bradesco extends AbstractBanco
      */
     public function __construct($agencia, $conta)
     {
-        $numero = "237";
-        $nome   = "Bradesco";
+        $numero = '237';
+        $nome   = 'Bradesco';
         parent::__construct($numero, $nome, $agencia, $conta);
     }
 
