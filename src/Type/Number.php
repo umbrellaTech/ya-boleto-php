@@ -41,7 +41,7 @@ class Number
      */
     public static function format($number)
     {
-        return (int)($number * 100);
+        return ($number * 100);
     }
 
     /**
