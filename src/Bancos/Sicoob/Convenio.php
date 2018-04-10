@@ -56,7 +56,7 @@ class Convenio extends AbstractConvenio
      */
     private function calcularDvNossoNumero($nossoNumero)
     {
-        $referencia = [3,1,9,7];
+        $referencia = '3197';
         $indice = 0;
         $soma = 0;
 
