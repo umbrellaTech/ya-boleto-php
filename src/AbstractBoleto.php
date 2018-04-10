@@ -591,7 +591,7 @@ abstract class AbstractBoleto
      *
      * @return ArrayObject
      */
-    protected function setDadosBoleto(array $data)
+    protected function setDadosBoleto(array $data = [])
     {
         $data['Banco'] = $this->convenio->getBanco()->getNumero();
         $data['Moeda'] = $this->moeda;
@@ -642,7 +642,7 @@ abstract class AbstractBoleto
      */
     protected function gerarCodigoBarras()
     {
-        $data = $this->setDadosBoleto([]);
+        $data = $this->setDadosBoleto();
 
         $this->getConvenio()->gerarCampoLivre($data);
 

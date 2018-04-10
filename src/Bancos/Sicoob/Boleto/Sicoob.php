@@ -47,7 +47,7 @@ class Sicoob extends AbstractBoleto
      *
      * @return ArrayObject
      */
-    protected function setDadosBoleto(array $data)
+    protected function setDadosBoleto(array $data = [])
     {
         $data['Parcela'] = $this->getParcela();
         $data['Modalidade'] = $this->convenio->getCarteira()->getModalidade();
