@@ -591,19 +591,19 @@ abstract class AbstractBoleto
      *
      * @return ArrayObject
      */
-    protected function setDadosBoleto()
+    protected function setDadosBoleto(array $data = [])
     {
-        $data = new ArrayObject(array(
-            'Banco' => $this->convenio->getBanco()->getNumero(),
-            'Moeda' => $this->moeda,
-            'Valor' => $this->getValorFormatado(),
-            'Agencia' => $this->getAgenciaFormatada(),
-            'Carteira' => $this->convenio->getCarteira()->getNumero(),
-            'Conta' => $this->getContaFormatada(),
-            'NossoNumero' => $this->convenio->getNossoNumero(),
-            'FatorVencimento' => Number::fatorVencimento($this->getDataVencimento()),
-            'CodigoCedente' => $this->convenio->getConvenio()
-        ));
+        $data['Banco'] = $this->convenio->getBanco()->getNumero();
+        $data['Moeda'] = $this->moeda;
+        $data['Valor'] = $this->getValorFormatado();
+        $data['Agencia'] = $this->getAgenciaFormatada();
+        $data['Carteira'] = $this->convenio->getCarteira()->getNumero();
+        $data['Conta'] = $this->getContaFormatada();
+        $data['NossoNumero'] = $this->convenio->getNossoNumero();
+        $data['FatorVencimento'] = Number::fatorVencimento($this->getDataVencimento());
+        $data['CodigoCedente'] = $this->convenio->getConvenio();
+
+        $data = new ArrayObject($data);
 
         $data->setFlags(ArrayObject::ARRAY_AS_PROPS);
 

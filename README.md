@@ -37,6 +37,7 @@ Atualmente o YaBoleto funciona com os bancos abaixo:
 | **Real**            | 57                       | Sim                | Sim           |
 | **Santander**       | 101, 102, 201            | Sim                | Sim           |
 | **BANESE**          | CE                       | Sim                | Sim           |
+| **SICOOB**          | 01                       | Sim                | Sim           |
 
 Uso
 ----------
@@ -46,10 +47,12 @@ A forma mais simples é utilizar o Builder.
 ```php
 use Umbrella\YaBoleto\Builder\BoletoBuilder;
 use Umbrella\YaBoleto\Endereco;
+use Umbrella\YaBoleto\Cnpj;
+use Umbrella\YaBoleto\Cpf;
 
 // sacado...
 $nomeSacado      = "John Doe";
-$documentoSacado = "090.076.684-04";
+$documentoSacado = new Cpf("090.076.684-04");
 $enderecoSacado = new Endereco(
     "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
     "70200-002",
@@ -59,7 +62,7 @@ $enderecoSacado = new Endereco(
 
 // cedente...
 $nomeCedente      = "ACME Corporation Inc.";
-$documentoCedente = "01.122.241/0001-76";
+$documentoCedente = new Cnpj("01.122.241/0001-76");
 $enderecoCedente = new Endereco(
     "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
     "70200-002",
@@ -90,10 +93,12 @@ use Umbrella\YaBoleto\Bancos\Bradesco\Boleto\Bradesco as BoletoBradesco;
 use Umbrella\YaBoleto\PessoaFisica;
 use Umbrella\YaBoleto\Cedente;
 use Umbrella\YaBoleto\Sacado;
+use Umbrella\YaBoleto\Cnpj;
+use Umbrella\YaBoleto\Cpf;
 
 // sacado...
 $nomeSacado      = "John Doe";
-$documentoSacado = "090.076.684-04";
+$documentoSacado = new Cpf("090.076.684-04");
 $enderecoSacado = new Endereco(
     "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
     "70200-002",
@@ -103,7 +108,7 @@ $enderecoSacado = new Endereco(
 
 // cedente...
 $nomeCedente      = "ACME Corporation Inc.";
-$documentoCedente = "01.122.241/0001-76";
+$documentoCedente = new Cnpj("01.122.241/0001-76");
 $enderecoCedente = new Endereco(
     "Setor de Clubes Esportivos Sul (SCES) - Trecho 2 - Conjunto 31 - Lotes 1A/1B",
     "70200-002",
@@ -121,9 +126,11 @@ $cedente      = new Cedente($nomeCedente, $documentoCedente, $enderecoCedente);
 
 $boleto       = new BoletoBradesco($sacado, $cedente, $convenio);
 
-$boleto->setValorDocumento(50)
-       ->setNumeroDocumento(2)
-       ->setDataVencimento(new \DateTime('2014-09-02'));
+$boleto
+    ->setValorDocumento(50)
+    ->setNumeroDocumento(2)
+    ->setDataVencimento(new \DateTime('2014-09-02'))
+    ->gerarCodigoBarraLinhaDigitavel();
 
 echo $boleto->getLinhaDigitavel() // 23790.56407 67700.000903 17010.188807 8 63770000025000
 ```
