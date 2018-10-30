@@ -89,14 +89,16 @@ class BoletoBuilder
      */
     public function sacado($tipo, $nome, $documento, Endereco $endereco)
     {
+        if (!in_array($tipo, array(self::PESSOA_FISICA, self::PESSOA_JURIDICA))) {
+            throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
+        }
+
         if ($tipo === self::PESSOA_FISICA) {
             $sacado = new PessoaFisica($nome, $documento, $endereco);
-        } else {
-            if ($tipo === self::PESSOA_JURIDICA) {
-                $sacado = new PessoaJuridica($nome, $documento, $endereco);
-            } else {
-                throw new \InvalidArgumentException("Tipo de pessoa inválido! Valores válidos: 'física' ou 'jurídica'.");
-            }
+        }
+
+        if ($tipo === self::PESSOA_JURIDICA) {
+            $sacado = new PessoaJuridica($nome, $documento, $endereco);
         }
 
         $this->sacado = new Sacado($sacado);
